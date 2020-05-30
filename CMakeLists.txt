@@ -9,15 +9,15 @@ option(XU_BUILD_DOCS CACHE ON)
 option(XU_ENABLE_TESTS CACHE OFF)
 
 set(HEADERS
-    include/xu/core/Widget.hpp
-    include/xu/core/Definitions.hpp
-    include/xu/core/Vector2.hpp
-    include/xu/core/Rect2.hpp
-    include/xu/core/Size2.hpp
+    "include/xu/core/Widget.hpp"
+    "include/xu/core/Definitions.hpp"
+    "include/xu/core/Vector2.hpp"
+    "include/xu/core/Rect2.hpp"
+    "include/xu/core/Size2.hpp"
 )
 
 set(SOURCES
-    src/core/Widget.cpp)
+    "src/core/Widget.cpp" "src/core/Context.cpp")
 
 add_library(Xu)
 
