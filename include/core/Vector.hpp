@@ -25,7 +25,7 @@
 namespace xu {
 
 // 2D vector.
-template <typename T> struct Vector2 {
+template <typename T> struct XU_API Vector2 {
   static_assert(std::is_arithmetic_v<T>, "T must be arithmetic type");
 
   T x, y;

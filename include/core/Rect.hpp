@@ -27,6 +27,6 @@
 namespace xu {
 
 // 2D rectangle type with helper methods.
-template <typename T> struct Rect { Vector2<T> origin, size; };
+template <typename T> struct XU_API Rect { Vector2<T> origin, size; };
 
 } // namespace xu
