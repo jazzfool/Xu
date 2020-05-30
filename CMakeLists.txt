@@ -14,6 +14,9 @@ set(HEADERS
     "include/xu/core/Vector2.hpp"
     "include/xu/core/Rect2.hpp"
     "include/xu/core/Size2.hpp"
+    "include/xu/core/Point2.hpp"
+    "include/xu/core/Context.hpp"
+    "include/xu/core/Events.hpp"
 )
 
 set(SOURCES
