@@ -22,7 +22,8 @@
 
 #pragma once
 
-#include "Definitions.h"
+#include "Definitions.hpp"
+#include "Rect2.hpp"
 
 #include <memory>
 #include <vector>
@@ -32,6 +33,8 @@ namespace xu {
 class XU_API Widget {
 public:
   explicit Widget(Widget *parent = nullptr);
+
+  virtual FRect2 SizeHint() const = 0;
 
 private:
 };
