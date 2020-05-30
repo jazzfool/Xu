@@ -8,6 +8,10 @@ set(CXX_STANDARD_REQUIRED ON)
 option(XU_BUILD_DOCS CACHE ON)
 option(XU_ENABLE_TESTS CACHE OFF)
 
+if (${FORCE_GNU_CXX17})
+    add_compile_options("--std=c++17")
+endif(${FORCE_GNU_CXX17}) 
+
 set(HEADERS
     "include/xu/core/Widget.hpp"
     "include/xu/core/Definitions.hpp"
