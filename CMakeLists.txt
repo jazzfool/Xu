@@ -8,8 +8,9 @@ set(CXX_STANDARD_REQUIRED ON)
 set(HEADERS
     include/core/Widget.hpp
     include/core/Definitions.hpp
-    include/core/Vector.hpp
-    include/core/Rect.hpp
+    include/core/Vector2.hpp
+    include/core/Rect2.hpp
+    include/core/Size2.hpp
 )
 
 set(SOURCES

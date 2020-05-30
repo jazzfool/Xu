@@ -22,21 +22,13 @@
 
 #pragma once
 
-#include "Definitions.hpp"
-#include "Size2.hpp"
-
-#include <memory>
-#include <vector>
+#include "Vector2.hpp"
 
 namespace xu {
 
-class XU_API Widget {
-public:
-  explicit Widget(Widget *parent = nullptr);
+template <typename T> using Size2 = Vector2<T>;
 
-  virtual FSize2 SizeHint() const = 0;
-
-private:
-};
+using ISize2 = Size2<int>;
+using FSize2 = Size2<float>;
 
 } // namespace xu
