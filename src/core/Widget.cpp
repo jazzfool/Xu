@@ -1,4 +1,4 @@
-#include "core/Widget.hpp"
+#include "xu/core/Widget.hpp"
 
 namespace xu {
 

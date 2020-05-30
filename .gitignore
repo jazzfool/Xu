@@ -34,6 +34,7 @@
 # Visual Studio directories
 .vs/
 out/
+CMakeSettings.json
 
 # Visual Studio Code directories
 .vscode/

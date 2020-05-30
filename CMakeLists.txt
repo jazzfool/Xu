@@ -6,13 +6,14 @@ set(CXX_STANDARD 17)
 set(CXX_STANDARD_REQUIRED ON)
 
 option(XU_BUILD_DOCS CACHE ON)
+option(XU_ENABLE_TESTS CACHE OFF)
 
 set(HEADERS
-    include/core/Widget.hpp
-    include/core/Definitions.hpp
-    include/core/Vector2.hpp
-    include/core/Rect2.hpp
-    include/core/Size2.hpp
+    include/xu/core/Widget.hpp
+    include/xu/core/Definitions.hpp
+    include/xu/core/Vector2.hpp
+    include/xu/core/Rect2.hpp
+    include/xu/core/Size2.hpp
 )
 
 set(SOURCES
@@ -30,3 +31,7 @@ if (${XU_BUILD_DOCS})
         COMMAND doxygen Doxyfile
     )
 endif(${XU_BUILD_DOCS})
+
+if (${XU_ENABLE_TESTS})
+    add_subdirectory(tests)
+endif(${XU_ENABLE_TESTS})
