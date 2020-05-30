@@ -20,15 +20,17 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-#include <type_traits>
+#pragma once
+
+#include "Definitions.hpp"
+#include "Vector2.hpp"
 
 namespace xu {
 
-// 2D vector.
-template <typename T> struct XU_API Vector2 {
-  static_assert(std::is_arithmetic_v<T>, "T must be arithmetic type");
+// 2D rectangle type with helper methods.
+template <typename T> struct XU_API Rect2 { Vector2<T> origin, size; };
 
-  T x, y;
-};
+using IRect2 = Rect2<int>;
+using FRect2 = Rect2<float>;
 
 } // namespace xu

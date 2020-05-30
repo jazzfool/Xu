@@ -23,20 +23,19 @@
 #pragma once
 
 #include "Definitions.hpp"
-#include "Rect2.hpp"
 
-#include <memory>
-#include <vector>
+#include <type_traits>
 
 namespace xu {
 
-class XU_API Widget {
-public:
-  explicit Widget(Widget *parent = nullptr);
+// 2D vector.
+template <typename T> struct XU_API Vector2 {
+  static_assert(std::is_arithmetic_v<T>, "T must be arithmetic type");
 
-  virtual FRect2 SizeHint() const = 0;
-
-private:
+  T x, y;
 };
+
+using IVector2 = Vector2<int>;
+using FVector2 = Vector2<float>;
 
 } // namespace xu

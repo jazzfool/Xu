@@ -22,11 +22,13 @@
 
 #pragma once
 
-#include "Vector.hpp"
+#include "Vector2.hpp"
 
 namespace xu {
 
-// 2D rectangle type with helper methods.
-template <typename T> struct XU_API Rect { Vector2<T> origin, size; };
+template <typename T> using Point2 = Vector2<T>;
+
+using IPoint2 = Point2<int>;
+using FPoint2 = Point2<float>;
 
 } // namespace xu
