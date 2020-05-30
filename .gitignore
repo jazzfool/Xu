@@ -34,3 +34,7 @@
 # Visual Studio directories
 .vs/
 out/
+
+# Visual Studio Code directories
+.vscode/
+build/
