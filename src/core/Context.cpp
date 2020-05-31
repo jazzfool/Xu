@@ -1,38 +1,90 @@
+// MIT License
+//
+// Copyright (c) 2020 Xu Collaborators
+//
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the "Software"), to deal
+// in the Software without restriction, including without limitation the rights
+// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+// copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
+//
+// The above copyright notice and this permission notice shall be included in
+// all copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+// SOFTWARE.
+
 #include "xu/core/Context.hpp"
 
 #include <iostream> // Temporary
 
 namespace xu {
 
-void Context::PushEvent(MouseMoveEvent const &evt) {
-  Event event;
-  event.type = EventType::MOUSE_MOVE;
-  event.data.mouseMove = evt;
-  eventQueue.push_back(event);
+void Context::NotifyEvent(MouseMoveEvent const &evt) {
+  switch (reception) {
+  case InputReception::Queued: {
+    Event event;
+    event.type = EventType::MouseMove;
+    event.data.mouseMove = evt;
+    eventQueue.push(event);
+    break;
+  }
+  case InputReception::Immediate:
+    DispatchEvent(evt);
+    break;
+  }
 }
 
-void Context::PushEvent(WindowResizeEvent const &evt) {
-  Event event;
-  event.type = EventType::WINDOW_RESIZE;
-  event.data.windowResize = evt;
-  eventQueue.push_back(event);
+void Context::NotifyEvent(WindowResizeEvent const &evt) {
+  switch (reception) {
+  case InputReception::Queued: {
+    Event event;
+    event.type = EventType::WindowResize;
+    event.data.windowResize = evt;
+    eventQueue.push(event);
+    break;
+  }
+  case InputReception::Immediate:
+    DispatchEvent(evt);
+    break;
+  }
 }
 
 void Context::ProcessEvents() {
+  if (reception != InputReception::Queued || eventQueue.empty())
+    return;
+
   // Temporary
-  for (auto const &evt : eventQueue) {
+  while (!eventQueue.empty()) {
+    const auto &evt = eventQueue.front();
+
     switch (evt.type) {
-    case EventType::MOUSE_MOVE:
-      std::cout << "Mouse move: " << evt.data.mouseMove.position.x << " "
-                << evt.data.mouseMove.position.y << std::endl;
+    case EventType::MouseMove:
+      DispatchEvent(evt.data.mouseMove);
       break;
-    case EventType::WINDOW_RESIZE:
-      std::cout << "Window resize: " << evt.data.windowResize.size.x << " "
-                << evt.data.windowResize.size.y << std::endl;
+    case EventType::WindowResize:
+      DispatchEvent(evt.data.windowResize);
       break;
     }
+
+    eventQueue.pop();
   }
-  eventQueue.clear();
+}
+
+void Context::DispatchEvent(MouseMoveEvent const &evt) {
+  std::cout << "Mouse move: " << evt.position.x << " " << evt.position.y
+            << std::endl;
+}
+
+void Context::DispatchEvent(WindowResizeEvent const &evt) {
+  std::cout << "Window resize: " << evt.size.x << " " << evt.size.y
+            << std::endl;
 }
 
 } // namespace xu

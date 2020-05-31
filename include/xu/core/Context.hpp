@@ -25,19 +25,23 @@
 #include "Definitions.hpp"
 #include "Events.hpp"
 
-#include <vector>
+#include <queue>
 
 namespace xu {
 
+enum class InputReception { Queued, Immediate };
+
 class XU_API Context {
 public:
-  void PushEvent(MouseMoveEvent const &evt);
-  void PushEvent(WindowResizeEvent const &evt);
+  void NotifyEvent(MouseMoveEvent const &evt);
+  void NotifyEvent(WindowResizeEvent const &evt);
 
   void ProcessEvents();
 
+  InputReception reception;
+
 private:
-  enum class EventType { MOUSE_MOVE, WINDOW_RESIZE };
+  enum class EventType { MouseMove, WindowResize };
 
   struct XU_API Event {
     EventType type;
@@ -47,7 +51,10 @@ private:
     } data;
   };
 
-  std::vector<Event> eventQueue;
+  void DispatchEvent(MouseMoveEvent const &evt);
+  void DispatchEvent(WindowResizeEvent const &evt);
+
+  std::queue<Event> eventQueue;
 };
 
 } // namespace xu
