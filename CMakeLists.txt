@@ -24,6 +24,8 @@ set(HEADERS
     "include/xu/core/Context.hpp"
     "include/xu/core/Events.hpp"
     "include/xu/core/Layout.hpp"
+    "include/xu/core/Signal.hpp"
+    "include/xu/core/UniqueSlot.hpp"
 )
 
 set(SOURCES
