@@ -39,3 +39,6 @@ CMakeSettings.json
 # Visual Studio Code directories
 .vscode/
 build/
+
+# Build files
+compile_commands.json
