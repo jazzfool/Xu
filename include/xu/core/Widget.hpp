@@ -25,6 +25,8 @@
 #include "Definitions.hpp"
 #include "Layout.hpp"
 #include "Size2.hpp"
+#include "UniqueSlot.hpp"
+#include "WidgetPtr.hpp"
 
 #include <memory>
 #include <vector>
@@ -33,18 +35,33 @@ namespace xu {
 
 class XU_API Widget {
 public:
-  explicit Widget(Widget *parent = nullptr);
+  explicit Widget(Widget *parent);
+  virtual ~Widget();
 
   virtual FSize2 SizeHint() const = 0;
 
   virtual void SetGeometry(FRect2 const &geometry) final;
   virtual FRect2 Geometry() const final;
 
+  virtual Widget *Parent() const final;
+
+  template <typename T, typename... CtorArgs>
+  WidgetPtr<T> MakeChild(CtorArgs &&... arg) {
+    auto child = std::make_unique<T>(this, std::forward<CtorArgs>(arg)...);
+    children.push_back(std::move(child));
+    return WidgetPtr{child.back().get()};
+  }
+
+  Signal<> sigBeforeDestruction;
+
 private:
   FRect2 geometry;
   std::unique_ptr<Layout>
       ownedLayout;      //!< Layout this widget owns (possibly nullptr).
-  Layout *owningLayout; //!< Layout this widget is in (possibly nullptr).
+  Layout *parentLayout; //!< Layout this widget is in (possibly nullptr).
+
+  Widget *parent;
+  std::vector<std::unique_ptr<Widget>> children;
 };
 
 } // namespace xu

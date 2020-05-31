@@ -22,11 +22,29 @@
 
 #include "xu/core/Widget.hpp"
 
+#include "xu/core/WidgetPtr.hpp"
+
 namespace xu {
 
-Widget::Widget(Widget *parent) {}
+Widget::Widget(Widget *parent)
+    : ownedLayout{nullptr}, parentLayout{nullptr}, parent{parent} {}
 
-void Widget::SetGeometry(FRect2 const &geometry) { this->geometry = geometry; }
+Widget::~Widget() {}
+
+void Widget::SetGeometry(FRect2 const &geometry) {
+  this->geometry = geometry;
+
+  if (ownedLayout) {
+    ownedLayout->Invalidate();
+  }
+
+  if (parentLayout) {
+    parentLayout->Invalidate();
+  }
+}
+
 FRect2 Widget::Geometry() const { return geometry; }
+
+Widget *Widget::Parent() const { return parent; }
 
 } // namespace xu
