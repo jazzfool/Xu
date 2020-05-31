@@ -30,6 +30,8 @@ set(SOURCES
 
 add_library(Xu)
 
+add_subdirectory(external)
+
 target_sources(Xu PRIVATE ${SOURCES})
 target_include_directories(Xu PRIVATE include)
 
