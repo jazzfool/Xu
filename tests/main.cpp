@@ -11,7 +11,7 @@ public:
 void TestVector2() {
   using xu::IVector2;
   using xu::FVector2;
-  
+
   IVector2 a(2, 5);
   IVector2 b{3, 6};
   IVector2 c = IVector2(4, 7);
@@ -33,14 +33,22 @@ void TestVector2() {
   assert(negA.x == -a.x && negA.y == -a.y);
 
   int s = 3;
-  IVector2 sumS = b + s;
-  IVector2 subS = b - s;
-  IVector2 multS = b * s;
-  IVector2 divS = b / s;
-  assert(sumS.x == b.x + s && sumS.y == b.y + s);
-  assert(subS.x == b.x - s && subS.y == b.y - s);
-  assert(multS.x == b.x * s && multS.y == b.y * s);
-  assert(divS.x == b.x / s && divS.y == b.y / s);
+  IVector2 sumS1 = b + s;
+  IVector2 sumS2 = s + b;
+  IVector2 subS1 = b - s;
+  IVector2 subS2 = s - b;
+  IVector2 multS1 = b * s;
+  IVector2 multS2 = s * b;
+  IVector2 divS1 = b / s;
+  IVector2 divS2 = s / b;
+  assert(sumS1.x == b.x + s && sumS1.y == b.y + s);
+  assert(subS1.x == b.x - s && subS1.y == b.y - s);
+  assert(multS1.x == b.x * s && multS1.y == b.y * s);
+  assert(divS1.x == b.x / s && divS1.y == b.y / s);
+  assert(sumS1 == sumS2);
+  assert(subS1 == subS2);
+  assert(multS1 == multS2);
+  assert(divS1 == divS2);
 
   assert(a == a);
   assert(a != b);
@@ -51,7 +59,6 @@ void TestVector2() {
   FVector2 f4{3.0f, 5.2f};
   assert(f1 == f4);
   assert(f1 != f2 && f1 != f3 && f2 != f3);
-
 
   printf("Vector test complete!\n");
 }

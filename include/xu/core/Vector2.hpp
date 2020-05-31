@@ -75,7 +75,12 @@ template <typename T> struct XU_API Vector2 {
   }
 
   // Negation operator
-  Vector2<T> operator-() { auto temp = *this; return temp *= static_cast<T>(-1); }
+  Vector2<T> operator-() {
+    static_assert(std::is_signed_v<T>);
+
+    auto temp = *this;
+    return temp *= static_cast<T>(-1); 
+  }
 
   // Vector|Vector arithmetic assignment operators
   Vector2<T>& operator+=(const Vector2<T>& rhs) { x += rhs.x; y += rhs.y; return *this; }
