@@ -22,7 +22,6 @@
 
 #pragma once
 
-#include "Definitions.hpp"
 #include "Vector2.hpp"
 
 namespace xu {

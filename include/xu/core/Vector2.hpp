@@ -22,8 +22,6 @@
 
 #pragma once
 
-#include "Definitions.hpp"
-
 #include <cmath>
 #include <cstdlib>
 #include <limits>
