@@ -21,7 +21,6 @@
 // SOFTWARE.
 
 #include "xu/core/Widget.hpp"
-
 #include "xu/core/WidgetPtr.hpp"
 
 namespace xu {

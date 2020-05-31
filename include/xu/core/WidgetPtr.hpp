@@ -23,9 +23,10 @@
 #pragma once
 
 #include "UniqueSlot.hpp"
-#include "Widget.hpp"
 
 namespace xu {
+
+class Widget;
 
 /*!
  * \brief Special immutable widget pointer wrapper which can nullify the pointer
