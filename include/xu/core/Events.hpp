@@ -22,8 +22,8 @@
 
 #pragma once
 
-#include "Definitions.hpp"
-#include "Size2.hpp"
+#include <xu/core/Definitions.hpp>
+#include <xu/core/Size2.hpp>
 
 namespace xu {
 

@@ -22,8 +22,9 @@
 
 #pragma once
 
-#include "Definitions.hpp"
-#include "Events.hpp"
+#include <xu/core/Definitions.hpp>
+#include <xu/core/Events.hpp>
+#include <xu/core/RenderData.hpp>
 
 #include <queue>
 
@@ -38,7 +39,7 @@ public:
 
   void ProcessEvents();
 
-  InputReception reception;
+  InputReception inputReception;
 
 private:
   enum class EventType { MouseMove, WindowResize };

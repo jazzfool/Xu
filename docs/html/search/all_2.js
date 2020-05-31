@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['widget_2',['Widget',['../classxu_1_1_widget.html',1,'xu']]]
+  ['rect2_2',['Rect2',['../structxu_1_1_rect2.html',1,'xu']]]
 ];

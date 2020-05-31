@@ -22,7 +22,7 @@
 
 #pragma once
 
-#include "UniqueSlot.hpp"
+#include <xu/core/UniqueSlot.hpp>
 
 namespace xu {
 

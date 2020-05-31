@@ -22,13 +22,16 @@
 
 #pragma once
 
-#include <xu/core/Vector2.hpp>
+#include <xu/core/Definitions.hpp>
 
 namespace xu {
 
-template <typename T> using Size2 = Vector2<T>;
+struct XU_API RenderData {
+  float *vertices;
+  size_t numVertices;
 
-using ISize2 = Size2<int>;
-using FSize2 = Size2<float>;
+  uint32_t *indices;
+  size_t numIndices;
+};
 
-} // namespace xu
+}

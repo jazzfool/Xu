@@ -22,11 +22,11 @@
 
 #pragma once
 
-#include "Definitions.hpp"
-#include "Layout.hpp"
-#include "Size2.hpp"
-#include "UniqueSlot.hpp"
-#include "WidgetPtr.hpp"
+#include <xu/core/Definitions.hpp>
+#include <xu/core/Layout.hpp>
+#include <xu/core/Size2.hpp>
+#include <xu/core/UniqueSlot.hpp>
+#include <xu/core/WidgetPtr.hpp>
 
 #include <memory>
 #include <vector>

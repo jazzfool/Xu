@@ -20,8 +20,8 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-#include "xu/core/Layout.hpp"
-#include "xu/core/Widget.hpp"
+#include <xu/core/Layout.hpp>
+#include <xu/core/Widget.hpp>
 
 namespace xu {
 

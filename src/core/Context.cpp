@@ -20,14 +20,14 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-#include "xu/core/Context.hpp"
+#include <xu/core/Context.hpp>
 
 #include <iostream> // Temporary
 
 namespace xu {
 
 void Context::NotifyEvent(MouseMoveEvent const &evt) {
-  switch (reception) {
+  switch (inputReception) {
   case InputReception::Queued: {
     Event event;
     event.type = EventType::MouseMove;
@@ -42,7 +42,7 @@ void Context::NotifyEvent(MouseMoveEvent const &evt) {
 }
 
 void Context::NotifyEvent(WindowResizeEvent const &evt) {
-  switch (reception) {
+  switch (inputReception) {
   case InputReception::Queued: {
     Event event;
     event.type = EventType::WindowResize;
@@ -57,7 +57,7 @@ void Context::NotifyEvent(WindowResizeEvent const &evt) {
 }
 
 void Context::ProcessEvents() {
-  if (reception != InputReception::Queued || eventQueue.empty())
+  if (inputReception != InputReception::Queued || eventQueue.empty())
     return;
 
   // Temporary

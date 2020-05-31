@@ -22,7 +22,7 @@
 
 #pragma once
 
-#include "Signal.hpp"
+#include <xu/core/Signal.hpp>
 
 namespace xu {
 

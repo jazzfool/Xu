@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.18"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Xu: include/xu/core/Widget.hpp Source File</title>
+<title>Xu: include/xu/core/Events.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -67,7 +67,7 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">Widget.hpp</div>  </div>
+<div class="title">Events.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
 <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="comment">// MIT License</span></div>
@@ -97,23 +97,21 @@ $(function() {
 <div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="preprocessor">#include &quot;Definitions.hpp&quot;</span></div>
 <div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="preprocessor">#include &quot;Size2.hpp&quot;</span></div>
 <div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="preprocessor">#include &lt;memory&gt;</span></div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="preprocessor">#include &lt;vector&gt;</span></div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160; </div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="keyword">namespace </span>xu {</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
-<div class="line"><a name="l00033"></a><span class="lineno"><a class="line" href="classxu_1_1_widget.html">   33</a></span>&#160;<span class="keyword">class </span>XU_API <a class="code" href="classxu_1_1_widget.html">Widget</a> {</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;  <span class="keyword">explicit</span> <a class="code" href="classxu_1_1_widget.html">Widget</a>(<a class="code" href="classxu_1_1_widget.html">Widget</a> *parent = <span class="keyword">nullptr</span>);</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160; </div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;  <span class="keyword">virtual</span> <a class="code" href="structxu_1_1_vector2.html">FSize2</a> SizeHint() <span class="keyword">const</span> = 0;</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="keyword">namespace </span>xu {</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
+<div class="line"><a name="l00030"></a><span class="lineno"><a class="line" href="structxu_1_1_window_resize_event.html">   30</a></span>&#160;<span class="keyword">struct </span>XU_API <a class="code" href="structxu_1_1_window_resize_event.html">WindowResizeEvent</a> {</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;  <a class="code" href="structxu_1_1_vector2.html">ISize2</a> size;</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;};</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160; </div>
+<div class="line"><a name="l00034"></a><span class="lineno"><a class="line" href="structxu_1_1_mouse_move_event.html">   34</a></span>&#160;<span class="keyword">struct </span>XU_API <a class="code" href="structxu_1_1_mouse_move_event.html">MouseMoveEvent</a> {</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;  <a class="code" href="structxu_1_1_vector2.html">ISize2</a> position;</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;};</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160; </div>
 <div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160; </div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;};</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160; </div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;} <span class="comment">// namespace xu</span></div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;} <span class="comment">// namespace xu</span></div>
 </div><!-- fragment --></div><!-- contents -->
-<div class="ttc" id="aclassxu_1_1_widget_html"><div class="ttname"><a href="classxu_1_1_widget.html">xu::Widget</a></div><div class="ttdef"><b>Definition:</b> Widget.hpp:33</div></div>
+<div class="ttc" id="astructxu_1_1_mouse_move_event_html"><div class="ttname"><a href="structxu_1_1_mouse_move_event.html">xu::MouseMoveEvent</a></div><div class="ttdef"><b>Definition:</b> Events.hpp:34</div></div>
+<div class="ttc" id="astructxu_1_1_window_resize_event_html"><div class="ttname"><a href="structxu_1_1_window_resize_event.html">xu::WindowResizeEvent</a></div><div class="ttdef"><b>Definition:</b> Events.hpp:30</div></div>
 <div class="ttc" id="astructxu_1_1_vector2_html"><div class="ttname"><a href="structxu_1_1_vector2.html">xu::Vector2</a></div><div class="ttdef"><b>Definition:</b> Vector2.hpp:32</div></div>
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

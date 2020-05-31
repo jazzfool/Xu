@@ -22,4 +22,20 @@
 
 #pragma once
 
+#include <cstdint> // Fixed-width integer types
+
 #define XU_API // TODO: declspec for DLL, etc
+
+namespace xu {
+
+using std::uint8_t;
+using std::uint16_t;
+using std::uint32_t;
+using std::uint64_t;
+
+using std::int8_t;
+using std::int16_t;
+using std::int32_t;
+using std::int64_t;
+
+}

@@ -2,8 +2,8 @@ cmake_minimum_required(VERSION 3.16)
 
 project(Xu CXX)
 
-set(CXX_STANDARD 17)
-set(CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 option(XU_BUILD_DOCS CACHE ON)
 option(XU_ENABLE_TESTS CACHE OFF)
@@ -16,6 +16,7 @@ endif()
 
 set(HEADERS
     "include/xu/core/Widget.hpp"
+    "include/xu/core/WidgetPtr.hpp"
     "include/xu/core/Definitions.hpp"
     "include/xu/core/Vector2.hpp"
     "include/xu/core/Rect2.hpp"
@@ -24,6 +25,7 @@ set(HEADERS
     "include/xu/core/Context.hpp"
     "include/xu/core/Events.hpp"
     "include/xu/core/Layout.hpp"
+    "include/xu/core/RenderData.hpp"
     "include/xu/core/Signal.hpp"
     "include/xu/core/UniqueSlot.hpp"
 )
