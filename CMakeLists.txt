@@ -10,7 +10,9 @@ option(XU_ENABLE_TESTS CACHE OFF)
 
 if (${FORCE_GNU_CXX17})
     add_compile_options("--std=c++17")
-endif(${FORCE_GNU_CXX17}) 
+elseif (${FORCE_MSVC_CXX17})
+    add_compile_options("/std:c++17")
+endif() 
 
 set(HEADERS
     "include/xu/core/Widget.hpp"
