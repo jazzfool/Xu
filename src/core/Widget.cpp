@@ -26,4 +26,7 @@ namespace xu {
 
 Widget::Widget(Widget *parent) {}
 
+void Widget::SetGeometry(FRect2 const &geometry) { this->geometry = geometry; }
+FRect2 Widget::Geometry() const { return geometry; }
+
 } // namespace xu

@@ -23,10 +23,14 @@ set(HEADERS
     "include/xu/core/Point2.hpp"
     "include/xu/core/Context.hpp"
     "include/xu/core/Events.hpp"
+    "include/xu/core/Layout.hpp"
 )
 
 set(SOURCES
-    "src/core/Widget.cpp" "src/core/Context.cpp")
+    "src/core/Widget.cpp"
+    "src/core/Context.cpp"
+    "src/core/Layout.cpp"
+)
 
 add_library(Xu)
 
