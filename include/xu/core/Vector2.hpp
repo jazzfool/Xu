@@ -30,166 +30,184 @@
 namespace xu {
 
 // 2D vector.
-template <typename T> struct Vector2 {
-  static_assert(std::is_arithmetic_v<T>, "T must be arithmetic type");
+template<typename T>
+struct Vector2 {
+    static_assert(std::is_arithmetic_v<T>, "T must be arithmetic type");
 
-  T x, y;
+    T x, y;
 
-  constexpr Vector2() noexcept = default;
-  constexpr Vector2(T x, T y) noexcept : x(x), y(y){};
+    constexpr Vector2() noexcept = default;
+    constexpr Vector2(T x, T y) noexcept : x(x), y(y){};
 
-  static constexpr Vector2 Zero() { return Vector2<T>(0, 0); }
+    static constexpr Vector2 Zero() { return Vector2<T>(0, 0); }
 
-  // Returns the size of the vector via pythagorean's theorem
-  constexpr float Magnitude() const {
-    return sqrtf(static_cast<float>(x * x + y * y));
-  }
-
-  // Returns the magnitude of the vector squared.
-  constexpr float Magnitude2() const {
-    return static_cast<float>(x * x + y * y);
-  }
-
-  // Returns a new vector pointing in the same direction but with a magnitude of
-  // 1
-  Vector2<T> Normalized() const { return *this / Magnitude(); }
-
-  // Conversion operator
-  template <typename Cast_t>
-  explicit constexpr operator Vector2<Cast_t>() const {
-    return Vector2<Cast_t>(static_cast<Cast_t>(x), static_cast<Cast_t>(y));
-  }
-
-  // Equality operators
-
-  constexpr bool operator!=(const Vector2<T> &rhs) const {
-    return !(*this == rhs);
-  }
-
-  constexpr bool operator==(const Vector2<T> &rhs) const {
-    if constexpr (std::is_floating_point_v<T>) { // Epsilon equality for
-                                                 // floating points
-      return std::abs(x - rhs.x) <= std::numeric_limits<T>::epsilon() &&
-             std::abs(y - rhs.y) <= std::numeric_limits<T>::epsilon();
-    } else {
-      return x == rhs.x && y == rhs.y;
+    // Returns the size of the vector via pythagorean's theorem
+    constexpr float Magnitude() const {
+        return sqrtf(static_cast<float>(x * x + y * y));
     }
-  }
 
-  // Negation operator
-  constexpr Vector2<T> operator-() {
-    static_assert(std::is_signed_v<T>);
+    // Returns the magnitude of the vector squared.
+    constexpr float Magnitude2() const {
+        return static_cast<float>(x * x + y * y);
+    }
 
-    auto temp = *this;
-    return temp *= static_cast<T>(-1);
-  }
+    // Returns a new vector pointing in the same direction but with a magnitude
+    // of
+    // 1
+    Vector2<T> Normalized() const { return *this / Magnitude(); }
 
-  // Vector|Vector arithmetic assignment operators
+    // Conversion operator
+    template<typename Cast_t>
+    explicit constexpr operator Vector2<Cast_t>() const {
+        return Vector2<Cast_t>(static_cast<Cast_t>(x), static_cast<Cast_t>(y));
+    }
 
-  constexpr Vector2<T> &operator+=(const Vector2<T> &rhs) {
-    x += rhs.x;
-    y += rhs.y;
-    return *this;
-  }
+    // Equality operators
 
-  constexpr Vector2<T> &operator-=(const Vector2<T> &rhs) {
-    x -= rhs.x;
-    y -= rhs.y;
-    return *this;
-  }
+    constexpr bool operator!=(const Vector2<T>& rhs) const {
+        return !(*this == rhs);
+    }
 
-  constexpr Vector2<T> &operator*=(const Vector2<T> &rhs) {
-    x *= rhs.x;
-    y *= rhs.y;
-    return *this;
-  }
+    constexpr bool operator==(const Vector2<T>& rhs) const {
+        if constexpr (std::is_floating_point_v<T>) { // Epsilon equality for
+                                                     // floating points
+            return std::abs(x - rhs.x) <= std::numeric_limits<T>::epsilon()
+                && std::abs(y - rhs.y) <= std::numeric_limits<T>::epsilon();
+        } else {
+            return x == rhs.x && y == rhs.y;
+        }
+    }
 
-  constexpr Vector2<T> &operator/=(const Vector2<T> &rhs) {
-    x /= rhs.x;
-    y /= rhs.y;
-    return *this;
-  }
+    // Negation operator
+    constexpr Vector2<T> operator-() {
+        static_assert(std::is_signed_v<T>);
 
-  // Vector|Scalar arithmetic assignment operators
+        auto temp = *this;
+        return temp *= static_cast<T>(-1);
+    }
 
-  constexpr Vector2<T> &operator+=(T sclr) {
-    return *this += Vector2<T>(sclr, sclr);
-  }
+    // Vector|Vector arithmetic assignment operators
 
-  constexpr Vector2<T> &operator-=(T sclr) {
-    return *this -= Vector2<T>(sclr, sclr);
-  }
+    constexpr Vector2<T>& operator+=(const Vector2<T>& rhs) {
+        x += rhs.x;
+        y += rhs.y;
+        return *this;
+    }
 
-  constexpr Vector2<T> &operator*=(T sclr) {
-    return *this *= Vector2<T>(sclr, sclr);
-  }
+    constexpr Vector2<T>& operator-=(const Vector2<T>& rhs) {
+        x -= rhs.x;
+        y -= rhs.y;
+        return *this;
+    }
 
-  constexpr Vector2<T> &operator/=(T sclr) {
-    return *this /= Vector2<T>(sclr, sclr);
-  }
+    constexpr Vector2<T>& operator*=(const Vector2<T>& rhs) {
+        x *= rhs.x;
+        y *= rhs.y;
+        return *this;
+    }
 
-  // Vector|Vector arithmetic operators (defined in terms of += and friends)
+    constexpr Vector2<T>& operator/=(const Vector2<T>& rhs) {
+        x /= rhs.x;
+        y /= rhs.y;
+        return *this;
+    }
 
-  constexpr Vector2<T> operator+(const Vector2<T> &rhs) const {
-    auto temp = *this;
-    return temp += rhs;
-  }
+    // Vector|Scalar arithmetic assignment operators
 
-  constexpr Vector2<T> operator-(const Vector2<T> &rhs) const {
-    auto temp = *this;
-    return temp -= rhs;
-  }
+    constexpr Vector2<T>& operator+=(T sclr) {
+        return *this += Vector2<T>(sclr, sclr);
+    }
 
-  constexpr Vector2<T> operator*(const Vector2<T> &rhs) const {
-    auto temp = *this;
-    return temp *= rhs;
-  }
+    constexpr Vector2<T>& operator-=(T sclr) {
+        return *this -= Vector2<T>(sclr, sclr);
+    }
 
-  constexpr Vector2<T> operator/(const Vector2<T> &rhs) const {
-    auto temp = *this;
-    return temp /= rhs;
-  }
+    constexpr Vector2<T>& operator*=(T sclr) {
+        return *this *= Vector2<T>(sclr, sclr);
+    }
 
-  // Vector|Scalar arithmetic operators (defined in terms of += and friends)
+    constexpr Vector2<T>& operator/=(T sclr) {
+        return *this /= Vector2<T>(sclr, sclr);
+    }
 
-  constexpr Vector2<T> operator+(T sclr) const {
-    auto temp = *this;
-    return temp += sclr;
-  }
+    // Vector|Vector arithmetic operators (defined in terms of += and friends)
 
-  constexpr Vector2<T> operator-(T sclr) const {
-    auto temp = *this;
-    return temp -= sclr;
-  }
+    constexpr Vector2<T> operator+(const Vector2<T>& rhs) const {
+        auto temp = *this;
+        return temp += rhs;
+    }
 
-  constexpr Vector2<T> operator*(T sclr) const {
-    auto temp = *this;
-    return temp *= sclr;
-  }
+    constexpr Vector2<T> operator-(const Vector2<T>& rhs) const {
+        auto temp = *this;
+        return temp -= rhs;
+    }
 
-  constexpr Vector2<T> operator/(T sclr) const {
-    auto temp = *this;
-    return temp /= sclr;
-  }
+    constexpr Vector2<T> operator*(const Vector2<T>& rhs) const {
+        auto temp = *this;
+        return temp *= rhs;
+    }
 
-  // Friend Vector|Scalar arithmetic operators (so once can do, say 2 +
-  // Vector2<int>(3, 4) == Vector2<int>(5, 6))
+    constexpr Vector2<T> operator/(const Vector2<T>& rhs) const {
+        auto temp = *this;
+        return temp /= rhs;
+    }
 
-  constexpr friend Vector2<T> operator+(T sclr, const Vector2<T> &rhs) {
-    return rhs + sclr;
-  }
+    // Vector|Scalar arithmetic operators (defined in terms of += and friends)
 
-  constexpr friend Vector2<T> operator-(T sclr, const Vector2<T> &rhs) {
-    return rhs - sclr;
-  }
+    constexpr Vector2<T> operator+(T sclr) const {
+        auto temp = *this;
+        return temp += sclr;
+    }
 
-  constexpr friend Vector2<T> operator*(T sclr, const Vector2<T> &rhs) {
-    return rhs * sclr;
-  }
+    constexpr Vector2<T> operator-(T sclr) const {
+        auto temp = *this;
+        return temp -= sclr;
+    }
 
-  constexpr friend Vector2<T> operator/(T sclr, const Vector2<T> &rhs) {
-    return rhs / sclr;
-  }
+    constexpr Vector2<T> operator*(T sclr) const {
+        auto temp = *this;
+        return temp *= sclr;
+    }
+
+    constexpr Vector2<T> operator/(T sclr) const {
+        auto temp = *this;
+        return temp /= sclr;
+    }
+
+    // Friend Vector|Scalar arithmetic operators (so once can do, say 2 +
+    // Vector2<int>(3, 4) == Vector2<int>(5, 6))
+    constexpr friend Vector2<T> operator+(T sclr, const Vector2<T>& rhs) {
+        return rhs + sclr;
+    }
+
+    constexpr friend Vector2<T> operator-(T sclr, const Vector2<T>& rhs) {
+        return rhs - sclr;
+    }
+
+    constexpr friend Vector2<T> operator*(T sclr, const Vector2<T>& rhs) {
+        return rhs * sclr;
+    }
+
+    constexpr friend Vector2<T> operator/(T sclr, const Vector2<T>& rhs) {
+        return rhs / sclr;
+    }
+
+    // Comparison operators
+    constexpr bool operator<(const Vector2<T>& rhs) const {
+        return x < rhs.x && y < rhs.y;
+    }
+
+    constexpr bool operator>(const Vector2<T>& rhs) const {
+        return x > rhs.x && y > rhs.y;
+    }
+
+    constexpr bool operator<=(const Vector2<T>& rhs) const {
+        return *this == rhs || *this < rhs;
+    }
+
+    constexpr bool operator>=(const Vector2<T>& rhs) const {
+        return *this == rhs || *this > rhs;
+    }
 };
 
 using IVector2 = Vector2<int>;
