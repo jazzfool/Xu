@@ -31,7 +31,7 @@ template <typename... Ts> class Signal final {
 public:
   using SignalT = Nano::Signal<void(Ts...)>;
 
-  Signal() : nextSlotKey{0} {}
+  Signal() {}
 
   ~Signal() {
     for (auto const &slot : uniqueSlots) {
@@ -58,7 +58,6 @@ private:
   }
 
   SignalT sig;
-  std::uint32_t nextSlotKey;
   std::vector<Signal **> uniqueSlots;
 };
 
