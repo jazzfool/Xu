@@ -38,6 +38,11 @@ class Layout;
 
 struct XU_API LayoutItem final {
 public:
+    LayoutItem() = default;
+    LayoutItem(LayoutItem const&) = delete;
+    LayoutItem(LayoutItem&&) = default;
+    LayoutItem& operator=(LayoutItem const&) = delete;
+    LayoutItem& operator=(LayoutItem&&) = default;
 
     void SetRect(FRect2 const& rect);
     FRect2 Rect() const;
