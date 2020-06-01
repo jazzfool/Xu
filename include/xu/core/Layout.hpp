@@ -36,7 +36,7 @@ namespace xu {
 class Widget;
 class Layout;
 
-struct XU_API LayoutItem final {
+class XU_API LayoutItem final {
 public:
     LayoutItem() = default;
     LayoutItem(LayoutItem const&) = delete;

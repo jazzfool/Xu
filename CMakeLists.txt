@@ -50,8 +50,10 @@ target_include_directories(Xu PRIVATE include)
 
 if (${BUILD_SHARED_LIBS})
     target_compile_definitions(Xu PRIVATE -DXU_EXPORT)
-    target_compile_definitions(Xu PUBLIC -DXU_SHARED)
-endif()
+    target_compile_definitions(Xu PUBLIC -DXU_SHARED=1)
+else()
+    target_compile_definitions(Xu PUBLIC -DXU_SHARED=0)
+endif(${BUILD_SHARED_LIBS})
 
 if (${XU_BUILD_DOCS})
     add_custom_target(Xu-Docs ALL
