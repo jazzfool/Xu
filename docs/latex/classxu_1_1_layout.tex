@@ -1,0 +1,58 @@
+\hypertarget{classxu_1_1_layout}{}\doxysection{xu\+::Layout Class Reference}
+\label{classxu_1_1_layout}\index{xu::Layout@{xu::Layout}}
+Inheritance diagram for xu\+::Layout\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classxu_1_1_layout}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classxu_1_1_layout_ac56a1a5eda291ebd280da6eb7e2726a5}\label{classxu_1_1_layout_ac56a1a5eda291ebd280da6eb7e2726a5}} 
+virtual \mbox{\hyperlink{structxu_1_1_vector2}{F\+Size2}} {\bfseries Min\+Size} () const =0
+\item 
+\mbox{\Hypertarget{classxu_1_1_layout_ab067e1cf54c2c8625acd1c2458375393}\label{classxu_1_1_layout_ab067e1cf54c2c8625acd1c2458375393}} 
+virtual std\+::size\+\_\+t {\bfseries Num\+Items} () const =0
+\item 
+\mbox{\Hypertarget{classxu_1_1_layout_a5f85e999cef422634b20312564d5e300}\label{classxu_1_1_layout_a5f85e999cef422634b20312564d5e300}} 
+virtual void {\bfseries Update} (\mbox{\hyperlink{structxu_1_1_rect2}{F\+Rect2}} const \&rect) final
+\item 
+\mbox{\Hypertarget{classxu_1_1_layout_a8e5d81407c709638f78ca376509fcf8d}\label{classxu_1_1_layout_a8e5d81407c709638f78ca376509fcf8d}} 
+virtual void {\bfseries Invalidate} () final
+\item 
+\mbox{\Hypertarget{classxu_1_1_layout_aa510cb474b20528c44d65d03aab20549}\label{classxu_1_1_layout_aa510cb474b20528c44d65d03aab20549}} 
+virtual void {\bfseries Insert\+Widget} (std\+::size\+\_\+t where, \mbox{\hyperlink{classxu_1_1_widget}{Widget}} $\ast$widget) final
+\item 
+\mbox{\Hypertarget{classxu_1_1_layout_ae39d43f086257b8db8ac0e3687019ad1}\label{classxu_1_1_layout_ae39d43f086257b8db8ac0e3687019ad1}} 
+virtual void {\bfseries Add\+Widget} (\mbox{\hyperlink{classxu_1_1_widget}{Widget}} $\ast$widget) final
+\item 
+\mbox{\Hypertarget{classxu_1_1_layout_a84f507f88ea996e3f0aacfec0c0bc5eb}\label{classxu_1_1_layout_a84f507f88ea996e3f0aacfec0c0bc5eb}} 
+virtual void {\bfseries Insert\+Layout} (std\+::size\+\_\+t where, std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classxu_1_1_layout}{Layout}} $>$ layout) final
+\item 
+\mbox{\Hypertarget{classxu_1_1_layout_a7f5971b53f9b40c7db6234174bf003aa}\label{classxu_1_1_layout_a7f5971b53f9b40c7db6234174bf003aa}} 
+virtual void {\bfseries Add\+Layout} (std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classxu_1_1_layout}{Layout}} $>$ layout) final
+\item 
+\mbox{\Hypertarget{classxu_1_1_layout_a15a3171fe9f3ee22b97275d72ac844ce}\label{classxu_1_1_layout_a15a3171fe9f3ee22b97275d72ac844ce}} 
+virtual void {\bfseries Set\+Geometry} (\mbox{\hyperlink{structxu_1_1_rect2}{F\+Rect2}} const \&geometry) final
+\item 
+\mbox{\Hypertarget{classxu_1_1_layout_a57be558e5c784b2ee2389ba23a3168dd}\label{classxu_1_1_layout_a57be558e5c784b2ee2389ba23a3168dd}} 
+virtual \mbox{\hyperlink{structxu_1_1_rect2}{F\+Rect2}} {\bfseries Geometry} () const final
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classxu_1_1_layout_ab3fb38fbb7f64cc87c19b08f3b537d33}\label{classxu_1_1_layout_ab3fb38fbb7f64cc87c19b08f3b537d33}} 
+virtual void {\bfseries Insert\+Item} (std\+::size\+\_\+t where, \mbox{\hyperlink{classxu_1_1_layout_item}{Layout\+Item}} item)=0
+\item 
+\mbox{\Hypertarget{classxu_1_1_layout_a33f8bd105eb2807f45ff73fd13acec9c}\label{classxu_1_1_layout_a33f8bd105eb2807f45ff73fd13acec9c}} 
+virtual void {\bfseries Update\+Items} ()=0
+\item 
+\mbox{\Hypertarget{classxu_1_1_layout_a31263d95fb4679ebca553d27d0fd55f5}\label{classxu_1_1_layout_a31263d95fb4679ebca553d27d0fd55f5}} 
+virtual void {\bfseries On\+Geometry\+Changed} ()
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+include/xu/core/Layout.\+hpp\end{DoxyCompactItemize}

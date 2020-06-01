@@ -27,11 +27,21 @@
 
 namespace xu {
 
+/*!
+ * \brief Struct used to describe a window resize event.
+ * \sa [Insert link to eventing docs]
+ */
 struct XU_API WindowResizeEvent {
+    /*!
+     * \brief New window size.
+     */
     ISize2 size;
 };
 
 struct XU_API MouseMoveEvent {
+    /*!
+     * \brief New mouse position, relative to the top left of the screen.
+     */
     ISize2 position;
 };
 

@@ -1,17 +1,107 @@
 \hypertarget{classxu_1_1_context}{}\doxysection{xu\+::Context Class Reference}
 \label{classxu_1_1_context}\index{xu::Context@{xu::Context}}
+
+
+Core context class of the Xu library.  
+
+
+
+
+{\ttfamily \#include $<$Context.\+hpp$>$}
+
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\Hypertarget{classxu_1_1_context_aa703e32cb1c5e6ec200e16613f0329e6}\label{classxu_1_1_context_aa703e32cb1c5e6ec200e16613f0329e6}} 
-void {\bfseries Push\+Event} (\mbox{\hyperlink{structxu_1_1_mouse_move_event}{Mouse\+Move\+Event}} const \&evt)
+void \mbox{\hyperlink{classxu_1_1_context_a42eb94cc2df26ab5afcba77f25fccb3d}{Notify\+Event}} (\mbox{\hyperlink{structxu_1_1_mouse_move_event}{Mouse\+Move\+Event}} const \&evt)
+\begin{DoxyCompactList}\small\item\em Notifies Xu that a mouse move event has occured. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classxu_1_1_context_a8e59e82c893f058ae020f862d5450a68}{Notify\+Event}} (\mbox{\hyperlink{structxu_1_1_window_resize_event}{Window\+Resize\+Event}} const \&evt)
+\begin{DoxyCompactList}\small\item\em Notifies Xu that a window resize event has occured. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classxu_1_1_context_a7fa3ceac3ceb96d394fd83fa34c325af}{Process\+Events}} ()
+\begin{DoxyCompactList}\small\item\em Processes all events until none are left. After this call, the event queue is empty. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classxu_1_1_render_data}{Render\+Data}} const  \& \mbox{\hyperlink{classxu_1_1_context_a4682ab2a45aae997dd38261a84a46a7f}{Get\+Render\+Data}} () const
+\begin{DoxyCompactList}\small\item\em Obtain data necessary to render the UI. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
 \item 
-\mbox{\Hypertarget{classxu_1_1_context_ada4453014b066efa419117f5ae387c0a}\label{classxu_1_1_context_ada4453014b066efa419117f5ae387c0a}} 
-void {\bfseries Push\+Event} (\mbox{\hyperlink{structxu_1_1_window_resize_event}{Window\+Resize\+Event}} const \&evt)
-\item 
-\mbox{\Hypertarget{classxu_1_1_context_a7fa3ceac3ceb96d394fd83fa34c325af}\label{classxu_1_1_context_a7fa3ceac3ceb96d394fd83fa34c325af}} 
-void {\bfseries Process\+Events} ()
+Input\+Reception \mbox{\hyperlink{classxu_1_1_context_a8f38ed86b74a1aca096671bb7d748d0f}{input\+Reception}}
+\begin{DoxyCompactList}\small\item\em Select which method must be used for event processing. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classxu_1_1_context_ae1f539a0de5fa1191eb6424fdfc52bc9}\label{classxu_1_1_context_ae1f539a0de5fa1191eb6424fdfc52bc9}} 
+std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classxu_1_1_widget}{Widget}} $>$ {\bfseries root}
 \end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Core context class of the Xu library. 
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classxu_1_1_context_a4682ab2a45aae997dd38261a84a46a7f}\label{classxu_1_1_context_a4682ab2a45aae997dd38261a84a46a7f}} 
+\index{xu::Context@{xu::Context}!GetRenderData@{GetRenderData}}
+\index{GetRenderData@{GetRenderData}!xu::Context@{xu::Context}}
+\doxysubsubsection{\texorpdfstring{GetRenderData()}{GetRenderData()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classxu_1_1_render_data}{Render\+Data}} const\& xu\+::\+Context\+::\+Get\+Render\+Data (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Obtain data necessary to render the UI. 
+
+\begin{DoxySeeAlso}{See also}
+\mbox{[}Insert rendering A\+PI docs link\mbox{]} 
+\end{DoxySeeAlso}
+\mbox{\Hypertarget{classxu_1_1_context_a42eb94cc2df26ab5afcba77f25fccb3d}\label{classxu_1_1_context_a42eb94cc2df26ab5afcba77f25fccb3d}} 
+\index{xu::Context@{xu::Context}!NotifyEvent@{NotifyEvent}}
+\index{NotifyEvent@{NotifyEvent}!xu::Context@{xu::Context}}
+\doxysubsubsection{\texorpdfstring{NotifyEvent()}{NotifyEvent()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily void xu\+::\+Context\+::\+Notify\+Event (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structxu_1_1_mouse_move_event}{Mouse\+Move\+Event}} const \&}]{evt }\end{DoxyParamCaption})}
+
+
+
+Notifies Xu that a mouse move event has occured. 
+
+\begin{DoxySeeAlso}{See also}
+\mbox{[}Insert windowing event docs link\mbox{]} 
+\end{DoxySeeAlso}
+\mbox{\Hypertarget{classxu_1_1_context_a8e59e82c893f058ae020f862d5450a68}\label{classxu_1_1_context_a8e59e82c893f058ae020f862d5450a68}} 
+\index{xu::Context@{xu::Context}!NotifyEvent@{NotifyEvent}}
+\index{NotifyEvent@{NotifyEvent}!xu::Context@{xu::Context}}
+\doxysubsubsection{\texorpdfstring{NotifyEvent()}{NotifyEvent()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily void xu\+::\+Context\+::\+Notify\+Event (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structxu_1_1_window_resize_event}{Window\+Resize\+Event}} const \&}]{evt }\end{DoxyParamCaption})}
+
+
+
+Notifies Xu that a window resize event has occured. 
+
+\begin{DoxySeeAlso}{See also}
+\mbox{[}Insert windowing event docs link\mbox{]} 
+\end{DoxySeeAlso}
+\mbox{\Hypertarget{classxu_1_1_context_a7fa3ceac3ceb96d394fd83fa34c325af}\label{classxu_1_1_context_a7fa3ceac3ceb96d394fd83fa34c325af}} 
+\index{xu::Context@{xu::Context}!ProcessEvents@{ProcessEvents}}
+\index{ProcessEvents@{ProcessEvents}!xu::Context@{xu::Context}}
+\doxysubsubsection{\texorpdfstring{ProcessEvents()}{ProcessEvents()}}
+{\footnotesize\ttfamily void xu\+::\+Context\+::\+Process\+Events (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Processes all events until none are left. After this call, the event queue is empty. 
+
+\begin{DoxySeeAlso}{See also}
+\mbox{[}Insert windowing event docs link\mbox{]} 
+\end{DoxySeeAlso}
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classxu_1_1_context_a8f38ed86b74a1aca096671bb7d748d0f}\label{classxu_1_1_context_a8f38ed86b74a1aca096671bb7d748d0f}} 
+\index{xu::Context@{xu::Context}!inputReception@{inputReception}}
+\index{inputReception@{inputReception}!xu::Context@{xu::Context}}
+\doxysubsubsection{\texorpdfstring{inputReception}{inputReception}}
+{\footnotesize\ttfamily Input\+Reception xu\+::\+Context\+::input\+Reception}
+
+
+
+Select which method must be used for event processing. 
+
+\begin{DoxySeeAlso}{See also}
+Input\+Reception 
+\end{DoxySeeAlso}
 
 
 The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}

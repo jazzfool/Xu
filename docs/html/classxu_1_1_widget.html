@@ -68,21 +68,314 @@ $(function() {
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-attribs">Public Attributes</a> &#124;
 <a href="classxu_1_1_widget-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">xu::Widget Class Reference<span class="mlabels"><span class="mlabel">abstract</span></span></div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>Core widget class of the library. All widgets must derive from this class.  
+ <a href="classxu_1_1_widget.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="_widget_8hpp_source.html">Widget.hpp</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a926f1b7523832a1478dd0540cba23a20"><td class="memItemLeft" align="right" valign="top"><a id="a926f1b7523832a1478dd0540cba23a20"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>Widget</b> (<a class="el" href="classxu_1_1_widget.html">Widget</a> *parent=nullptr)</td></tr>
-<tr class="separator:a926f1b7523832a1478dd0540cba23a20"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a97e32a6f14bd7a90b4e8cba607066269"><td class="memItemLeft" align="right" valign="top"><a id="a97e32a6f14bd7a90b4e8cba607066269"></a>
-virtual <a class="el" href="structxu_1_1_vector2.html">FSize2</a>&#160;</td><td class="memItemRight" valign="bottom"><b>SizeHint</b> () const =0</td></tr>
+<tr class="memitem:a96b0aa33c925c69a34c5cf0b8e389b1f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classxu_1_1_widget.html#a96b0aa33c925c69a34c5cf0b8e389b1f">Widget</a> (<a class="el" href="classxu_1_1_widget.html">Widget</a> *parent)</td></tr>
+<tr class="memdesc:a96b0aa33c925c69a34c5cf0b8e389b1f"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="classxu_1_1_widget.html" title="Core widget class of the library. All widgets must derive from this class.">Widget</a> constructor.  <a href="classxu_1_1_widget.html#a96b0aa33c925c69a34c5cf0b8e389b1f">More...</a><br /></td></tr>
+<tr class="separator:a96b0aa33c925c69a34c5cf0b8e389b1f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a97e32a6f14bd7a90b4e8cba607066269"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="structxu_1_1_vector2.html">FSize2</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classxu_1_1_widget.html#a97e32a6f14bd7a90b4e8cba607066269">SizeHint</a> () const =0</td></tr>
+<tr class="memdesc:a97e32a6f14bd7a90b4e8cba607066269"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gives the layout system a hint of how large this widget has to be. Note that the actual size may be different depending on the layout.  <a href="classxu_1_1_widget.html#a97e32a6f14bd7a90b4e8cba607066269">More...</a><br /></td></tr>
 <tr class="separator:a97e32a6f14bd7a90b4e8cba607066269"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6ac6d36e8c0b4f46991d819df8228019"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classxu_1_1_widget.html#a6ac6d36e8c0b4f46991d819df8228019">PointerHit</a> (<a class="el" href="structxu_1_1_vector2.html">FPoint2</a> const &amp;pointer) const</td></tr>
+<tr class="memdesc:a6ac6d36e8c0b4f46991d819df8228019"><td class="mdescLeft">&#160;</td><td class="mdescRight">Test whether the mouse pointer is hovering the widget. Custom widgets may override this to replace the default AABB intersection test.  <a href="classxu_1_1_widget.html#a6ac6d36e8c0b4f46991d819df8228019">More...</a><br /></td></tr>
+<tr class="separator:a6ac6d36e8c0b4f46991d819df8228019"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a886e3e06b898a70d300c4b49c4114c89"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classxu_1_1_widget.html#a886e3e06b898a70d300c4b49c4114c89">SetGeometry</a> (<a class="el" href="structxu_1_1_rect2.html">FRect2</a> const &amp;geometry) final</td></tr>
+<tr class="memdesc:a886e3e06b898a70d300c4b49c4114c89"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set geometry to be used for building the layout.  <a href="classxu_1_1_widget.html#a886e3e06b898a70d300c4b49c4114c89">More...</a><br /></td></tr>
+<tr class="separator:a886e3e06b898a70d300c4b49c4114c89"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6f342f4613cb484187346829e37d5107"><td class="memItemLeft" align="right" valign="top"><a id="a6f342f4613cb484187346829e37d5107"></a>
+virtual <a class="el" href="structxu_1_1_rect2.html">FRect2</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classxu_1_1_widget.html#a6f342f4613cb484187346829e37d5107">Geometry</a> () const final</td></tr>
+<tr class="memdesc:a6f342f4613cb484187346829e37d5107"><td class="mdescLeft">&#160;</td><td class="mdescRight">Access the geometry AABB of this widget. <br /></td></tr>
+<tr class="separator:a6f342f4613cb484187346829e37d5107"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae47b304bae66a1912d9b72a0768db388"><td class="memItemLeft" align="right" valign="top"><a id="ae47b304bae66a1912d9b72a0768db388"></a>
+virtual <a class="el" href="classxu_1_1_widget.html">Widget</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classxu_1_1_widget.html#ae47b304bae66a1912d9b72a0768db388">Parent</a> () const final</td></tr>
+<tr class="memdesc:ae47b304bae66a1912d9b72a0768db388"><td class="mdescLeft">&#160;</td><td class="mdescRight">Obtain a pointer to the parent of this widget. If there is no parent, nullptr is returned. <br /></td></tr>
+<tr class="separator:ae47b304bae66a1912d9b72a0768db388"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a24fe55202bb2c0ac66bc6d19a3f4498b"><td class="memItemLeft" align="right" valign="top"><a id="a24fe55202bb2c0ac66bc6d19a3f4498b"></a>
+virtual std::size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classxu_1_1_widget.html#a24fe55202bb2c0ac66bc6d19a3f4498b">NumChildren</a> () const final</td></tr>
+<tr class="memdesc:a24fe55202bb2c0ac66bc6d19a3f4498b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Obtain the amount of children this widget owns. Useful for iterating over them. <br /></td></tr>
+<tr class="separator:a24fe55202bb2c0ac66bc6d19a3f4498b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa805ceb90a7e29df81854b4aceb98de5"><td class="memTemplParams" colspan="2">template&lt;typename T , typename... CtorArgs&gt; </td></tr>
+<tr class="memitem:aa805ceb90a7e29df81854b4aceb98de5"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="structxu_1_1_widget_ptr.html">WidgetPtr</a>&lt; T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classxu_1_1_widget.html#aa805ceb90a7e29df81854b4aceb98de5">MakeChild</a> (CtorArgs &amp;&amp;... args)</td></tr>
+<tr class="memdesc:aa805ceb90a7e29df81854b4aceb98de5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a new child widget of type T and append it to the list of children.  <a href="classxu_1_1_widget.html#aa805ceb90a7e29df81854b4aceb98de5">More...</a><br /></td></tr>
+<tr class="separator:aa805ceb90a7e29df81854b4aceb98de5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad58f56c1eed1dc18d8e913065600514d"><td class="memTemplParams" colspan="2">template&lt;typename T , typename... CtorArgs&gt; </td></tr>
+<tr class="memitem:ad58f56c1eed1dc18d8e913065600514d"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="structxu_1_1_widget_ptr.html">WidgetPtr</a>&lt; T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classxu_1_1_widget.html#ad58f56c1eed1dc18d8e913065600514d">MakeChildAt</a> (std::size_t at, CtorArgs &amp;&amp;... args)</td></tr>
+<tr class="memdesc:ad58f56c1eed1dc18d8e913065600514d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a new child widget of type T and put it at the specified index in the list of children.  <a href="classxu_1_1_widget.html#ad58f56c1eed1dc18d8e913065600514d">More...</a><br /></td></tr>
+<tr class="separator:ad58f56c1eed1dc18d8e913065600514d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6e0d14a094cc3fae2c5333b9732d047d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classxu_1_1_widget.html">Widget</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classxu_1_1_widget.html#a6e0d14a094cc3fae2c5333b9732d047d">GetChild</a> (std::size_t at)</td></tr>
+<tr class="memdesc:a6e0d14a094cc3fae2c5333b9732d047d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Obtain a pointer to the widget at index at.  <a href="classxu_1_1_widget.html#a6e0d14a094cc3fae2c5333b9732d047d">More...</a><br /></td></tr>
+<tr class="separator:a6e0d14a094cc3fae2c5333b9732d047d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
+Public Attributes</h2></td></tr>
+<tr class="memitem:a738b34342b17927f6486d5db532f32f3"><td class="memItemLeft" align="right" valign="top"><a id="a738b34342b17927f6486d5db532f32f3"></a>
+<a class="el" href="classxu_1_1_signal.html">Signal</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classxu_1_1_widget.html#a738b34342b17927f6486d5db532f32f3">sigBeforeDestruction</a></td></tr>
+<tr class="memdesc:a738b34342b17927f6486d5db532f32f3"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="classxu_1_1_signal.html">Signal</a> to be called before destroying this widget. <br /></td></tr>
+<tr class="separator:a738b34342b17927f6486d5db532f32f3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa57048eef11e40dcc3a2a99be39af59c"><td class="memItemLeft" align="right" valign="top"><a id="aa57048eef11e40dcc3a2a99be39af59c"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classxu_1_1_widget.html#aa57048eef11e40dcc3a2a99be39af59c">hidden</a></td></tr>
+<tr class="memdesc:aa57048eef11e40dcc3a2a99be39af59c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Toggle to indicate whether this widget is hidden or not. <br /></td></tr>
+<tr class="separator:aa57048eef11e40dcc3a2a99be39af59c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Core widget class of the library. All widgets must derive from this class. </p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a96b0aa33c925c69a34c5cf0b8e389b1f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a96b0aa33c925c69a34c5cf0b8e389b1f">&#9670;&nbsp;</a></span>Widget()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">xu::Widget::Widget </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classxu_1_1_widget.html">Widget</a> *&#160;</td>
+          <td class="paramname"><em>parent</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">explicit</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p><a class="el" href="classxu_1_1_widget.html" title="Core widget class of the library. All widgets must derive from this class.">Widget</a> constructor. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">parent</td><td>Pointer to the parent of this widget. May be nullptr. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="a6e0d14a094cc3fae2c5333b9732d047d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6e0d14a094cc3fae2c5333b9732d047d">&#9670;&nbsp;</a></span>GetChild()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classxu_1_1_widget.html">Widget</a>* xu::Widget::GetChild </td>
+          <td>(</td>
+          <td class="paramtype">std::size_t&#160;</td>
+          <td class="paramname"><em>at</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Obtain a pointer to the widget at index at. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">at</td><td>Index of the child widget to get a pointer to. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="aa805ceb90a7e29df81854b4aceb98de5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa805ceb90a7e29df81854b4aceb98de5">&#9670;&nbsp;</a></span>MakeChild()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T , typename... CtorArgs&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structxu_1_1_widget_ptr.html">WidgetPtr</a>&lt;T&gt; xu::Widget::MakeChild </td>
+          <td>(</td>
+          <td class="paramtype">CtorArgs &amp;&amp;...&#160;</td>
+          <td class="paramname"><em>args</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Create a new child widget of type T and append it to the list of children. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">args</td><td>Arguments to be forwarded to the widget's constructor. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="structxu_1_1_widget_ptr.html" title="Special immutable widget pointer wrapper which can nullify the pointer before the widget is destroyed...">WidgetPtr</a> to the child widget. </dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="structxu_1_1_widget_ptr.html" title="Special immutable widget pointer wrapper which can nullify the pointer before the widget is destroyed...">WidgetPtr</a> </dd></dl>
+
+</div>
+</div>
+<a id="ad58f56c1eed1dc18d8e913065600514d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad58f56c1eed1dc18d8e913065600514d">&#9670;&nbsp;</a></span>MakeChildAt()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T , typename... CtorArgs&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structxu_1_1_widget_ptr.html">WidgetPtr</a>&lt;T&gt; xu::Widget::MakeChildAt </td>
+          <td>(</td>
+          <td class="paramtype">std::size_t&#160;</td>
+          <td class="paramname"><em>at</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">CtorArgs &amp;&amp;...&#160;</td>
+          <td class="paramname"><em>args</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Create a new child widget of type T and put it at the specified index in the list of children. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">at</td><td>Position to insert the new child widget. </td></tr>
+    <tr><td class="paramname">args</td><td>Arguments to be forwarded to the widget's constructor </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="structxu_1_1_widget_ptr.html" title="Special immutable widget pointer wrapper which can nullify the pointer before the widget is destroyed...">WidgetPtr</a> to the child widget. </dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="structxu_1_1_widget_ptr.html" title="Special immutable widget pointer wrapper which can nullify the pointer before the widget is destroyed...">WidgetPtr</a> </dd></dl>
+
+</div>
+</div>
+<a id="a6ac6d36e8c0b4f46991d819df8228019"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6ac6d36e8c0b4f46991d819df8228019">&#9670;&nbsp;</a></span>PointerHit()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual bool xu::Widget::PointerHit </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structxu_1_1_vector2.html">FPoint2</a> const &amp;&#160;</td>
+          <td class="paramname"><em>pointer</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Test whether the mouse pointer is hovering the widget. Custom widgets may override this to replace the default AABB intersection test. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">pointer</td><td>Point with mouse coordinates. TODO: Document coordinate system </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a886e3e06b898a70d300c4b49c4114c89"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a886e3e06b898a70d300c4b49c4114c89">&#9670;&nbsp;</a></span>SetGeometry()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void xu::Widget::SetGeometry </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structxu_1_1_rect2.html">FRect2</a> const &amp;&#160;</td>
+          <td class="paramname"><em>geometry</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">final</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Set geometry to be used for building the layout. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">geometry</td><td>AABB defining the bounding box of this widget. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a97e32a6f14bd7a90b4e8cba607066269"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a97e32a6f14bd7a90b4e8cba607066269">&#9670;&nbsp;</a></span>SizeHint()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual <a class="el" href="structxu_1_1_vector2.html">FSize2</a> xu::Widget::SizeHint </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Gives the layout system a hint of how large this widget has to be. Note that the actual size may be different depending on the layout. </p>
+<dl class="section see"><dt>See also</dt><dd>[Insert layout documentation page] </dd></dl>
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following file:<ul>
 <li>include/xu/core/<a class="el" href="_widget_8hpp_source.html">Widget.hpp</a></li>
 </ul>

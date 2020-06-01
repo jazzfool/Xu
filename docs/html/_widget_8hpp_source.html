@@ -94,27 +94,82 @@ $(function() {
 <div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160; </div>
 <div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="preprocessor">#pragma once</span></div>
 <div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160; </div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="preprocessor">#include &quot;Definitions.hpp&quot;</span></div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="preprocessor">#include &quot;Size2.hpp&quot;</span></div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="preprocessor">#include &lt;memory&gt;</span></div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="preprocessor">#include &lt;vector&gt;</span></div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160; </div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="keyword">namespace </span>xu {</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
-<div class="line"><a name="l00033"></a><span class="lineno"><a class="line" href="classxu_1_1_widget.html">   33</a></span>&#160;<span class="keyword">class </span>XU_API <a class="code" href="classxu_1_1_widget.html">Widget</a> {</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;  <span class="keyword">explicit</span> <a class="code" href="classxu_1_1_widget.html">Widget</a>(<a class="code" href="classxu_1_1_widget.html">Widget</a> *parent = <span class="keyword">nullptr</span>);</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="preprocessor">#include &lt;xu/core/Definitions.hpp&gt;</span></div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="preprocessor">#include &lt;xu/core/Layout.hpp&gt;</span></div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="preprocessor">#include &lt;xu/core/Point2.hpp&gt;</span></div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="preprocessor">#include &lt;xu/core/Size2.hpp&gt;</span></div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="preprocessor">#include &lt;xu/core/UniqueSlot.hpp&gt;</span></div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="preprocessor">#include &lt;xu/core/WidgetPtr.hpp&gt;</span></div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="preprocessor">#include &lt;memory&gt;</span></div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="preprocessor">#include &lt;vector&gt;</span></div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160; </div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="keyword">namespace </span>xu {</div>
 <div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160; </div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;  <span class="keyword">virtual</span> <a class="code" href="structxu_1_1_vector2.html">FSize2</a> SizeHint() <span class="keyword">const</span> = 0;</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160; </div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;};</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160; </div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;} <span class="comment">// namespace xu</span></div>
+<div class="line"><a name="l00040"></a><span class="lineno"><a class="line" href="classxu_1_1_widget.html">   40</a></span>&#160;<span class="keyword">class </span>XU_API <a class="code" href="classxu_1_1_widget.html">Widget</a> {</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00046"></a><span class="lineno"><a class="line" href="classxu_1_1_widget.html#a96b0aa33c925c69a34c5cf0b8e389b1f">   46</a></span>&#160;    <span class="keyword">explicit</span> <a class="code" href="classxu_1_1_widget.html#a96b0aa33c925c69a34c5cf0b8e389b1f">Widget</a>(<a class="code" href="classxu_1_1_widget.html">Widget</a>* parent);</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    <span class="keyword">virtual</span> ~<a class="code" href="classxu_1_1_widget.html">Widget</a>();</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160; </div>
+<div class="line"><a name="l00054"></a><span class="lineno"><a class="line" href="classxu_1_1_widget.html#a97e32a6f14bd7a90b4e8cba607066269">   54</a></span>&#160;    <span class="keyword">virtual</span> <a class="code" href="structxu_1_1_vector2.html">FSize2</a> <a class="code" href="classxu_1_1_widget.html#a97e32a6f14bd7a90b4e8cba607066269">SizeHint</a>() <span class="keyword">const</span> = 0;</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160; </div>
+<div class="line"><a name="l00061"></a><span class="lineno"><a class="line" href="classxu_1_1_widget.html#a6ac6d36e8c0b4f46991d819df8228019">   61</a></span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="classxu_1_1_widget.html#a6ac6d36e8c0b4f46991d819df8228019">PointerHit</a>(<a class="code" href="structxu_1_1_vector2.html">FPoint2</a> <span class="keyword">const</span>&amp; pointer) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160; </div>
+<div class="line"><a name="l00067"></a><span class="lineno"><a class="line" href="classxu_1_1_widget.html#a886e3e06b898a70d300c4b49c4114c89">   67</a></span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classxu_1_1_widget.html#a886e3e06b898a70d300c4b49c4114c89">SetGeometry</a>(<a class="code" href="structxu_1_1_rect2.html">FRect2</a> <span class="keyword">const</span>&amp; geometry) <span class="keyword">final</span>;</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160; </div>
+<div class="line"><a name="l00072"></a><span class="lineno"><a class="line" href="classxu_1_1_widget.html#a6f342f4613cb484187346829e37d5107">   72</a></span>&#160;    <span class="keyword">virtual</span> <a class="code" href="structxu_1_1_rect2.html">FRect2</a> <a class="code" href="classxu_1_1_widget.html#a6f342f4613cb484187346829e37d5107">Geometry</a>() const final;</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160; </div>
+<div class="line"><a name="l00077"></a><span class="lineno"><a class="line" href="classxu_1_1_widget.html#ae47b304bae66a1912d9b72a0768db388">   77</a></span>&#160;    virtual <a class="code" href="classxu_1_1_widget.html">Widget</a>* Parent() const final;</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160; </div>
+<div class="line"><a name="l00082"></a><span class="lineno"><a class="line" href="classxu_1_1_widget.html#a24fe55202bb2c0ac66bc6d19a3f4498b">   82</a></span>&#160;    virtual std::<span class="keywordtype">size_t</span> NumChildren() const final;</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160; </div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;    template&lt;typename T, typename... CtorArgs&gt;</div>
+<div class="line"><a name="l00091"></a><span class="lineno"><a class="line" href="classxu_1_1_widget.html#aa805ceb90a7e29df81854b4aceb98de5">   91</a></span>&#160;    <a class="code" href="structxu_1_1_widget_ptr.html">WidgetPtr</a>&lt;T&gt; MakeChild(CtorArgs&amp;&amp;... args) {</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;        <span class="keyword">auto</span> child = std::make_unique&lt;T&gt;(<span class="keyword">this</span>, std::forward&lt;CtorArgs&gt;(args)...);</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;        children.push_back(std::move(child));</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="structxu_1_1_widget_ptr.html">WidgetPtr&lt;T&gt;</a>(<span class="keyword">static_cast&lt;</span>T*<span class="keyword">&gt;</span>(children.back().get()));</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;    }</div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160; </div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T, <span class="keyword">typename</span>... CtorArgs&gt;</div>
+<div class="line"><a name="l00105"></a><span class="lineno"><a class="line" href="classxu_1_1_widget.html#ad58f56c1eed1dc18d8e913065600514d">  105</a></span>&#160;    <a class="code" href="structxu_1_1_widget_ptr.html">WidgetPtr&lt;T&gt;</a> <a class="code" href="classxu_1_1_widget.html#ad58f56c1eed1dc18d8e913065600514d">MakeChildAt</a>(std::size_t at, CtorArgs&amp;&amp;... args) {</div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;        <span class="keyword">auto</span> child = std::make_unique&lt;T&gt;(<span class="keyword">this</span>, std::forward&lt;CtorArgs&gt;(args)...);</div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;        children.insert(at, std::move(child));</div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="structxu_1_1_widget_ptr.html">WidgetPtr&lt;T&gt;</a>(<span class="keyword">static_cast&lt;</span>T*<span class="keyword">&gt;</span>(children.back().get()));</div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;    }</div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160; </div>
+<div class="line"><a name="l00115"></a><span class="lineno"><a class="line" href="classxu_1_1_widget.html#a6e0d14a094cc3fae2c5333b9732d047d">  115</a></span>&#160;    <a class="code" href="classxu_1_1_widget.html">Widget</a>* <a class="code" href="classxu_1_1_widget.html#a6e0d14a094cc3fae2c5333b9732d047d">GetChild</a>(std::size_t at);</div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160; </div>
+<div class="line"><a name="l00120"></a><span class="lineno"><a class="line" href="classxu_1_1_widget.html#a738b34342b17927f6486d5db532f32f3">  120</a></span>&#160;    <a class="code" href="classxu_1_1_signal.html">Signal&lt;&gt;</a> <a class="code" href="classxu_1_1_widget.html#a738b34342b17927f6486d5db532f32f3">sigBeforeDestruction</a>;</div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160; </div>
+<div class="line"><a name="l00125"></a><span class="lineno"><a class="line" href="classxu_1_1_widget.html#aa57048eef11e40dcc3a2a99be39af59c">  125</a></span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="classxu_1_1_widget.html#aa57048eef11e40dcc3a2a99be39af59c">hidden</a>;</div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160; </div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;    <a class="code" href="structxu_1_1_rect2.html">FRect2</a> geometry;</div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;    std::unique_ptr&lt;Layout&gt;</div>
+<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;        ownedLayout;      </div>
+<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;    <a class="code" href="classxu_1_1_layout.html">Layout</a>* parentLayout; </div>
+<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160; </div>
+<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;    <a class="code" href="classxu_1_1_widget.html">Widget</a>* parent;</div>
+<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;    std::vector&lt;std::unique_ptr&lt;Widget&gt;&gt; children;</div>
+<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;};</div>
+<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160; </div>
+<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;} <span class="comment">// namespace xu</span></div>
 </div><!-- fragment --></div><!-- contents -->
-<div class="ttc" id="aclassxu_1_1_widget_html"><div class="ttname"><a href="classxu_1_1_widget.html">xu::Widget</a></div><div class="ttdef"><b>Definition:</b> Widget.hpp:33</div></div>
-<div class="ttc" id="astructxu_1_1_vector2_html"><div class="ttname"><a href="structxu_1_1_vector2.html">xu::Vector2</a></div><div class="ttdef"><b>Definition:</b> Vector2.hpp:32</div></div>
+<div class="ttc" id="aclassxu_1_1_signal_html"><div class="ttname"><a href="classxu_1_1_signal.html">xu::Signal</a></div><div class="ttdef"><b>Definition:</b> Signal.hpp:31</div></div>
+<div class="ttc" id="astructxu_1_1_widget_ptr_html"><div class="ttname"><a href="structxu_1_1_widget_ptr.html">xu::WidgetPtr</a></div><div class="ttdoc">Special immutable widget pointer wrapper which can nullify the pointer before the widget is destroyed...</div><div class="ttdef"><b>Definition:</b> WidgetPtr.hpp:36</div></div>
+<div class="ttc" id="astructxu_1_1_rect2_html"><div class="ttname"><a href="structxu_1_1_rect2.html">xu::Rect2&lt; float &gt;</a></div></div>
+<div class="ttc" id="aclassxu_1_1_widget_html_a97e32a6f14bd7a90b4e8cba607066269"><div class="ttname"><a href="classxu_1_1_widget.html#a97e32a6f14bd7a90b4e8cba607066269">xu::Widget::SizeHint</a></div><div class="ttdeci">virtual FSize2 SizeHint() const =0</div><div class="ttdoc">Gives the layout system a hint of how large this widget has to be. Note that the actual size may be d...</div></div>
+<div class="ttc" id="aclassxu_1_1_widget_html_aa57048eef11e40dcc3a2a99be39af59c"><div class="ttname"><a href="classxu_1_1_widget.html#aa57048eef11e40dcc3a2a99be39af59c">xu::Widget::hidden</a></div><div class="ttdeci">bool hidden</div><div class="ttdoc">Toggle to indicate whether this widget is hidden or not.</div><div class="ttdef"><b>Definition:</b> Widget.hpp:125</div></div>
+<div class="ttc" id="aclassxu_1_1_widget_html"><div class="ttname"><a href="classxu_1_1_widget.html">xu::Widget</a></div><div class="ttdoc">Core widget class of the library. All widgets must derive from this class.</div><div class="ttdef"><b>Definition:</b> Widget.hpp:40</div></div>
+<div class="ttc" id="aclassxu_1_1_layout_html"><div class="ttname"><a href="classxu_1_1_layout.html">xu::Layout</a></div><div class="ttdef"><b>Definition:</b> Layout.hpp:60</div></div>
+<div class="ttc" id="aclassxu_1_1_widget_html_a96b0aa33c925c69a34c5cf0b8e389b1f"><div class="ttname"><a href="classxu_1_1_widget.html#a96b0aa33c925c69a34c5cf0b8e389b1f">xu::Widget::Widget</a></div><div class="ttdeci">Widget(Widget *parent)</div><div class="ttdoc">Widget constructor.</div></div>
+<div class="ttc" id="aclassxu_1_1_widget_html_a6e0d14a094cc3fae2c5333b9732d047d"><div class="ttname"><a href="classxu_1_1_widget.html#a6e0d14a094cc3fae2c5333b9732d047d">xu::Widget::GetChild</a></div><div class="ttdeci">Widget * GetChild(std::size_t at)</div><div class="ttdoc">Obtain a pointer to the widget at index at.</div></div>
+<div class="ttc" id="aclassxu_1_1_widget_html_a886e3e06b898a70d300c4b49c4114c89"><div class="ttname"><a href="classxu_1_1_widget.html#a886e3e06b898a70d300c4b49c4114c89">xu::Widget::SetGeometry</a></div><div class="ttdeci">virtual void SetGeometry(FRect2 const &amp;geometry) final</div><div class="ttdoc">Set geometry to be used for building the layout.</div></div>
+<div class="ttc" id="astructxu_1_1_vector2_html"><div class="ttname"><a href="structxu_1_1_vector2.html">xu::Vector2</a></div><div class="ttdef"><b>Definition:</b> Vector2.hpp:34</div></div>
+<div class="ttc" id="aclassxu_1_1_widget_html_a6f342f4613cb484187346829e37d5107"><div class="ttname"><a href="classxu_1_1_widget.html#a6f342f4613cb484187346829e37d5107">xu::Widget::Geometry</a></div><div class="ttdeci">virtual FRect2 Geometry() const final</div><div class="ttdoc">Access the geometry AABB of this widget.</div></div>
+<div class="ttc" id="aclassxu_1_1_widget_html_a6ac6d36e8c0b4f46991d819df8228019"><div class="ttname"><a href="classxu_1_1_widget.html#a6ac6d36e8c0b4f46991d819df8228019">xu::Widget::PointerHit</a></div><div class="ttdeci">virtual bool PointerHit(FPoint2 const &amp;pointer) const</div><div class="ttdoc">Test whether the mouse pointer is hovering the widget. Custom widgets may override this to replace th...</div></div>
+<div class="ttc" id="aclassxu_1_1_widget_html_ad58f56c1eed1dc18d8e913065600514d"><div class="ttname"><a href="classxu_1_1_widget.html#ad58f56c1eed1dc18d8e913065600514d">xu::Widget::MakeChildAt</a></div><div class="ttdeci">WidgetPtr&lt; T &gt; MakeChildAt(std::size_t at, CtorArgs &amp;&amp;... args)</div><div class="ttdoc">Create a new child widget of type T and put it at the specified index in the list of children.</div><div class="ttdef"><b>Definition:</b> Widget.hpp:105</div></div>
+<div class="ttc" id="aclassxu_1_1_widget_html_a738b34342b17927f6486d5db532f32f3"><div class="ttname"><a href="classxu_1_1_widget.html#a738b34342b17927f6486d5db532f32f3">xu::Widget::sigBeforeDestruction</a></div><div class="ttdeci">Signal sigBeforeDestruction</div><div class="ttdoc">Signal to be called before destroying this widget.</div><div class="ttdef"><b>Definition:</b> Widget.hpp:120</div></div>
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
 Generated by &#160;<a href="http://www.doxygen.org/index.html">

@@ -1,5 +1,6 @@
 var searchData=
 [
-  ['vector2_3',['Vector2',['../structxu_1_1_vector2.html',1,'xu']]],
-  ['vector2_3c_20int_20_3e_4',['Vector2&lt; int &gt;',['../structxu_1_1_vector2.html',1,'xu']]]
+  ['geometry_9',['Geometry',['../classxu_1_1_widget.html#a6f342f4613cb484187346829e37d5107',1,'xu::Widget']]],
+  ['getchild_10',['GetChild',['../classxu_1_1_widget.html#a6e0d14a094cc3fae2c5333b9732d047d',1,'xu::Widget']]],
+  ['getrenderdata_11',['GetRenderData',['../classxu_1_1_context.html#a4682ab2a45aae997dd38261a84a46a7f',1,'xu::Context']]]
 ];

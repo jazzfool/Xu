@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['context_7',['Context',['../classxu_1_1_context.html',1,'xu']]]
+  ['boxstack_54',['BoxStack',['../classxu_1_1_box_stack.html',1,'xu']]]
 ];

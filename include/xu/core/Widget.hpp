@@ -34,38 +34,94 @@
 
 namespace xu {
 
+/*!
+ * \brief Core widget class of the library. All widgets must derive from this class.
+ */
 class XU_API Widget {
 public:
+    /*!
+     * \brief Widget constructor
+     * \param parent Pointer to the parent of this widget. May be nullptr.
+     */
     explicit Widget(Widget* parent);
     virtual ~Widget();
 
+    /*!
+     * \brief Gives the layout system a hint of how large this widget has to be.
+     *        Note that the actual size may be different depending on the layout.
+     * \sa [Insert layout documentation page]
+     */
     virtual FSize2 SizeHint() const = 0;
+
+    /*!
+     * \brief Test whether the mouse pointer is hovering the widget. Custom widgets may override this to replace the default
+     *        AABB intersection test.
+     * \param pointer Point with mouse coordinates. TODO: Document coordinate system
+     */
     virtual bool PointerHit(FPoint2 const& pointer) const;
 
+    /*!
+     * \brief Set geometry to be used for building the layout.
+     *\param geometry AABB defining the bounding box of this widget.
+     */
     virtual void SetGeometry(FRect2 const& geometry) final;
+
+    /*!
+     * \brief Access the geometry AABB of this widget.
+     */
     virtual FRect2 Geometry() const final;
 
+    /*!
+     * \brief Obtain a pointer to the parent of this widget. If there is no parent, nullptr is returned.
+     */
     virtual Widget* Parent() const final;
+
+    /*!
+     * \brief Obtain the amount of children this widget owns. Useful for iterating over them.
+     */
     virtual std::size_t NumChildren() const final;
 
+    /*!
+     * \brief Create a new child widget of type T and append it to the list of children.
+     * \param args Arguments to be forwarded to the widget's constructor.
+     * \return WidgetPtr to the child widget. 
+     * \sa WidgetPtr
+     */
     template<typename T, typename... CtorArgs>
-    WidgetPtr<T> MakeChild(CtorArgs&&... arg) {
-        auto child = std::make_unique<T>(this, std::forward<CtorArgs>(arg)...);
+    WidgetPtr<T> MakeChild(CtorArgs&&... args) {
+        auto child = std::make_unique<T>(this, std::forward<CtorArgs>(args)...);
         children.push_back(std::move(child));
         return WidgetPtr<T>(static_cast<T*>(children.back().get()));
     }
 
+    /*!
+     * \brief Create a new child widget of type T and put it at the specified index in the list of children.
+     * \param at Position to insert the new child widget.
+     * \param args Arguments to be forwarded to the widget's constructor
+     * \return WidgetPtr to the child widget. 
+     * \sa WidgetPtr
+     */
     template<typename T, typename... CtorArgs>
-    WidgetPtr<T> MakeChildAt(std::size_t at, CtorArgs&&... arg) {
-        auto child = std::make_unique<T>(this, std::forward<CtorArgs>(arg)...);
+    WidgetPtr<T> MakeChildAt(std::size_t at, CtorArgs&&... args) {
+        auto child = std::make_unique<T>(this, std::forward<CtorArgs>(args)...);
         children.insert(at, std::move(child));
         return WidgetPtr<T>(static_cast<T*>(children.back().get()));
     }
 
+    /*!
+     * \brief Obtain a pointer to the widget at index at
+     * \param at Index of the child widget to get a pointer to.
+     */
     Widget* GetChild(std::size_t at);
 
+    /*!
+     * \brief Signal to be called before destroying this widget
+     */
     Signal<> sigBeforeDestruction;
 
+    /*!
+     * \brief Toggle to indicate whether this widget is hidden or not.
+     */
     bool hidden;
 
 private:

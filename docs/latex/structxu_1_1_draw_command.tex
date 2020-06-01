@@ -1,0 +1,40 @@
+\hypertarget{structxu_1_1_draw_command}{}\doxysection{xu\+::Draw\+Command Struct Reference}
+\label{structxu_1_1_draw_command}\index{xu::DrawCommand@{xu::DrawCommand}}
+
+
+Structure describing a draw command.  
+
+
+
+
+{\ttfamily \#include $<$Render\+Data.\+hpp$>$}
+
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{structxu_1_1_draw_command_a115fae8e0556a13e6542f899a35cd365}\label{structxu_1_1_draw_command_a115fae8e0556a13e6542f899a35cd365}} 
+Draw\+Command\+Type \mbox{\hyperlink{structxu_1_1_draw_command_a115fae8e0556a13e6542f899a35cd365}{type}}
+\begin{DoxyCompactList}\small\item\em Indicates which type of the data union is active. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structxu_1_1_draw_command_a5a3ad679d83d54095a92751577bf08a1}\label{structxu_1_1_draw_command_a5a3ad679d83d54095a92751577bf08a1}} 
+\begin{tabbing}
+xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=\kill
+union \{\\
+\>\mbox{\hyperlink{structxu_1_1_cmd_draw_triangles}{CmdDrawTriangles}} {\bfseries drawTriangles}\\
+\>\mbox{\hyperlink{structxu_1_1_cmd_new_layer}{CmdNewLayer}} {\bfseries newLayer}\\
+\>\mbox{\hyperlink{structxu_1_1_cmd_merge_layer}{CmdMergeLayer}} {\bfseries mergeLayer}\\
+\} \mbox{\hyperlink{structxu_1_1_draw_command_a5a3ad679d83d54095a92751577bf08a1}{data}}\\
+
+\end{tabbing}\begin{DoxyCompactList}\small\item\em Stores data necessary for this draw command. Use the type member to determine the correct member. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Structure describing a draw command. 
+
+\begin{DoxySeeAlso}{See also}
+\mbox{[}Rendering A\+PI\mbox{]} 
+\end{DoxySeeAlso}
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+include/xu/core/Render\+Data.\+hpp\end{DoxyCompactItemize}

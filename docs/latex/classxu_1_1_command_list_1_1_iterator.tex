@@ -1,0 +1,79 @@
+\hypertarget{classxu_1_1_command_list_1_1_iterator}{}\doxysection{xu\+::Command\+List\+::Iterator Class Reference}
+\label{classxu_1_1_command_list_1_1_iterator}\index{xu::CommandList::Iterator@{xu::CommandList::Iterator}}
+
+
+\mbox{\hyperlink{classxu_1_1_command_list_1_1_iterator}{Iterator}} that can iterate over the drawcommands in the \mbox{\hyperlink{classxu_1_1_command_list}{Command\+List}}, keeping track of things like the current layer, vertex offset, etc. This class satisfies the Bidirectional\+Iterator concept.  
+
+
+
+
+{\ttfamily \#include $<$Render\+Data.\+hpp$>$}
+
+\doxysubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classxu_1_1_command_list_1_1_iterator_a0f53dedec56c0d320ae14cdac9f13701}\label{classxu_1_1_command_list_1_1_iterator_a0f53dedec56c0d320ae14cdac9f13701}} 
+using {\bfseries Underlying\+Type} = std\+::vector$<$ \mbox{\hyperlink{structxu_1_1_draw_command}{Draw\+Command}} $>$\+::const\+\_\+iterator
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classxu_1_1_command_list_1_1_iterator_a675574b51807ca9d6fe9c8a7af59b968}\label{classxu_1_1_command_list_1_1_iterator_a675574b51807ca9d6fe9c8a7af59b968}} 
+{\bfseries Iterator} (Underlying\+Type it, size\+\_\+t layer=0)
+\item 
+\mbox{\Hypertarget{classxu_1_1_command_list_1_1_iterator_af056a6aae0ec59832edbccdc3ddfa906}\label{classxu_1_1_command_list_1_1_iterator_af056a6aae0ec59832edbccdc3ddfa906}} 
+{\bfseries Iterator} (\mbox{\hyperlink{classxu_1_1_command_list_1_1_iterator}{Iterator}} const \&)=default
+\item 
+\mbox{\Hypertarget{classxu_1_1_command_list_1_1_iterator_a428121a0b5a9e68e6f2a57c2068177d8}\label{classxu_1_1_command_list_1_1_iterator_a428121a0b5a9e68e6f2a57c2068177d8}} 
+\mbox{\hyperlink{classxu_1_1_command_list_1_1_iterator}{Iterator}} \& {\bfseries operator=} (\mbox{\hyperlink{classxu_1_1_command_list_1_1_iterator}{Iterator}} const \&)=default
+\item 
+\mbox{\Hypertarget{classxu_1_1_command_list_1_1_iterator_a502a612131733f2c6c5d60658b8b8c55}\label{classxu_1_1_command_list_1_1_iterator_a502a612131733f2c6c5d60658b8b8c55}} 
+\mbox{\hyperlink{structxu_1_1_draw_command}{Draw\+Command}} const  \& \mbox{\hyperlink{classxu_1_1_command_list_1_1_iterator_a502a612131733f2c6c5d60658b8b8c55}{operator$\ast$}} () const
+\begin{DoxyCompactList}\small\item\em Access the underlying draw command. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classxu_1_1_command_list_1_1_iterator_af8a86530d5bf0f13574010bc483cd1c2}\label{classxu_1_1_command_list_1_1_iterator_af8a86530d5bf0f13574010bc483cd1c2}} 
+\mbox{\hyperlink{structxu_1_1_draw_command}{Draw\+Command}} const  $\ast$ \mbox{\hyperlink{classxu_1_1_command_list_1_1_iterator_af8a86530d5bf0f13574010bc483cd1c2}{operator-\/$>$}} () const
+\begin{DoxyCompactList}\small\item\em Access the underlying draw command. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classxu_1_1_command_list_1_1_iterator_a5640ce5d2f6d1efecbe8d995341c2594}\label{classxu_1_1_command_list_1_1_iterator_a5640ce5d2f6d1efecbe8d995341c2594}} 
+size\+\_\+t \mbox{\hyperlink{classxu_1_1_command_list_1_1_iterator_a5640ce5d2f6d1efecbe8d995341c2594}{Current\+Layer}} () const
+\begin{DoxyCompactList}\small\item\em Obtain the index of the current drawing layer. When the current draw command type is New\+Layer or Merge\+Layer, the old layer is returned and the next iterator will have an updated layer index. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classxu_1_1_command_list_1_1_iterator_a4709bc3b3bf7229f975f059516c0b857}\label{classxu_1_1_command_list_1_1_iterator_a4709bc3b3bf7229f975f059516c0b857}} 
+size\+\_\+t \mbox{\hyperlink{classxu_1_1_command_list_1_1_iterator_a4709bc3b3bf7229f975f059516c0b857}{Merge\+Target}} () const
+\begin{DoxyCompactList}\small\item\em Returns the index of the layer to merge with. Only valid if the draw command type is Merge\+Layer and the current layer is not the default layer. Equivalent to \mbox{\hyperlink{classxu_1_1_command_list_1_1_iterator_a5640ce5d2f6d1efecbe8d995341c2594}{Current\+Layer()}} -\/ 1. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classxu_1_1_command_list_1_1_iterator_aef250ee4ca693049d3c0bc2c17c8d05c}\label{classxu_1_1_command_list_1_1_iterator_aef250ee4ca693049d3c0bc2c17c8d05c}} 
+\mbox{\hyperlink{classxu_1_1_command_list_1_1_iterator}{Iterator}} \& {\bfseries operator++} ()
+\item 
+\mbox{\Hypertarget{classxu_1_1_command_list_1_1_iterator_a7762d1eda6af4ee323f647713c7fd7a2}\label{classxu_1_1_command_list_1_1_iterator_a7762d1eda6af4ee323f647713c7fd7a2}} 
+\mbox{\hyperlink{classxu_1_1_command_list_1_1_iterator}{Iterator}} {\bfseries operator++} (int)
+\item 
+\mbox{\Hypertarget{classxu_1_1_command_list_1_1_iterator_ae24fd4c5363e3288c19c072d7d90818d}\label{classxu_1_1_command_list_1_1_iterator_ae24fd4c5363e3288c19c072d7d90818d}} 
+\mbox{\hyperlink{classxu_1_1_command_list_1_1_iterator}{Iterator}} {\bfseries operator-\/-\/} ()
+\item 
+\mbox{\Hypertarget{classxu_1_1_command_list_1_1_iterator_a96f9c0bb333d74edb0429f5ee1d42a8a}\label{classxu_1_1_command_list_1_1_iterator_a96f9c0bb333d74edb0429f5ee1d42a8a}} 
+\mbox{\hyperlink{classxu_1_1_command_list_1_1_iterator}{Iterator}} {\bfseries operator-\/-\/} (int)
+\item 
+\mbox{\Hypertarget{classxu_1_1_command_list_1_1_iterator_a574c0fd7fa2ef1e64b1795b3d322db8a}\label{classxu_1_1_command_list_1_1_iterator_a574c0fd7fa2ef1e64b1795b3d322db8a}} 
+bool {\bfseries operator==} (\mbox{\hyperlink{classxu_1_1_command_list_1_1_iterator}{Iterator}} const \&rhs) const
+\item 
+\mbox{\Hypertarget{classxu_1_1_command_list_1_1_iterator_aba11197a69f9d2bacd42eae426f6cb18}\label{classxu_1_1_command_list_1_1_iterator_aba11197a69f9d2bacd42eae426f6cb18}} 
+bool {\bfseries operator!=} (\mbox{\hyperlink{classxu_1_1_command_list_1_1_iterator}{Iterator}} const \&rhs) const
+\item 
+\mbox{\Hypertarget{classxu_1_1_command_list_1_1_iterator_a59bf1b48784c49e0877453789e5f9fbe}\label{classxu_1_1_command_list_1_1_iterator_a59bf1b48784c49e0877453789e5f9fbe}} 
+bool {\bfseries operator$<$} (\mbox{\hyperlink{classxu_1_1_command_list_1_1_iterator}{Iterator}} const \&rhs) const
+\item 
+\mbox{\Hypertarget{classxu_1_1_command_list_1_1_iterator_a8a9e56876c15230b3c4d872d4c76526f}\label{classxu_1_1_command_list_1_1_iterator_a8a9e56876c15230b3c4d872d4c76526f}} 
+bool {\bfseries operator$<$=} (\mbox{\hyperlink{classxu_1_1_command_list_1_1_iterator}{Iterator}} const \&rhs) const
+\item 
+\mbox{\Hypertarget{classxu_1_1_command_list_1_1_iterator_a08434ebaa2ef660cdea852a9e95f88d0}\label{classxu_1_1_command_list_1_1_iterator_a08434ebaa2ef660cdea852a9e95f88d0}} 
+bool {\bfseries operator$>$} (\mbox{\hyperlink{classxu_1_1_command_list_1_1_iterator}{Iterator}} const \&rhs) const
+\item 
+\mbox{\Hypertarget{classxu_1_1_command_list_1_1_iterator_ada06fbd77f965d5e294890ae56342a36}\label{classxu_1_1_command_list_1_1_iterator_ada06fbd77f965d5e294890ae56342a36}} 
+bool {\bfseries operator$>$=} (\mbox{\hyperlink{classxu_1_1_command_list_1_1_iterator}{Iterator}} const \&rhs) const
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\mbox{\hyperlink{classxu_1_1_command_list_1_1_iterator}{Iterator}} that can iterate over the drawcommands in the \mbox{\hyperlink{classxu_1_1_command_list}{Command\+List}}, keeping track of things like the current layer, vertex offset, etc. This class satisfies the Bidirectional\+Iterator concept. 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+include/xu/core/Render\+Data.\+hpp\end{DoxyCompactItemize}

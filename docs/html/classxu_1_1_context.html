@@ -69,24 +69,145 @@ $(function() {
   <div class="summary">
 <a href="#nested-classes">Classes</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-attribs">Public Attributes</a> &#124;
 <a href="classxu_1_1_context-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">xu::Context Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>Core context class of the Xu library.  
+ <a href="classxu_1_1_context.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="_context_8hpp_source.html">Context.hpp</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:aa703e32cb1c5e6ec200e16613f0329e6"><td class="memItemLeft" align="right" valign="top"><a id="aa703e32cb1c5e6ec200e16613f0329e6"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>PushEvent</b> (<a class="el" href="structxu_1_1_mouse_move_event.html">MouseMoveEvent</a> const &amp;evt)</td></tr>
-<tr class="separator:aa703e32cb1c5e6ec200e16613f0329e6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ada4453014b066efa419117f5ae387c0a"><td class="memItemLeft" align="right" valign="top"><a id="ada4453014b066efa419117f5ae387c0a"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>PushEvent</b> (<a class="el" href="structxu_1_1_window_resize_event.html">WindowResizeEvent</a> const &amp;evt)</td></tr>
-<tr class="separator:ada4453014b066efa419117f5ae387c0a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7fa3ceac3ceb96d394fd83fa34c325af"><td class="memItemLeft" align="right" valign="top"><a id="a7fa3ceac3ceb96d394fd83fa34c325af"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>ProcessEvents</b> ()</td></tr>
+<tr class="memitem:a42eb94cc2df26ab5afcba77f25fccb3d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classxu_1_1_context.html#a42eb94cc2df26ab5afcba77f25fccb3d">NotifyEvent</a> (<a class="el" href="structxu_1_1_mouse_move_event.html">MouseMoveEvent</a> const &amp;evt)</td></tr>
+<tr class="memdesc:a42eb94cc2df26ab5afcba77f25fccb3d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Notifies Xu that a mouse move event has occured.  <a href="classxu_1_1_context.html#a42eb94cc2df26ab5afcba77f25fccb3d">More...</a><br /></td></tr>
+<tr class="separator:a42eb94cc2df26ab5afcba77f25fccb3d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8e59e82c893f058ae020f862d5450a68"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classxu_1_1_context.html#a8e59e82c893f058ae020f862d5450a68">NotifyEvent</a> (<a class="el" href="structxu_1_1_window_resize_event.html">WindowResizeEvent</a> const &amp;evt)</td></tr>
+<tr class="memdesc:a8e59e82c893f058ae020f862d5450a68"><td class="mdescLeft">&#160;</td><td class="mdescRight">Notifies Xu that a window resize event has occured.  <a href="classxu_1_1_context.html#a8e59e82c893f058ae020f862d5450a68">More...</a><br /></td></tr>
+<tr class="separator:a8e59e82c893f058ae020f862d5450a68"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7fa3ceac3ceb96d394fd83fa34c325af"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classxu_1_1_context.html#a7fa3ceac3ceb96d394fd83fa34c325af">ProcessEvents</a> ()</td></tr>
+<tr class="memdesc:a7fa3ceac3ceb96d394fd83fa34c325af"><td class="mdescLeft">&#160;</td><td class="mdescRight">Processes all events until none are left. After this call, the event queue is empty.  <a href="classxu_1_1_context.html#a7fa3ceac3ceb96d394fd83fa34c325af">More...</a><br /></td></tr>
 <tr class="separator:a7fa3ceac3ceb96d394fd83fa34c325af"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4682ab2a45aae997dd38261a84a46a7f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classxu_1_1_render_data.html">RenderData</a> const  &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classxu_1_1_context.html#a4682ab2a45aae997dd38261a84a46a7f">GetRenderData</a> () const</td></tr>
+<tr class="memdesc:a4682ab2a45aae997dd38261a84a46a7f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Obtain data necessary to render the UI.  <a href="classxu_1_1_context.html#a4682ab2a45aae997dd38261a84a46a7f">More...</a><br /></td></tr>
+<tr class="separator:a4682ab2a45aae997dd38261a84a46a7f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
+Public Attributes</h2></td></tr>
+<tr class="memitem:a8f38ed86b74a1aca096671bb7d748d0f"><td class="memItemLeft" align="right" valign="top">InputReception&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classxu_1_1_context.html#a8f38ed86b74a1aca096671bb7d748d0f">inputReception</a></td></tr>
+<tr class="memdesc:a8f38ed86b74a1aca096671bb7d748d0f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Select which method must be used for event processing.  <a href="classxu_1_1_context.html#a8f38ed86b74a1aca096671bb7d748d0f">More...</a><br /></td></tr>
+<tr class="separator:a8f38ed86b74a1aca096671bb7d748d0f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae1f539a0de5fa1191eb6424fdfc52bc9"><td class="memItemLeft" align="right" valign="top"><a id="ae1f539a0de5fa1191eb6424fdfc52bc9"></a>
+std::unique_ptr&lt; <a class="el" href="classxu_1_1_widget.html">Widget</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>root</b></td></tr>
+<tr class="separator:ae1f539a0de5fa1191eb6424fdfc52bc9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Core context class of the Xu library. </p>
+</div><h2 class="groupheader">Member Function Documentation</h2>
+<a id="a4682ab2a45aae997dd38261a84a46a7f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4682ab2a45aae997dd38261a84a46a7f">&#9670;&nbsp;</a></span>GetRenderData()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classxu_1_1_render_data.html">RenderData</a> const&amp; xu::Context::GetRenderData </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Obtain data necessary to render the UI. </p>
+<dl class="section see"><dt>See also</dt><dd>[Insert rendering API docs link] </dd></dl>
+
+</div>
+</div>
+<a id="a42eb94cc2df26ab5afcba77f25fccb3d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a42eb94cc2df26ab5afcba77f25fccb3d">&#9670;&nbsp;</a></span>NotifyEvent() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void xu::Context::NotifyEvent </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structxu_1_1_mouse_move_event.html">MouseMoveEvent</a> const &amp;&#160;</td>
+          <td class="paramname"><em>evt</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Notifies Xu that a mouse move event has occured. </p>
+<dl class="section see"><dt>See also</dt><dd>[Insert windowing event docs link] </dd></dl>
+
+</div>
+</div>
+<a id="a8e59e82c893f058ae020f862d5450a68"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8e59e82c893f058ae020f862d5450a68">&#9670;&nbsp;</a></span>NotifyEvent() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void xu::Context::NotifyEvent </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structxu_1_1_window_resize_event.html">WindowResizeEvent</a> const &amp;&#160;</td>
+          <td class="paramname"><em>evt</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Notifies Xu that a window resize event has occured. </p>
+<dl class="section see"><dt>See also</dt><dd>[Insert windowing event docs link] </dd></dl>
+
+</div>
+</div>
+<a id="a7fa3ceac3ceb96d394fd83fa34c325af"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7fa3ceac3ceb96d394fd83fa34c325af">&#9670;&nbsp;</a></span>ProcessEvents()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void xu::Context::ProcessEvents </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Processes all events until none are left. After this call, the event queue is empty. </p>
+<dl class="section see"><dt>See also</dt><dd>[Insert windowing event docs link] </dd></dl>
+
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="a8f38ed86b74a1aca096671bb7d748d0f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8f38ed86b74a1aca096671bb7d748d0f">&#9670;&nbsp;</a></span>inputReception</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">InputReception xu::Context::inputReception</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Select which method must be used for event processing. </p>
+<dl class="section see"><dt>See also</dt><dd>InputReception </dd></dl>
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following file:<ul>
 <li>include/xu/core/<a class="el" href="_context_8hpp_source.html">Context.hpp</a></li>
 </ul>

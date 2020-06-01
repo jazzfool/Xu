@@ -1,0 +1,101 @@
+\hypertarget{classxu_1_1_command_list}{}\doxysection{xu\+::Command\+List Class Reference}
+\label{classxu_1_1_command_list}\index{xu::CommandList@{xu::CommandList}}
+
+
+Stores a list of drawing commands. Each OS window gets its own command list.  
+
+
+
+
+{\ttfamily \#include $<$Render\+Data.\+hpp$>$}
+
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classxu_1_1_command_list_1_1_iterator}{Iterator}}
+\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{classxu_1_1_command_list_1_1_iterator}{Iterator}} that can iterate over the drawcommands in the \mbox{\hyperlink{classxu_1_1_command_list}{Command\+List}}, keeping track of things like the current layer, vertex offset, etc. This class satisfies the Bidirectional\+Iterator concept. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classxu_1_1_command_list_a630cdd9cedbbf5737891cae60be5e021}\label{classxu_1_1_command_list_a630cdd9cedbbf5737891cae60be5e021}} 
+size\+\_\+t \mbox{\hyperlink{classxu_1_1_command_list_a630cdd9cedbbf5737891cae60be5e021}{Num\+Layers}} () const
+\begin{DoxyCompactList}\small\item\em Obtain the total amount of layers in this \mbox{\hyperlink{classxu_1_1_render_data}{Render\+Data}} structure. Useful to allocate resources upfront before rendering. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classxu_1_1_command_list_a839bf3e427c94534b28a8523bcb60fdc}\label{classxu_1_1_command_list_a839bf3e427c94534b28a8523bcb60fdc}} 
+\mbox{\hyperlink{classxu_1_1_command_list_1_1_iterator}{Iterator}} {\bfseries Begin} () const
+\item 
+\mbox{\Hypertarget{classxu_1_1_command_list_a9081ce120bf23b8444ffd9b10a5105b8}\label{classxu_1_1_command_list_a9081ce120bf23b8444ffd9b10a5105b8}} 
+\mbox{\hyperlink{classxu_1_1_command_list_1_1_iterator}{Iterator}} {\bfseries End} () const
+\item 
+void \mbox{\hyperlink{classxu_1_1_command_list_a4e37db2266fe41532626cbee36d02c95}{Push\+Command}} (\mbox{\hyperlink{structxu_1_1_cmd_draw_triangles}{Cmd\+Draw\+Triangles}} const \&command)
+\begin{DoxyCompactList}\small\item\em Push a new command into the command list. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classxu_1_1_command_list_a5d6c9be841bf931892c387a8bf36f873}{Push\+Command}} (\mbox{\hyperlink{structxu_1_1_cmd_new_layer}{Cmd\+New\+Layer}} const \&command)
+\begin{DoxyCompactList}\small\item\em Push a new command into the command list. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classxu_1_1_command_list_a79a0580b3e4de4eb55f6a9d4ea4b9414}{Push\+Command}} (\mbox{\hyperlink{structxu_1_1_cmd_merge_layer}{Cmd\+Merge\+Layer}} const \&command)
+\begin{DoxyCompactList}\small\item\em Push a new command into the command list. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classxu_1_1_command_list_ac26c806e60ca4a0547680edb68f6e39b}\label{classxu_1_1_command_list_ac26c806e60ca4a0547680edb68f6e39b}} 
+class {\bfseries Context}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Stores a list of drawing commands. Each OS window gets its own command list. 
+
+\begin{DoxySeeAlso}{See also}
+\mbox{[}Rendering A\+PI\mbox{]} 
+\end{DoxySeeAlso}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classxu_1_1_command_list_a4e37db2266fe41532626cbee36d02c95}\label{classxu_1_1_command_list_a4e37db2266fe41532626cbee36d02c95}} 
+\index{xu::CommandList@{xu::CommandList}!PushCommand@{PushCommand}}
+\index{PushCommand@{PushCommand}!xu::CommandList@{xu::CommandList}}
+\doxysubsubsection{\texorpdfstring{PushCommand()}{PushCommand()}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
+{\footnotesize\ttfamily void xu\+::\+Command\+List\+::\+Push\+Command (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structxu_1_1_cmd_draw_triangles}{Cmd\+Draw\+Triangles}} const \&}]{command }\end{DoxyParamCaption})}
+
+
+
+Push a new command into the command list. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em command} & Command to push into the list \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classxu_1_1_command_list_a79a0580b3e4de4eb55f6a9d4ea4b9414}\label{classxu_1_1_command_list_a79a0580b3e4de4eb55f6a9d4ea4b9414}} 
+\index{xu::CommandList@{xu::CommandList}!PushCommand@{PushCommand}}
+\index{PushCommand@{PushCommand}!xu::CommandList@{xu::CommandList}}
+\doxysubsubsection{\texorpdfstring{PushCommand()}{PushCommand()}\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
+{\footnotesize\ttfamily void xu\+::\+Command\+List\+::\+Push\+Command (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structxu_1_1_cmd_merge_layer}{Cmd\+Merge\+Layer}} const \&}]{command }\end{DoxyParamCaption})}
+
+
+
+Push a new command into the command list. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em command} & Command to push into the list \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classxu_1_1_command_list_a5d6c9be841bf931892c387a8bf36f873}\label{classxu_1_1_command_list_a5d6c9be841bf931892c387a8bf36f873}} 
+\index{xu::CommandList@{xu::CommandList}!PushCommand@{PushCommand}}
+\index{PushCommand@{PushCommand}!xu::CommandList@{xu::CommandList}}
+\doxysubsubsection{\texorpdfstring{PushCommand()}{PushCommand()}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
+{\footnotesize\ttfamily void xu\+::\+Command\+List\+::\+Push\+Command (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structxu_1_1_cmd_new_layer}{Cmd\+New\+Layer}} const \&}]{command }\end{DoxyParamCaption})}
+
+
+
+Push a new command into the command list. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em command} & Command to push into the list \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+include/xu/core/Render\+Data.\+hpp\end{DoxyCompactItemize}

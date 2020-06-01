@@ -33,17 +33,54 @@
 
 namespace xu {
 
-enum class InputReception { Queued, Immediate };
+/*!
+ * \brief Select which method must be used for event processing.
+ */
+enum class InputReception { 
+    /*!
+     * \brief Indicates that events will be dispatched in order of submission (FIFO) on calling Context::ProcessEvents()
+     */
+    Queued, 
+    /*!
+     * \brief Indicates that events will be dispatched immediately as they are received.
+     */
+    Immediate 
+};
 
+/*!
+ * \brief Core context class of the Xu library. 
+ */
 class XU_API Context {
 public:
+
+    /*!
+     * \brief Notifies Xu that a mouse move event has occured.
+     * \sa [Insert windowing event docs link]
+     */
     void NotifyEvent(MouseMoveEvent const& evt);
+
+    /*!
+     * \brief Notifies Xu that a window resize event has occured.
+     * \sa [Insert windowing event docs link]
+     */
     void NotifyEvent(WindowResizeEvent const& evt);
 
+    /*!
+     * \brief Processes all events until none are left. After this call, the event queue is empty.
+     * \sa [Insert windowing event docs link]
+     */
     void ProcessEvents();
 
+    /*!
+     * \brief Obtain data necessary to render the UI.
+     * \sa [Insert rendering API docs link]
+     */
     RenderData const& GetRenderData() const;
 
+    /*!
+     * \brief Select which method must be used for event processing.
+     * \sa InputReception
+     */
     InputReception inputReception;
 
     // Temporary

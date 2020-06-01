@@ -29,29 +29,98 @@
 
 namespace xu {
 
-struct Vertex {
+/*!
+ * \brief One vertex used in the draw commands. This structure is guaranteed to
+ * be a POD, and is memcpy()'able into vertex buffers.
+ */
+struct XU_API Vertex {
+    /*!
+     * \brief Position of the vertex. Coordinate space etc to be decided. TODO
+     */
     FVector2 position;
 };
 
-enum class DrawCommandType { NewLayer, MergeLayer, DrawTriangles };
-enum class LayerFilter { None, Blur };
+/*!
+ * \brief Used to describe which kinda of draw command is active in the command
+ * union \sa [Insert rendering API doc link]
+ */
+enum class DrawCommandType {
+    /*!
+     * \brief Indicates that a new layer must be created, pushed onto the layer
+     * stack and used for subsequent drawing operations
+     */
+    NewLayer,
+    /*!
+     * \brief Indicates that the current layer must be merged with the previous
+     * layer.
+     */
+    MergeLayer,
+    /*!
+     * \brief Indicates that this command is a drawcommand that draws triangles.
+     */
+    DrawTriangles
+};
 
+/*!
+ * \brief Indicates the filter mode to be used when merging layers.
+ */
+enum class LayerFilter {
+    /*!
+     * \brief No filtering mode. Equivalent to doing a blit.
+     */
+    None,
+    /*!
+     * \brief Blur filter. Used to achieve effects like backdrop blur.
+     */
+    Blur
+};
+
+/*!
+ * \brief Structure describing a DrawTriangles command.
+ * \sa [Rendering API]
+ */
 struct XU_API CmdDrawTriangles {
+    /*!
+     * \brief Start index in the vertices array
+     */
     size_t vertexOffset;
+    /*!
+     * \brief Start index in the indices array
+     */
     size_t indexOffset;
+    /*!
+     * \brief Amount of indices to be rendered
+     */
     size_t numIndices;
 };
 
-struct XU_API CmdNewLayer {
+/*!
+ * \brief Structure describing a NewLayer command.
+ * \sa [Rendering API]
+ */
+struct XU_API CmdNewLayer {};
 
-};
-
+/*!
+ * \brief Structure describing a MergeLayer command.
+ * \sa [Rendering API]
+ */
 struct XU_API CmdMergeLayer {
     LayerFilter filter;
 };
 
+/*!
+ * \brief Structure describing a draw command.
+ * \sa [Rendering API]
+ */
 struct XU_API DrawCommand {
+    /*!
+     * \brief Indicates which type of the data union is active.
+     */
     DrawCommandType type;
+    /*!
+     * \brief Stores data necessary for this draw command. Use the type member
+     * to determine the correct member
+     */
     union {
         CmdDrawTriangles drawTriangles;
         CmdNewLayer newLayer;
@@ -59,11 +128,16 @@ struct XU_API DrawCommand {
     } data;
 };
 
+/*!
+ * \brief Stores a list of drawing commands. Each OS window gets its own command
+ * list. \sa [Rendering API]
+ */
 class XU_API CommandList {
 public:
-    // Iterator that can iterate over the drawcommands in the CommandList,
-    // keeping track of things like the current layer, vertex offset, etc. This
-    // class satisfies the BidirectionalIterator concept
+    /*! \brief Iterator that can iterate over the drawcommands in the
+     * CommandList, keeping track of things like the current layer, vertex
+     * offset, etc. This class satisfies the BidirectionalIterator concept
+     */
     class XU_API Iterator {
     public:
         using UnderlyingType = std::vector<DrawCommand>::const_iterator;
@@ -74,20 +148,28 @@ public:
         Iterator(Iterator const&) = default;
         Iterator& operator=(Iterator const&) = default;
 
+        /*!
+         * \brief Access the underlying draw command
+         */
         DrawCommand const& operator*() const;
+        /*!
+         * \brief Access the underlying draw command
+         */
         DrawCommand const* operator->() const;
 
-        // Returns the index of the current drawing layer. When the current draw
-        // command type is NewLayer or MergeLayer, the old layer is returned and
-        // the next iterator will have an updated layer index.
+        /*! \brief Obtain the index of the current drawing layer. When the
+         * current draw command type is NewLayer or MergeLayer, the old layer is
+         * returned and the next iterator will have an updated layer index.
+         */
         size_t CurrentLayer() const;
 
-        // Returns the index of the layer to merge with. Only valid if the draw
-        // command type is MergeLayer and the current layer is not the default
-        // layer (the layer at index 0). Equivalent to CurrentLayer() - 1
+        /*! \brief Returns the index of the layer to merge with. Only valid if
+         * the draw command type is MergeLayer and the current layer is not the
+         * default layer. Equivalent to CurrentLayer() - 1.
+         */
         size_t MergeTarget() const;
 
-        Iterator &operator++();
+        Iterator& operator++();
         Iterator operator++(int);
 
         Iterator operator--();
@@ -107,14 +189,26 @@ public:
         size_t currentLayer = 0;
     };
 
+    /*! \brief Obtain the total amount of layers in this RenderData structure.
+     * Useful to allocate resources upfront before rendering.
+     */
     size_t NumLayers() const;
 
     Iterator Begin() const;
     Iterator End() const;
 
-    void PushCommand(CmdDrawTriangles const &command);
-    void PushCommand(CmdNewLayer const &command);
-    void PushCommand(CmdMergeLayer const &command);
+    /*! \brief Push a new command into the command list.
+     *  \param command Command to push into the list
+     */
+    void PushCommand(CmdDrawTriangles const& command);
+    /*! \brief Push a new command into the command list.
+     *  \param command Command to push into the list
+     */
+    void PushCommand(CmdNewLayer const& command);
+    /*! \brief Push a new command into the command list.
+     *  \param command Command to push into the list
+     */
+    void PushCommand(CmdMergeLayer const& command);
 
 private:
     friend class Context;
@@ -122,22 +216,36 @@ private:
     std::vector<DrawCommand> commands;
 };
 
-// The RenderData contains one implicit default layer, which does not need to be
-// added using NewLayer
+/*!
+ * \brief Main class that stores all data needed to render the full UI.
+ * Maintains a xu::CommandList for each OS window.
+ */
 class XU_API RenderData {
 private:
     friend class Context;
 
-    // Adds a single vertex to the vertex list and returns its index
+    /*!
+     * \brief Adds a single vertex to the vertex list and returns its index
+     */
     size_t PushVertex(Vertex vertex);
-    // Adds a singel index to the index list
+
+    /*!
+     * \brief Adds a single index to the index list.
+     */
     void PushIndex(uint32_t index);
 
-    // Adds a quad to the vertices + indices list, and generates a draw command for it
+    /*!
+     * \brief Adds a single quad to the index and vertex list. Also adds a
+     * drawcommand for it. It is not recommended to use this function to create
+     * complex geometry, since multiple quads should be condensed into A single
+     * drawcall.
+     */
     void PushQuad(CommandList& cmdList, FRect2 quad);
 
-    // We will build one command list for each OS window so they can be executed in parallel for people who build a vulkan renderer.
-    // This also avoids the hassle of having CommandList::Iterator track the current window to draw to.
+    // We will build one command list for each OS window so they can be executed
+    // in parallel for people who build a vulkan renderer. This also avoids the
+    // hassle of having CommandList::Iterator track the current window to draw
+    // to.
     std::vector<CommandList> cmdLists;
     std::vector<Vertex> vertices;
     std::vector<uint32_t> indices;
