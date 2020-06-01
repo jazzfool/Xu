@@ -192,6 +192,23 @@ struct Vector2 {
     constexpr friend Vector2<T> operator/(T sclr, const Vector2<T>& rhs) {
         return rhs / sclr;
     }
+
+    // Comparison operators
+    constexpr bool operator<(const Vector2<T>& rhs) const {
+        return x < rhs.x && y < rhs.y;
+    }
+
+    constexpr bool operator>(const Vector2<T>& rhs) const {
+        return x > rhs.x && y > rhs.y;
+    }
+
+    constexpr bool operator<=(const Vector2<T>& rhs) const {
+        return *this == rhs || *this < rhs;
+    }
+
+    constexpr bool operator>=(const Vector2<T>& rhs) const {
+        return *this == rhs || *this > rhs;
+    }
 };
 
 using IVector2 = Vector2<int>;
