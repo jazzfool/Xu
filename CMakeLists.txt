@@ -28,12 +28,16 @@ set(HEADERS
     "include/xu/core/RenderData.hpp"
     "include/xu/core/Signal.hpp"
     "include/xu/core/UniqueSlot.hpp"
+
+    "include/xu/kit/BoxStack.hpp"
 )
 
 set(SOURCES
     "src/core/Widget.cpp"
     "src/core/Context.cpp"
     "src/core/Layout.cpp"
+
+    "src/kit/BoxStack.cpp"
 )
 
 add_library(Xu)
