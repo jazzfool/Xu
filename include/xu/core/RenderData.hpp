@@ -64,11 +64,11 @@ public:
         Iterator() = default;
         Iterator(UnderlyingType it, size_t layer = 0);
 
-        Iterator(Iterator const &) = default;
-        Iterator &operator=(Iterator const &) = default;
+        Iterator(Iterator const&) = default;
+        Iterator& operator=(Iterator const&) = default;
 
-        DrawCommand const &operator*() const;
-        DrawCommand const *operator->() const;
+        DrawCommand const& operator*() const;
+        DrawCommand const* operator->() const;
 
         // Returns the index of the current drawing layer. When the current draw
         // command type is NewLayer or MergeLayer, the old layer is returned and
@@ -86,14 +86,14 @@ public:
         Iterator operator--();
         Iterator operator--(int);
 
-        bool operator==(Iterator const &rhs) const;
-        bool operator!=(Iterator const &rhs) const;
+        bool operator==(Iterator const& rhs) const;
+        bool operator!=(Iterator const& rhs) const;
 
-        bool operator<(Iterator const &rhs) const;
-        bool operator<=(Iterator const &rhs) const;
+        bool operator<(Iterator const& rhs) const;
+        bool operator<=(Iterator const& rhs) const;
 
-        bool operator>(Iterator const &rhs) const;
-        bool operator>=(Iterator const &rhs) const;
+        bool operator>(Iterator const& rhs) const;
+        bool operator>=(Iterator const& rhs) const;
 
     private:
         UnderlyingType it;

@@ -26,7 +26,8 @@
 
 namespace xu {
 
-template <typename T> using Size2 = Vector2<T>;
+template<typename T>
+using Size2 = Vector2<T>;
 
 using ISize2 = Size2<int>;
 using FSize2 = Size2<float>;

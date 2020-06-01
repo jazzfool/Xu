@@ -38,7 +38,8 @@ class Layout;
 
 struct XU_API LayoutItem final {
 public:
-    void SetRect(FRect2 const &rect);
+
+    void SetRect(FRect2 const& rect);
     FRect2 Rect() const;
 
 private:
@@ -69,6 +70,7 @@ public:
     virtual void AddLayout(std::unique_ptr<Layout> layout) final;
 
     virtual void SetGeometry(FRect2 const &geometry) final;
+
     virtual FRect2 Geometry() const final;
 
 protected:

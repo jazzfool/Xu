@@ -73,36 +73,34 @@ CommandList::Iterator CommandList::Iterator::operator--(int) {
     return copy;
 }
 
-bool CommandList::Iterator::operator==(Iterator const &rhs) const {
+bool CommandList::Iterator::operator==(Iterator const& rhs) const {
     return it == rhs.it;
 }
 
-bool CommandList::Iterator::operator!=(Iterator const &rhs) const {
+bool CommandList::Iterator::operator!=(Iterator const& rhs) const {
     return it != rhs.it;
 }
 
-bool CommandList::Iterator::operator<(Iterator const &rhs) const {
+bool CommandList::Iterator::operator<(Iterator const& rhs) const {
     return it < rhs.it;
 }
 
-bool CommandList::Iterator::operator<=(Iterator const &rhs) const {
+bool CommandList::Iterator::operator<=(Iterator const& rhs) const {
     return it <= rhs.it;
 }
 
-bool CommandList::Iterator::operator>(Iterator const &rhs) const {
+bool CommandList::Iterator::operator>(Iterator const& rhs) const {
     return it > rhs.it;
 }
 
-bool CommandList::Iterator::operator>=(Iterator const &rhs) const {
+bool CommandList::Iterator::operator>=(Iterator const& rhs) const {
     return it >= rhs.it;
 }
 
 size_t CommandList::NumLayers() const {
     size_t layerCount = 1; // Implicit default layer
     for (Iterator it = Begin(); it != End(); ++it) {
-        if (it->type == DrawCommandType::NewLayer) {
-            ++layerCount;
-        }
+        if (it->type == DrawCommandType::NewLayer) { ++layerCount; }
     }
     return layerCount;
 }

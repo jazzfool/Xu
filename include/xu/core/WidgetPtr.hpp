@@ -32,48 +32,50 @@ class Widget;
  * \brief Special immutable widget pointer wrapper which can nullify the pointer
  * before the widget is destroyed.
  */
-template <typename T> struct WidgetPtr {
-  WidgetPtr(T *ptr)
-      : ptr{ptr}, slotBeforeDestruction{ptr->sigBeforeDestruction, this} {}
+template<typename T>
+struct WidgetPtr {
+    WidgetPtr(T* ptr) :
+        ptr{ptr},
+        slotBeforeDestruction{ptr->sigBeforeDestruction, this} {}
 
-  WidgetPtr(const WidgetPtr &other)
-      : ptr{other.ptr}, slotBeforeDestruction{other.ptr->sigBeforeDestruction,
-                                              this} {}
+    WidgetPtr(const WidgetPtr& other) :
+        ptr{other.ptr},
+        slotBeforeDestruction{other.ptr->sigBeforeDestruction, this} {}
 
-  WidgetPtr(WidgetPtr &&other)
-      : ptr{other.ptr}, slotBeforeDestruction{
-                            std::move(other.slotBeforeDestruction)} {
-    other.ptr = nullptr;
-  }
-
-  WidgetPtr &operator=(const WidgetPtr &other) {
-    if (this != &other) {
-      ptr = other.ptr;
-      slotBeforeDestruction = UniqueSlot{ptr->sigBeforeDestruction, this};
+    WidgetPtr(WidgetPtr&& other) :
+        ptr{other.ptr},
+        slotBeforeDestruction{std::move(other.slotBeforeDestruction)} {
+        other.ptr = nullptr;
     }
-    return *this;
-  }
 
-  WidgetPtr &operator=(WidgetPtr &&other) {
-    if (this != &other) {
-      ptr = other.ptr;
-      slotBeforeDestruction = std::move(other.slotBeforeDestruction);
-      other.ptr = nullptr;
+    WidgetPtr& operator=(const WidgetPtr& other) {
+        if (this != &other) {
+            ptr = other.ptr;
+            slotBeforeDestruction = UniqueSlot{ptr->sigBeforeDestruction, this};
+        }
+        return *this;
     }
-    return *this;
-  }
 
-  Widget *get() const { return static_cast<Widget *>(ptr); }
+    WidgetPtr& operator=(WidgetPtr&& other) {
+        if (this != &other) {
+            ptr = other.ptr;
+            slotBeforeDestruction = std::move(other.slotBeforeDestruction);
+            other.ptr = nullptr;
+        }
+        return *this;
+    }
 
-  T *operator->() const { return ptr; }
-  T &operator*() const { return *ptr; }
-  operator bool() const { return ptr != nullptr; }
+    Widget* get() const { return static_cast<Widget*>(ptr); }
+
+    T* operator->() const { return ptr; }
+    T& operator*() const { return *ptr; }
+    operator bool() const { return ptr != nullptr; }
 
 private:
-  void BeforeDestruction() { ptr = nullptr; }
+    void BeforeDestruction() { ptr = nullptr; }
 
-  T *ptr;
-  const UniqueSlot<&WidgetPtr::BeforeDestruction> slotBeforeDestruction;
+    T* ptr;
+    const UniqueSlot<&WidgetPtr::BeforeDestruction> slotBeforeDestruction;
 };
 
 } // namespace xu

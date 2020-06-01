@@ -26,7 +26,8 @@
 
 namespace xu {
 
-template <typename T> using Point2 = Vector2<T>;
+template<typename T>
+using Point2 = Vector2<T>;
 
 using IPoint2 = Point2<int>;
 using FPoint2 = Point2<float>;

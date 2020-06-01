@@ -28,83 +28,90 @@ namespace xu {
 
 // RAII-like slot object that automatically disconnects the slot from the signal
 // when destructed.
-template <auto X> class UniqueSlot final {};
+template<auto X>
+class UniqueSlot final {};
 
-template <typename T, typename... Ts, void (T::*F)(Ts...)> class UniqueSlot<F> {
+template<typename T, typename... Ts, void (T::*F)(Ts...)>
+class UniqueSlot<F> {
 public:
-  UniqueSlot(Signal<Ts...> &sig, T *obj)
-      : signal{&sig}, obj{obj}, slotKey{sig.AddSlot(signal)} {
-    signal->template Connect<F>(obj);
-  }
-
-  UniqueSlot(UniqueSlot &&other)
-      : signal{other.signal}, obj{other.obj}, slotKey{other.slotKey} {
-    other.signal = nullptr;
-    other.obj = nullptr;
-    signal->SetSlot(slotKey, this);
-  }
-
-  UniqueSlot(const UniqueSlot &) = delete;
-
-  ~UniqueSlot() {
-    if (signal)
-      signal->template Disconnect<F>(obj);
-  }
-
-  UniqueSlot &operator=(const UniqueSlot &) = delete;
-
-  UniqueSlot &operator=(UniqueSlot &&other) {
-    if (this != &other) {
-      signal = other.signal;
-      obj = other.obj;
-      slotKey = other.slotKey;
-
-      other.signal = nullptr;
-      other.obj = nullptr;
-      signal->SetSlot(slotKey, this);
+    UniqueSlot(Signal<Ts...>& sig, T* obj) :
+        signal{&sig},
+        obj{obj},
+        slotKey{sig.AddSlot(signal)} {
+        signal->template Connect<F>(obj);
     }
-    return *this;
-  }
+
+    UniqueSlot(UniqueSlot&& other) :
+        signal{other.signal},
+        obj{other.obj},
+        slotKey{other.slotKey} {
+        other.signal = nullptr;
+        other.obj = nullptr;
+        signal->SetSlot(slotKey, this);
+    }
+
+    UniqueSlot(const UniqueSlot&) = delete;
+
+    ~UniqueSlot() {
+        if (signal) signal->template Disconnect<F>(obj);
+    }
+
+    UniqueSlot& operator=(const UniqueSlot&) = delete;
+
+    UniqueSlot& operator=(UniqueSlot&& other) {
+        if (this != &other) {
+            signal = other.signal;
+            obj = other.obj;
+            slotKey = other.slotKey;
+
+            other.signal = nullptr;
+            other.obj = nullptr;
+            signal->SetSlot(slotKey, this);
+        }
+        return *this;
+    }
 
 private:
-  Signal<Ts...> *signal;
-  T *obj;
-  std::uint32_t slotKey;
+    Signal<Ts...>* signal;
+    T* obj;
+    std::uint32_t slotKey;
 };
 
-template <typename... Ts, void (*F)(Ts...)> class UniqueSlot<F> {
+template<typename... Ts, void (*F)(Ts...)>
+class UniqueSlot<F> {
 public:
-  UniqueSlot(Signal<Ts...> &sig) : signal{&sig}, slotKey{sig.AddSlot(signal)} {
-    signal->template Connect<F>();
-  }
-
-  UniqueSlot(UniqueSlot &&other) : signal{other.signal} {
-    other.signal = nullptr;
-  }
-
-  UniqueSlot(const UniqueSlot &) = delete;
-
-  ~UniqueSlot() {
-    if (signal)
-      signal->template Disconnect<F>();
-  }
-
-  UniqueSlot &operator=(const UniqueSlot &) = delete;
-
-  UniqueSlot &operator=(UniqueSlot &&other) {
-    if (this != &other) {
-      signal = other.signal;
-      slotKey = other.slotKey;
-
-      other.signal = nullptr;
-      signal->SetSlot(slotKey, this);
+    UniqueSlot(Signal<Ts...>& sig) :
+        signal{&sig},
+        slotKey{sig.AddSlot(signal)} {
+        signal->template Connect<F>();
     }
-    return *this;
-  }
+
+    UniqueSlot(UniqueSlot&& other) : signal{other.signal} {
+        other.signal = nullptr;
+    }
+
+    UniqueSlot(const UniqueSlot&) = delete;
+
+    ~UniqueSlot() {
+        if (signal) signal->template Disconnect<F>();
+    }
+
+    UniqueSlot& operator=(const UniqueSlot&) = delete;
+
+    UniqueSlot& operator=(UniqueSlot&& other) {
+        if (this != &other) {
+            signal = other.signal;
+            slotKey = other.slotKey;
+
+            other.signal = nullptr;
+            signal->SetSlot(slotKey, this);
+        }
+        return *this;
+    }
 
 private:
-  Signal<Ts...> *signal;
-  std::uint32_t slotKey;
+    Signal<Ts...>* signal;
+    std::uint32_t slotKey;
 };
 
 } // namespace xu

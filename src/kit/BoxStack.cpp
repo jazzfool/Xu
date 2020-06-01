@@ -24,19 +24,16 @@
 
 namespace xu {
 
-BoxStack::BoxStack()
-    : stackOrientation{StackOrientation::Vertical}, spacing{0.f} {}
+BoxStack::BoxStack() :
+    stackOrientation{StackOrientation::Vertical},
+    spacing{0.f} {}
 
 FSize2 BoxStack::MinSize() const {
-    if (NumItems() == 0) {
-        return FSize2{0.f, 0.f};
-    }
+    if (NumItems() == 0) { return FSize2{0.f, 0.f}; }
 
     const auto os = OrientationSubject();
     FSize2 sz{0.f, 0.f};
-    for (auto const &item : items) {
-        sz.*os += item.Rect().size.*os;
-    }
+    for (auto const& item : items) { sz.*os += item.Rect().size.*os; }
     sz.*os += spacing * (NumItems() - 1);
 
     return sz;
@@ -51,7 +48,7 @@ void BoxStack::InsertItem(std::size_t where, LayoutItem item) {
 void BoxStack::UpdateItems() {
     const auto os = OrientationSubject();
     auto pos = Geometry().origin;
-    for (auto &item : items) {
+    for (auto& item : items) {
         item.SetRect(FRect2{pos, item.Rect().size});
         pos.*os += item.Rect().size.*os + spacing;
     }
@@ -59,10 +56,8 @@ void BoxStack::UpdateItems() {
 
 float FSize2::*BoxStack::OrientationSubject() const {
     switch (stackOrientation) {
-    case StackOrientation::Vertical:
-        return &FSize2::y;
-    case StackOrientation::Horizontal:
-        return &FSize2::x;
+        case StackOrientation::Vertical: return &FSize2::y;
+        case StackOrientation::Horizontal: return &FSize2::x;
     }
 }
 
