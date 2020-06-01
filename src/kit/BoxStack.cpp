@@ -45,7 +45,7 @@ FSize2 BoxStack::MinSize() const {
 std::size_t BoxStack::NumItems() const { return items.size(); }
 
 void BoxStack::InsertItem(std::size_t where, LayoutItem item) {
-    items.insert(items.begin() + where, item);
+    items.insert(items.begin() + where, std::move(item));
 }
 
 void BoxStack::UpdateItems() {
