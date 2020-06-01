@@ -26,7 +26,8 @@
 namespace xu {
 
 Widget::Widget(Widget *parent)
-    : ownedLayout{nullptr}, parentLayout{nullptr}, parent{parent} {}
+    : ownedLayout{nullptr}, parentLayout{nullptr}, parent{parent}, hidden{
+                                                                       false} {}
 
 Widget::~Widget() { sigBeforeDestruction(); }
 
