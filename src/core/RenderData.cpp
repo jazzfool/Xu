@@ -26,22 +26,22 @@
 
 namespace xu {
 
-RenderData::Iterator::Iterator(UnderlyingType it, size_t layer)
-    : it(it), currentLayer(layer) {}
+RenderData::Iterator::Iterator(UnderlyingType it, size_t layer) :
+    it(it),
+    currentLayer(layer) {}
 
 // TODO: Add debug asserts?
-DrawCommand const &RenderData::Iterator::operator*() const { return *it; }
-DrawCommand const *RenderData::Iterator::operator->() const { return &*it; }
+DrawCommand const& RenderData::Iterator::operator*() const { return *it; }
+DrawCommand const* RenderData::Iterator::operator->() const { return &*it; }
 
 size_t RenderData::Iterator::CurrentLayer() const { return currentLayer; }
 size_t RenderData::Iterator::MergeTarget() const {
-    assert(currentLayer != 0 && it->type == DrawCommandType::MergeLayer &&
-           "MergeTarget() is only valid when merging layers and the current "
-           "layer is not the default layer");
+    assert(currentLayer != 0 && it->type == DrawCommandType::MergeLayer && "MergeTarget() is only valid when merging layers and the current "
+                                                                           "layer is not the default layer");
     return currentLayer - 1;
 }
 
-RenderData::Iterator &RenderData::Iterator::operator++() {
+RenderData::Iterator& RenderData::Iterator::operator++() {
     if (it->type == DrawCommandType::NewLayer) {
         ++currentLayer;
     } else if (it->type == DrawCommandType::MergeLayer) {
@@ -73,36 +73,34 @@ RenderData::Iterator RenderData::Iterator::operator--(int) {
     return copy;
 }
 
-bool RenderData::Iterator::operator==(Iterator const &rhs) const {
+bool RenderData::Iterator::operator==(Iterator const& rhs) const {
     return it == rhs.it;
 }
 
-bool RenderData::Iterator::operator!=(Iterator const &rhs) const {
+bool RenderData::Iterator::operator!=(Iterator const& rhs) const {
     return it != rhs.it;
 }
 
-bool RenderData::Iterator::operator<(Iterator const &rhs) const {
+bool RenderData::Iterator::operator<(Iterator const& rhs) const {
     return it < rhs.it;
 }
 
-bool RenderData::Iterator::operator<=(Iterator const &rhs) const {
+bool RenderData::Iterator::operator<=(Iterator const& rhs) const {
     return it <= rhs.it;
 }
 
-bool RenderData::Iterator::operator>(Iterator const &rhs) const {
+bool RenderData::Iterator::operator>(Iterator const& rhs) const {
     return it > rhs.it;
 }
 
-bool RenderData::Iterator::operator>=(Iterator const &rhs) const {
+bool RenderData::Iterator::operator>=(Iterator const& rhs) const {
     return it >= rhs.it;
 }
 
 size_t RenderData::NumLayers() const {
     size_t layerCount = 1; // Implicit default layer
     for (Iterator it = Begin(); it != End(); ++it) {
-        if (it->type == DrawCommandType::NewLayer) {
-            ++layerCount;
-        }
+        if (it->type == DrawCommandType::NewLayer) { ++layerCount; }
     }
     return layerCount;
 }

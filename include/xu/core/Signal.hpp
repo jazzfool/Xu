@@ -27,53 +27,64 @@
 
 namespace xu {
 
-template <typename... Ts> class Signal final {
+template<typename... Ts>
+class Signal final {
 public:
-  ~Signal() {
-    for (auto const &slot : uniqueSlots) {
-      if (slot)
-        *slot = nullptr;
+    ~Signal() {
+        for (auto const& slot : uniqueSlots) {
+            if (slot) *slot = nullptr;
+        }
     }
-  }
 
-  template <auto MemFnPtr, typename T> void Connect(T *instance) {
-    sig.template connect<MemFnPtr, T>(instance);
-  }
+    template<auto MemFnPtr, typename T>
+    void Connect(T* instance) {
+        sig.template connect<MemFnPtr, T>(instance);
+    }
 
-  template <auto MemFnPtr, typename T> void Connect(T &instance) {
-    sig.template connect<MemFnPtr, T>(instance);
-  }
+    template<auto MemFnPtr, typename T>
+    void Connect(T& instance) {
+        sig.template connect<MemFnPtr, T>(instance);
+    }
 
-  template <auto FnPtr> void Connect() { sig.template connect<FnPtr>(); }
+    template<auto FnPtr>
+    void Connect() {
+        sig.template connect<FnPtr>();
+    }
 
-  template <auto MemFnPtr, typename T> void Disconnect(T *instance) {
-    sig.template disconnect<MemFnPtr, T>(instance);
-  }
+    template<auto MemFnPtr, typename T>
+    void Disconnect(T* instance) {
+        sig.template disconnect<MemFnPtr, T>(instance);
+    }
 
-  template <auto MemFnPtr, typename T> void Disconnect(T &instance) {
-    sig.template disconnect<MemFnPtr, T>(instance);
-  }
+    template<auto MemFnPtr, typename T>
+    void Disconnect(T& instance) {
+        sig.template disconnect<MemFnPtr, T>(instance);
+    }
 
-  template <auto FnPtr> void Disconnect() { sig.template disconnect<FnPtr>(); }
+    template<auto FnPtr>
+    void Disconnect() {
+        sig.template disconnect<FnPtr>();
+    }
 
-  inline void Emit(Ts &&... arg) { sig.fire(std::forward<Ts>(arg)...); }
-  inline void operator()(Ts &&... arg) { sig.fire(std::forward<Ts>(arg)...); }
+    inline void Emit(Ts&&... arg) { sig.fire(std::forward<Ts>(arg)...); }
+    inline void operator()(Ts&&... arg) { sig.fire(std::forward<Ts>(arg)...); }
 
 private:
-  using SignalT = Nano::Signal<void(Ts...)>;
-  template <auto X> friend class UniqueSlot;
+    using SignalT = Nano::Signal<void(Ts...)>;
+    template<auto X>
+    friend class UniqueSlot;
 
-  std::uint32_t AddSlot(Signal *&slot) {
-    uniqueSlots.push_back(&slot);
-    return uniqueSlots.size() - 1;
-  }
+    std::uint32_t AddSlot(Signal*& slot) {
+        uniqueSlots.push_back(&slot);
+        return uniqueSlots.size() - 1;
+    }
 
-  inline void SetSlot(std::uint32_t slot, Signal *&value) {
-    uniqueSlots[slot] = &value;
-  }
+    inline void SetSlot(std::uint32_t slot, Signal*& value) {
+        uniqueSlots[slot] = &value;
+    }
 
-  SignalT sig;
-  std::vector<Signal **> uniqueSlots;
+    SignalT sig;
+    std::vector<Signal**> uniqueSlots;
 };
 
 } // namespace xu

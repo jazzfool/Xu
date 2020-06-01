@@ -24,6 +24,7 @@
 
 #include <xu/core/Definitions.hpp>
 #include <xu/core/Layout.hpp>
+#include <xu/core/Point2.hpp>
 #include <xu/core/Size2.hpp>
 #include <xu/core/UniqueSlot.hpp>
 #include <xu/core/WidgetPtr.hpp>
@@ -35,43 +36,44 @@ namespace xu {
 
 class XU_API Widget {
 public:
-  explicit Widget(Widget *parent);
-  virtual ~Widget();
+    explicit Widget(Widget* parent);
+    virtual ~Widget();
 
-  virtual FSize2 SizeHint() const = 0;
+    virtual FSize2 SizeHint() const = 0;
+    virtual bool PointerHit(FPoint2 const& pointer) const;
 
-  virtual void SetGeometry(FRect2 const &geometry) final;
-  virtual FRect2 Geometry() const final;
+    virtual void SetGeometry(FRect2 const& geometry) final;
+    virtual FRect2 Geometry() const final;
 
-  virtual Widget *Parent() const final;
-  virtual std::size_t NumChildren() const final;
+    virtual Widget* Parent() const final;
+    virtual std::size_t NumChildren() const final;
 
-  template <typename T, typename... CtorArgs>
-  WidgetPtr<T> MakeChild(CtorArgs &&... arg) {
-    auto child = std::make_unique<T>(this, std::forward<CtorArgs>(arg)...);
-    children.push_back(std::move(child));
-    return WidgetPtr{child.back().get()};
-  }
+    template<typename T, typename... CtorArgs>
+    WidgetPtr<T> MakeChild(CtorArgs&&... arg) {
+        auto child = std::make_unique<T>(this, std::forward<CtorArgs>(arg)...);
+        children.push_back(std::move(child));
+        return WidgetPtr{child.back().get()};
+    }
 
-  template <typename T, typename... CtorArgs>
-  WidgetPtr<T> MakeChildAt(std::size_t at, CtorArgs &&... arg) {
-    auto child = std::make_unique<T>(this, std::forward<CtorArgs>(arg)...);
-    children.insert(at, std::move(child));
-    return WidgetPtr{child.at(at).get()};
-  }
+    template<typename T, typename... CtorArgs>
+    WidgetPtr<T> MakeChildAt(std::size_t at, CtorArgs&&... arg) {
+        auto child = std::make_unique<T>(this, std::forward<CtorArgs>(arg)...);
+        children.insert(at, std::move(child));
+        return WidgetPtr{child.at(at).get()};
+    }
 
-  Signal<> sigBeforeDestruction;
+    Signal<> sigBeforeDestruction;
 
-  bool hidden;
+    bool hidden;
 
 private:
-  FRect2 geometry;
-  std::unique_ptr<Layout>
-      ownedLayout;      //!< Layout this widget owns (possibly nullptr).
-  Layout *parentLayout; //!< Layout this widget is in (possibly nullptr).
+    FRect2 geometry;
+    std::unique_ptr<Layout>
+        ownedLayout;      //!< Layout this widget owns (possibly nullptr).
+    Layout* parentLayout; //!< Layout this widget is in (possibly nullptr).
 
-  Widget *parent;
-  std::vector<std::unique_ptr<Widget>> children;
+    Widget* parent;
+    std::vector<std::unique_ptr<Widget>> children;
 };
 
 } // namespace xu

@@ -34,8 +34,8 @@ enum class InputReception { Queued, Immediate };
 
 class XU_API Context {
 public:
-    void NotifyEvent(MouseMoveEvent const &evt);
-    void NotifyEvent(WindowResizeEvent const &evt);
+    void NotifyEvent(MouseMoveEvent const& evt);
+    void NotifyEvent(WindowResizeEvent const& evt);
 
     void ProcessEvents();
 
@@ -54,8 +54,8 @@ private:
         } data;
     };
 
-    void DispatchEvent(MouseMoveEvent const &evt);
-    void DispatchEvent(WindowResizeEvent const &evt);
+    void DispatchEvent(MouseMoveEvent const& evt);
+    void DispatchEvent(WindowResizeEvent const& evt);
 
     std::queue<Event> eventQueue;
     RenderData renderData;

@@ -28,12 +28,11 @@
 namespace xu {
 
 struct XU_API WindowResizeEvent {
-  ISize2 size;
+    ISize2 size;
 };
 
 struct XU_API MouseMoveEvent {
-  ISize2 position;
+    ISize2 position;
 };
-
 
 } // namespace xu
