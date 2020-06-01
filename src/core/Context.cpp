@@ -53,19 +53,21 @@ void Context::NotifyEvent(WindowResizeEvent const& evt) {
 }
 
 void Context::ProcessEvents() {
-    if (inputReception != InputReception::Queued || eventQueue.empty()) return;
+    if (inputReception == InputReception::Queued) {
+        while (!eventQueue.empty()) {
+            const auto& evt = eventQueue.front();
 
-    while (!eventQueue.empty()) {
-        const auto& evt = eventQueue.front();
+            switch (evt.type) {
+                case EventType::MouseMove:
+                    DispatchEvent(evt.data.mouseMove);
+                    break;
+                case EventType::WindowResize:
+                    DispatchEvent(evt.data.windowResize);
+                    break;
+            }
 
-        switch (evt.type) {
-            case EventType::MouseMove: DispatchEvent(evt.data.mouseMove); break;
-            case EventType::WindowResize:
-                DispatchEvent(evt.data.windowResize);
-                break;
+            eventQueue.pop();
         }
-
-        eventQueue.pop();
     }
 
     BuildRenderData();
@@ -84,7 +86,19 @@ void Context::DispatchEvent(WindowResizeEvent const& evt) {
 }
 
 void Context::BuildRenderData() {
-    
+    CommandList cmdList;
+    BuildRenderData(root.get(), cmdList);
+    renderData.cmdLists.push_back(cmdList);
+}
+
+void Context::BuildRenderData(Widget* widget, CommandList& cmdList) {
+    // Add quad to RenderData (temporary, more complex geometry later)
+    renderData.PushQuad(cmdList, widget->Geometry());
+
+    for (size_t child = 0; child < widget->NumChildren(); ++child) {
+        BuildRenderData(widget->GetChild(child), cmdList);
+    }
+
 }
 
 } // namespace xu

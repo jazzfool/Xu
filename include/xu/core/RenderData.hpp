@@ -24,8 +24,14 @@
 
 #include <vector>
 #include <xu/core/Definitions.hpp>
+#include <xu/core/Vector2.hpp>
+#include <xu/core/Rect2.hpp>
 
 namespace xu {
+
+struct Vertex {
+    FVector2 position;
+};
 
 enum class DrawCommandType { NewLayer, MergeLayer, DrawTriangles };
 enum class LayerFilter { None, Blur };
@@ -33,6 +39,7 @@ enum class LayerFilter { None, Blur };
 struct XU_API CmdDrawTriangles {
     size_t vertexOffset;
     size_t indexOffset;
+    size_t numIndices;
 };
 
 struct XU_API CmdNewLayer {
@@ -121,10 +128,18 @@ class XU_API RenderData {
 private:
     friend class Context;
 
+    // Adds a single vertex to the vertex list and returns its index
+    size_t PushVertex(Vertex vertex);
+    // Adds a singel index to the index list
+    void PushIndex(uint32_t index);
+
+    // Adds a quad to the vertices + indices list, and generates a draw command for it
+    void PushQuad(CommandList& cmdList, FRect2 quad);
+
     // We will build one command list for each OS window so they can be executed in parallel for people who build a vulkan renderer.
     // This also avoids the hassle of having CommandList::Iterator track the current window to draw to.
     std::vector<CommandList> cmdLists;
-    std::vector<float> vertices;
+    std::vector<Vertex> vertices;
     std::vector<uint32_t> indices;
 };
 

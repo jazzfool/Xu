@@ -26,6 +26,9 @@
 #include <xu/core/Events.hpp>
 #include <xu/core/RenderData.hpp>
 
+// Temporary?
+#include <xu/core/Widget.hpp>
+
 #include <queue>
 
 namespace xu {
@@ -43,6 +46,9 @@ public:
 
     InputReception inputReception;
 
+    // Temporary
+    std::unique_ptr<Widget> root;
+
 private:
     enum class EventType { MouseMove, WindowResize };
 
@@ -58,6 +64,7 @@ private:
     void DispatchEvent(WindowResizeEvent const& evt);
 
     void BuildRenderData();
+    void BuildRenderData(Widget* widget, CommandList& cmdList);
 
     std::queue<Event> eventQueue;
     RenderData renderData;

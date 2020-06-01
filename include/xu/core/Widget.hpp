@@ -52,15 +52,17 @@ public:
     WidgetPtr<T> MakeChild(CtorArgs&&... arg) {
         auto child = std::make_unique<T>(this, std::forward<CtorArgs>(arg)...);
         children.push_back(std::move(child));
-        return WidgetPtr{child.back().get()};
+        return WidgetPtr<T>(static_cast<T*>(children.back().get()));
     }
 
     template<typename T, typename... CtorArgs>
     WidgetPtr<T> MakeChildAt(std::size_t at, CtorArgs&&... arg) {
         auto child = std::make_unique<T>(this, std::forward<CtorArgs>(arg)...);
         children.insert(at, std::move(child));
-        return WidgetPtr{child.at(at).get()};
+        return WidgetPtr<T>(static_cast<T*>(children.back().get()));
     }
+
+    Widget* GetChild(std::size_t at);
 
     Signal<> sigBeforeDestruction;
 

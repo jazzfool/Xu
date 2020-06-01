@@ -26,12 +26,13 @@
 
 namespace xu {
 
-CommandList::Iterator::Iterator(UnderlyingType it, size_t layer)
-    : it(it), currentLayer(layer) {}
+CommandList::Iterator::Iterator(UnderlyingType it, size_t layer) :
+    it(it),
+    currentLayer(layer) {}
 
 // TODO: Add debug asserts?
-DrawCommand const &CommandList::Iterator::operator*() const { return *it; }
-DrawCommand const *CommandList::Iterator::operator->() const { return &*it; }
+DrawCommand const& CommandList::Iterator::operator*() const { return *it; }
+DrawCommand const* CommandList::Iterator::operator->() const { return &*it; }
 
 size_t CommandList::Iterator::CurrentLayer() const { return currentLayer; }
 size_t CommandList::Iterator::MergeTarget() const {
@@ -41,7 +42,7 @@ size_t CommandList::Iterator::MergeTarget() const {
     return currentLayer - 1;
 }
 
-CommandList::Iterator &CommandList::Iterator::operator++() {
+CommandList::Iterator& CommandList::Iterator::operator++() {
     if (it->type == DrawCommandType::NewLayer) {
         ++currentLayer;
     } else if (it->type == DrawCommandType::MergeLayer) {
@@ -113,25 +114,66 @@ CommandList::Iterator CommandList::End() const {
     return Iterator(commands.end());
 }
 
-void CommandList::PushCommand(CmdDrawTriangles const &command) {
+void CommandList::PushCommand(CmdDrawTriangles const& command) {
     DrawCommand cmd;
     cmd.data.drawTriangles = command;
     cmd.type = DrawCommandType::DrawTriangles;
     commands.push_back(cmd);
 }
 
-void CommandList::PushCommand(CmdNewLayer const &command) {
+void CommandList::PushCommand(CmdNewLayer const& command) {
     DrawCommand cmd;
     cmd.data.newLayer = command;
     cmd.type = DrawCommandType::NewLayer;
     commands.push_back(cmd);
 }
 
-void CommandList::PushCommand(CmdMergeLayer const &command) {
+void CommandList::PushCommand(CmdMergeLayer const& command) {
     DrawCommand cmd;
     cmd.data.mergeLayer = command;
     cmd.type = DrawCommandType::MergeLayer;
     commands.push_back(cmd);
+}
+
+size_t RenderData::PushVertex(Vertex vertex) {
+    vertices.push_back(vertex);
+    return vertices.size() - 1;
+}
+void RenderData::PushIndex(uint32_t index) { indices.push_back(index); }
+
+void RenderData::PushQuad(CommandList& cmdList, FRect2 quad) {
+    FVector2 bl = quad.origin;
+    FVector2 tl = {quad.origin.x, quad.origin.y + quad.size.y};
+    FVector2 br = {quad.origin.x + quad.size.y, quad.origin.y};
+    FVector2 tr = quad.origin + quad.size;
+
+    // This is the starting index of the quad we're pushing
+    size_t const baseIndex = indices.size();
+    size_t const baseVertex = vertices.size();
+
+    size_t const bottomLeftIndex = PushVertex({bl});
+    size_t const topLeftIndex = PushVertex({tl});
+    size_t const bottomRightIndex = PushVertex({br});
+    size_t const topRightIndex = PushVertex({tr});
+
+    // A quad needs 2 triangles, so 6 indices. We will create these in CCW order
+    // since this is the most commonly used vertex winding order.
+
+    // First triangle
+    PushIndex(bottomLeftIndex);
+    PushIndex(bottomRightIndex);
+    PushIndex(topRightIndex);
+    // Second triangle
+    PushIndex(bottomLeftIndex);
+    PushIndex(bottomRightIndex);
+    PushIndex(topLeftIndex);
+
+    // Create the draw command
+    CmdDrawTriangles command;
+    command.indexOffset = baseIndex;
+    command.vertexOffset = baseVertex;
+    command.numIndices = 6;
+    cmdList.PushCommand(command);
 }
 
 } // namespace xu

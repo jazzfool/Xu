@@ -29,7 +29,8 @@ Widget::Widget(Widget* parent) :
     ownedLayout{nullptr},
     parentLayout{nullptr},
     parent{parent},
-    hidden{false} {}
+    hidden{false},
+    geometry{{0.0f, 0.0f}, {0.0f, 0.0f}} {}
 
 Widget::~Widget() { sigBeforeDestruction(); }
 
@@ -52,5 +53,7 @@ FRect2 Widget::Geometry() const { return geometry; }
 Widget* Widget::Parent() const { return parent; }
 
 std::size_t Widget::NumChildren() const { return children.size(); }
+
+Widget* Widget::GetChild(std::size_t at) { return children[at].get(); }
 
 } // namespace xu
