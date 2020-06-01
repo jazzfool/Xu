@@ -28,17 +28,35 @@
 namespace xu {
 
 enum class DrawCommandType { NewLayer, MergeLayer, DrawTriangles };
+enum class LayerFilter { None, Blur };
+
+struct XU_API CmdDrawTriangles {
+    size_t vertexOffset;
+    size_t indexOffset;
+};
+
+struct XU_API CmdNewLayer {
+
+};
+
+struct XU_API CmdMergeLayer {
+    LayerFilter filter;
+};
 
 struct XU_API DrawCommand {
     DrawCommandType type;
+    union {
+        CmdDrawTriangles drawTriangles;
+        CmdNewLayer newLayer;
+        CmdMergeLayer mergeLayer;
+    } data;
 };
 
-// The RenderData contains one implicit default layer, which does not need to be
-// added using NewLayer
-class XU_API RenderData {
+class XU_API CommandList {
 public:
-    // Iterator that can iterate over the drawcommands in the RenderData, keeping track of things like the current layer, vertex offset, etc.
-    // This class satisfies the BidirectionalIterator concept
+    // Iterator that can iterate over the drawcommands in the CommandList,
+    // keeping track of things like the current layer, vertex offset, etc. This
+    // class satisfies the BidirectionalIterator concept
     class XU_API Iterator {
     public:
         using UnderlyingType = std::vector<DrawCommand>::const_iterator;
@@ -52,15 +70,17 @@ public:
         DrawCommand const &operator*() const;
         DrawCommand const *operator->() const;
 
-        // Returns the index of the current drawing layer. When the current draw command type is NewLayer or MergeLayer, 
-        // the old layer is returned and the next iterator will have an updated layer index.
+        // Returns the index of the current drawing layer. When the current draw
+        // command type is NewLayer or MergeLayer, the old layer is returned and
+        // the next iterator will have an updated layer index.
         size_t CurrentLayer() const;
 
-        // Returns the index of the layer to merge with. Only valid if the draw command type is MergeLayer and the current layer is not the
-        // default layer (the layer at index 0). Equivalent to CurrentLayer() - 1
+        // Returns the index of the layer to merge with. Only valid if the draw
+        // command type is MergeLayer and the current layer is not the default
+        // layer (the layer at index 0). Equivalent to CurrentLayer() - 1
         size_t MergeTarget() const;
 
-        Iterator& operator++();
+        Iterator &operator++();
         Iterator operator++(int);
 
         Iterator operator--();
@@ -81,15 +101,29 @@ public:
     };
 
     size_t NumLayers() const;
-    
+
     Iterator Begin() const;
     Iterator End() const;
+
+    void PushCommand(CmdDrawTriangles const &command);
+    void PushCommand(CmdNewLayer const &command);
+    void PushCommand(CmdMergeLayer const &command);
 
 private:
     friend class Context;
 
     std::vector<DrawCommand> commands;
+};
 
+// The RenderData contains one implicit default layer, which does not need to be
+// added using NewLayer
+class XU_API RenderData {
+private:
+    friend class Context;
+
+    // We will build one command list for each OS window so they can be executed in parallel for people who build a vulkan renderer.
+    // This also avoids the hassle of having CommandList::Iterator track the current window to draw to.
+    std::vector<CommandList> cmdLists;
     std::vector<float> vertices;
     std::vector<uint32_t> indices;
 };

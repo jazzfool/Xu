@@ -60,7 +60,6 @@ void Context::ProcessEvents() {
     if (inputReception != InputReception::Queued || eventQueue.empty())
         return;
 
-    // Temporary
     while (!eventQueue.empty()) {
         const auto &evt = eventQueue.front();
 
@@ -75,6 +74,8 @@ void Context::ProcessEvents() {
 
         eventQueue.pop();
     }
+
+    BuildRenderData();
 }
 
 RenderData const& Context::GetRenderData() const { 
@@ -89,6 +90,10 @@ void Context::DispatchEvent(MouseMoveEvent const &evt) {
 void Context::DispatchEvent(WindowResizeEvent const &evt) {
     std::cout << "Window resize: " << evt.size.x << " " << evt.size.y
               << std::endl;
+}
+
+void Context::BuildRenderData() {
+    
 }
 
 } // namespace xu

@@ -48,6 +48,11 @@ add_subdirectory(external)
 target_sources(Xu PRIVATE ${SOURCES})
 target_include_directories(Xu PRIVATE include)
 
+if (${BUILD_SHARED_LIBS})
+    target_compile_definitions(Xu PRIVATE -DXU_EXPORT)
+    target_compile_definitions(Xu PUBLIC -DXU_SHARED)
+endif()
+
 if (${XU_BUILD_DOCS})
     add_custom_target(Xu-Docs ALL
         DEPENDS ${HEADERS}

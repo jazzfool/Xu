@@ -57,6 +57,8 @@ private:
     void DispatchEvent(MouseMoveEvent const &evt);
     void DispatchEvent(WindowResizeEvent const &evt);
 
+    void BuildRenderData();
+
     std::queue<Event> eventQueue;
     RenderData renderData;
 };

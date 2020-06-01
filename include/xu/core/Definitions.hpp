@@ -24,18 +24,30 @@
 
 #include <cstdint> // Fixed-width integer types
 
-#define XU_API // TODO: declspec for DLL, etc
+#ifdef _MSC_VER
+
+#if XU_IMPORT
+#define XU_API __declspec(dllimport)
+#elif XU_SHARED
+#define XU_API __declspec(dllexport)
+#else
+#define XU_API
+#endif // XU_IMPORT/XU_EXPORT
+
+#else // _MSC_VER
+#define XU_API
+#endif // _MSC_VER
 
 namespace xu {
 
-using std::uint8_t;
 using std::uint16_t;
 using std::uint32_t;
 using std::uint64_t;
+using std::uint8_t;
 
-using std::int8_t;
 using std::int16_t;
 using std::int32_t;
 using std::int64_t;
+using std::int8_t;
 
-}
+} // namespace xu

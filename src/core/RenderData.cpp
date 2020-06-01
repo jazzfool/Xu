@@ -26,22 +26,22 @@
 
 namespace xu {
 
-RenderData::Iterator::Iterator(UnderlyingType it, size_t layer)
+CommandList::Iterator::Iterator(UnderlyingType it, size_t layer)
     : it(it), currentLayer(layer) {}
 
 // TODO: Add debug asserts?
-DrawCommand const &RenderData::Iterator::operator*() const { return *it; }
-DrawCommand const *RenderData::Iterator::operator->() const { return &*it; }
+DrawCommand const &CommandList::Iterator::operator*() const { return *it; }
+DrawCommand const *CommandList::Iterator::operator->() const { return &*it; }
 
-size_t RenderData::Iterator::CurrentLayer() const { return currentLayer; }
-size_t RenderData::Iterator::MergeTarget() const {
+size_t CommandList::Iterator::CurrentLayer() const { return currentLayer; }
+size_t CommandList::Iterator::MergeTarget() const {
     assert(currentLayer != 0 && it->type == DrawCommandType::MergeLayer &&
            "MergeTarget() is only valid when merging layers and the current "
            "layer is not the default layer");
     return currentLayer - 1;
 }
 
-RenderData::Iterator &RenderData::Iterator::operator++() {
+CommandList::Iterator &CommandList::Iterator::operator++() {
     if (it->type == DrawCommandType::NewLayer) {
         ++currentLayer;
     } else if (it->type == DrawCommandType::MergeLayer) {
@@ -51,13 +51,13 @@ RenderData::Iterator &RenderData::Iterator::operator++() {
     return *this;
 }
 
-RenderData::Iterator RenderData::Iterator::operator++(int) {
+CommandList::Iterator CommandList::Iterator::operator++(int) {
     Iterator copy = *this;
     ++(*this);
     return copy;
 }
 
-RenderData::Iterator RenderData::Iterator::operator--() {
+CommandList::Iterator CommandList::Iterator::operator--() {
     if (it->type == DrawCommandType::NewLayer) {
         --currentLayer;
     } else if (it->type == DrawCommandType::MergeLayer) {
@@ -67,37 +67,37 @@ RenderData::Iterator RenderData::Iterator::operator--() {
     return *this;
 }
 
-RenderData::Iterator RenderData::Iterator::operator--(int) {
+CommandList::Iterator CommandList::Iterator::operator--(int) {
     Iterator copy = *this;
     --(*this);
     return copy;
 }
 
-bool RenderData::Iterator::operator==(Iterator const &rhs) const {
+bool CommandList::Iterator::operator==(Iterator const &rhs) const {
     return it == rhs.it;
 }
 
-bool RenderData::Iterator::operator!=(Iterator const &rhs) const {
+bool CommandList::Iterator::operator!=(Iterator const &rhs) const {
     return it != rhs.it;
 }
 
-bool RenderData::Iterator::operator<(Iterator const &rhs) const {
+bool CommandList::Iterator::operator<(Iterator const &rhs) const {
     return it < rhs.it;
 }
 
-bool RenderData::Iterator::operator<=(Iterator const &rhs) const {
+bool CommandList::Iterator::operator<=(Iterator const &rhs) const {
     return it <= rhs.it;
 }
 
-bool RenderData::Iterator::operator>(Iterator const &rhs) const {
+bool CommandList::Iterator::operator>(Iterator const &rhs) const {
     return it > rhs.it;
 }
 
-bool RenderData::Iterator::operator>=(Iterator const &rhs) const {
+bool CommandList::Iterator::operator>=(Iterator const &rhs) const {
     return it >= rhs.it;
 }
 
-size_t RenderData::NumLayers() const {
+size_t CommandList::NumLayers() const {
     size_t layerCount = 1; // Implicit default layer
     for (Iterator it = Begin(); it != End(); ++it) {
         if (it->type == DrawCommandType::NewLayer) {
@@ -107,12 +107,33 @@ size_t RenderData::NumLayers() const {
     return layerCount;
 }
 
-RenderData::Iterator RenderData::Begin() const {
+CommandList::Iterator CommandList::Begin() const {
     return Iterator(commands.begin());
 }
 
-RenderData::Iterator RenderData::End() const {
+CommandList::Iterator CommandList::End() const {
     return Iterator(commands.end());
+}
+
+void CommandList::PushCommand(CmdDrawTriangles const &command) {
+    DrawCommand cmd;
+    cmd.data.drawTriangles = command;
+    cmd.type = DrawCommandType::DrawTriangles;
+    commands.push_back(cmd);
+}
+
+void CommandList::PushCommand(CmdNewLayer const &command) {
+    DrawCommand cmd;
+    cmd.data.newLayer = command;
+    cmd.type = DrawCommandType::NewLayer;
+    commands.push_back(cmd);
+}
+
+void CommandList::PushCommand(CmdMergeLayer const &command) {
+    DrawCommand cmd;
+    cmd.data.mergeLayer = command;
+    cmd.type = DrawCommandType::MergeLayer;
+    commands.push_back(cmd);
 }
 
 } // namespace xu
