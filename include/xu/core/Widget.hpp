@@ -44,12 +44,20 @@ public:
   virtual FRect2 Geometry() const final;
 
   virtual Widget *Parent() const final;
+  virtual std::size_t NumChildren() const final;
 
   template <typename T, typename... CtorArgs>
   WidgetPtr<T> MakeChild(CtorArgs &&... arg) {
     auto child = std::make_unique<T>(this, std::forward<CtorArgs>(arg)...);
     children.push_back(std::move(child));
     return WidgetPtr{child.back().get()};
+  }
+
+  template <typename T, typename... CtorArgs>
+  WidgetPtr<T> MakeChildAt(std::size_t at, CtorArgs &&... arg) {
+    auto child = std::make_unique<T>(this, std::forward<CtorArgs>(arg)...);
+    children.insert(at, std::move(child));
+    return WidgetPtr{child.at(at).get()};
   }
 
   Signal<> sigBeforeDestruction;

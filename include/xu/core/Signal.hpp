@@ -29,10 +29,6 @@ namespace xu {
 
 template <typename... Ts> class Signal final {
 public:
-  using SignalT = Nano::Signal<void(Ts...)>;
-
-  Signal() {}
-
   ~Signal() {
     for (auto const &slot : uniqueSlots) {
       if (slot)
@@ -40,12 +36,31 @@ public:
     }
   }
 
-  SignalT *operator->() { return &sig; }
-  SignalT &operator*() { return sig; }
-  const SignalT *operator->() const { return &sig; }
-  const SignalT &operator*() const { return sig; }
+  template <auto MemFnPtr, typename T> void Connect(T *instance) {
+    sig.template connect<MemFnPtr, T>(instance);
+  }
+
+  template <auto MemFnPtr, typename T> void Connect(T &instance) {
+    sig.template connect<MemFnPtr, T>(instance);
+  }
+
+  template <auto FnPtr> void Connect() { sig.template connect<FnPtr>(); }
+
+  template <auto MemFnPtr, typename T> void Disconnect(T *instance) {
+    sig.template disconnect<MemFnPtr, T>(instance);
+  }
+
+  template <auto MemFnPtr, typename T> void Disconnect(T &instance) {
+    sig.template disconnect<MemFnPtr, T>(instance);
+  }
+
+  template <auto FnPtr> void Disconnect() { sig.template disconnect<FnPtr>(); }
+
+  inline void Emit(Ts &&... arg) { sig.fire(std::forward<Ts>(arg)...); }
+  inline void operator()(Ts &&... arg) { sig.fire(std::forward<Ts>(arg)...); }
 
 private:
+  using SignalT = Nano::Signal<void(Ts...)>;
   template <auto X> friend class UniqueSlot;
 
   std::uint32_t AddSlot(Signal *&slot) {

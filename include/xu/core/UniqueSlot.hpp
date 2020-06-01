@@ -34,7 +34,7 @@ template <typename T, typename... Ts, void (T::*F)(Ts...)> class UniqueSlot<F> {
 public:
   UniqueSlot(Signal<Ts...> &sig, T *obj)
       : signal{&sig}, obj{obj}, slotKey{sig.AddSlot(signal)} {
-    (*signal)->template connect<F>(obj);
+    signal->template Connect<F>(obj);
   }
 
   UniqueSlot(UniqueSlot &&other)
@@ -48,7 +48,7 @@ public:
 
   ~UniqueSlot() {
     if (signal)
-      (*signal)->template disconnect<F>(obj);
+      signal->template Disconnect<F>(obj);
   }
 
   UniqueSlot &operator=(const UniqueSlot &) = delete;
@@ -74,8 +74,8 @@ private:
 
 template <typename... Ts, void (*F)(Ts...)> class UniqueSlot<F> {
 public:
-  UniqueSlot(Signal<Ts...> &sig) : signal{&sig}, slotKey{sig->AddSlot(signal)} {
-    (*signal)->template connect<F>();
+  UniqueSlot(Signal<Ts...> &sig) : signal{&sig}, slotKey{sig.AddSlot(signal)} {
+    signal->template Connect<F>();
   }
 
   UniqueSlot(UniqueSlot &&other) : signal{other.signal} {
@@ -86,7 +86,7 @@ public:
 
   ~UniqueSlot() {
     if (signal)
-      (*signal)->template disconnect<F>();
+      signal->template Disconnect<F>();
   }
 
   UniqueSlot &operator=(const UniqueSlot &) = delete;

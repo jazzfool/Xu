@@ -28,7 +28,7 @@ namespace xu {
 Widget::Widget(Widget *parent)
     : ownedLayout{nullptr}, parentLayout{nullptr}, parent{parent} {}
 
-Widget::~Widget() {}
+Widget::~Widget() { sigBeforeDestruction(); }
 
 void Widget::SetGeometry(FRect2 const &geometry) {
   this->geometry = geometry;
@@ -45,5 +45,7 @@ void Widget::SetGeometry(FRect2 const &geometry) {
 FRect2 Widget::Geometry() const { return geometry; }
 
 Widget *Widget::Parent() const { return parent; }
+
+std::size_t Widget::NumChildren() const { return children.size(); }
 
 } // namespace xu
