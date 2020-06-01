@@ -62,6 +62,8 @@ public:
 
   Signal<> sigBeforeDestruction;
 
+  bool hidden;
+
 private:
   FRect2 geometry;
   std::unique_ptr<Layout>

@@ -20,33 +20,33 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-#include <xu/core/Widget.hpp>
-#include <xu/core/WidgetPtr.hpp>
+#pragma once
+
+#include <vector>
+#include <xu/core/Layout.hpp>
 
 namespace xu {
 
-Widget::Widget(Widget *parent)
-    : ownedLayout{nullptr}, parentLayout{nullptr}, parent{parent}, hidden{
-                                                                       false} {}
+enum class StackOrientation { Vertical, Horizontal };
 
-Widget::~Widget() { sigBeforeDestruction(); }
+class BoxStack : public Layout {
+public:
+  BoxStack();
 
-void Widget::SetGeometry(FRect2 const &geometry) {
-  this->geometry = geometry;
+  FSize2 MinSize() const override;
+  std::size_t NumItems() const override;
 
-  if (ownedLayout) {
-    ownedLayout->Invalidate();
-  }
+  enum StackOrientation stackOrientation;
+  float spacing;
 
-  if (parentLayout) {
-    parentLayout->Invalidate();
-  }
-}
+protected:
+  void InsertItem(std::size_t where, LayoutItem item) override;
+  void UpdateItems() override;
 
-FRect2 Widget::Geometry() const { return geometry; }
+  float FSize2::*OrientationSubject() const;
 
-Widget *Widget::Parent() const { return parent; }
-
-std::size_t Widget::NumChildren() const { return children.size(); }
+private:
+  std::vector<LayoutItem> items;
+};
 
 } // namespace xu
