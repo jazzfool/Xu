@@ -57,7 +57,7 @@ public:
         size_t CurrentLayer() const;
 
         // Returns the index of the layer to merge with. Only valid if the draw command type is MergeLayer and the current layer is not the
-        // default layer (the layer at index 0).
+        // default layer (the layer at index 0). Equivalent to CurrentLayer() - 1
         size_t MergeTarget() const;
 
         Iterator& operator++();

@@ -31,22 +31,22 @@ enum class StackOrientation { Vertical, Horizontal };
 
 class BoxStack : public Layout {
 public:
-  BoxStack();
+    BoxStack();
 
-  FSize2 MinSize() const override;
-  std::size_t NumItems() const override;
+    FSize2 MinSize() const override;
+    std::size_t NumItems() const override;
 
-  enum StackOrientation stackOrientation;
-  float spacing;
+    enum StackOrientation stackOrientation;
+    float spacing;
 
 protected:
-  void InsertItem(std::size_t where, LayoutItem item) override;
-  void UpdateItems() override;
+    void InsertItem(std::size_t where, LayoutItem item) override;
+    void UpdateItems() override;
 
-  float FSize2::*OrientationSubject() const;
+    float FSize2::*OrientationSubject() const;
 
 private:
-  std::vector<LayoutItem> items;
+    std::vector<LayoutItem> items;
 };
 
 } // namespace xu
