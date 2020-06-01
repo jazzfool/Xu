@@ -26,65 +26,79 @@
 
 namespace xu {
 
-void Context::NotifyEvent(MouseMoveEvent const &evt) {
-  switch (inputReception) {
-  case InputReception::Queued: {
-    Event event;
-    event.type = EventType::MouseMove;
-    event.data.mouseMove = evt;
-    eventQueue.push(event);
-    break;
-  }
-  case InputReception::Immediate:
-    DispatchEvent(evt);
-    break;
-  }
+void Context::NotifyEvent(MouseMoveEvent const& evt) {
+    switch (inputReception) {
+        case InputReception::Queued: {
+            Event event;
+            event.type = EventType::MouseMove;
+            event.data.mouseMove = evt;
+            eventQueue.push(event);
+            break;
+        }
+        case InputReception::Immediate: DispatchEvent(evt); break;
+    }
 }
 
-void Context::NotifyEvent(WindowResizeEvent const &evt) {
-  switch (inputReception) {
-  case InputReception::Queued: {
-    Event event;
-    event.type = EventType::WindowResize;
-    event.data.windowResize = evt;
-    eventQueue.push(event);
-    break;
-  }
-  case InputReception::Immediate:
-    DispatchEvent(evt);
-    break;
-  }
+void Context::NotifyEvent(WindowResizeEvent const& evt) {
+    switch (inputReception) {
+        case InputReception::Queued: {
+            Event event;
+            event.type = EventType::WindowResize;
+            event.data.windowResize = evt;
+            eventQueue.push(event);
+            break;
+        }
+        case InputReception::Immediate: DispatchEvent(evt); break;
+    }
 }
 
 void Context::ProcessEvents() {
-  if (inputReception != InputReception::Queued || eventQueue.empty())
-    return;
+    if (inputReception == InputReception::Queued) {
+        while (!eventQueue.empty()) {
+            const auto& evt = eventQueue.front();
 
-  // Temporary
-  while (!eventQueue.empty()) {
-    const auto &evt = eventQueue.front();
+            switch (evt.type) {
+                case EventType::MouseMove:
+                    DispatchEvent(evt.data.mouseMove);
+                    break;
+                case EventType::WindowResize:
+                    DispatchEvent(evt.data.windowResize);
+                    break;
+            }
 
-    switch (evt.type) {
-    case EventType::MouseMove:
-      DispatchEvent(evt.data.mouseMove);
-      break;
-    case EventType::WindowResize:
-      DispatchEvent(evt.data.windowResize);
-      break;
+            eventQueue.pop();
+        }
     }
 
-    eventQueue.pop();
-  }
+    BuildRenderData();
 }
 
-void Context::DispatchEvent(MouseMoveEvent const &evt) {
-  std::cout << "Mouse move: " << evt.position.x << " " << evt.position.y
-            << std::endl;
+RenderData const& Context::GetRenderData() const { return renderData; }
+
+void Context::DispatchEvent(MouseMoveEvent const& evt) {
+    std::cout << "Mouse move: " << evt.position.x << " " << evt.position.y
+              << std::endl;
 }
 
-void Context::DispatchEvent(WindowResizeEvent const &evt) {
-  std::cout << "Window resize: " << evt.size.x << " " << evt.size.y
-            << std::endl;
+void Context::DispatchEvent(WindowResizeEvent const& evt) {
+    std::cout << "Window resize: " << evt.size.x << " " << evt.size.y
+              << std::endl;
+}
+
+void Context::BuildRenderData() {
+    CommandList cmdList;
+    BuildRenderData(root.get(), cmdList);
+    renderData.cmdLists.push_back(cmdList);
+}
+
+void Context::BuildRenderData(Widget* widget, CommandList& cmdList) {
+    // Add quad to RenderData (temporary, more complex geometry later)
+    renderData.PushQuad(cmdList, widget->Geometry());
+
+    for (size_t child = 0; child < widget->NumChildren(); ++child) {
+        BuildRenderData(widget->GetChild(child), cmdList);
+    }
+
 }
 
 } // namespace xu

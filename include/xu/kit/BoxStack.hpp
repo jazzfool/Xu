@@ -22,32 +22,31 @@
 
 #pragma once
 
-#include <cstdint> // Fixed-width integer types
-
-#ifdef _MSC_VER
-
-#if XU_IMPORT
-#define XU_API __declspec(dllimport)
-#elif XU_SHARED
-#define XU_API __declspec(dllexport)
-#else
-#define XU_API
-#endif // XU_IMPORT/XU_EXPORT
-
-#else // _MSC_VER
-#define XU_API
-#endif // _MSC_VER
+#include <vector>
+#include <xu/core/Layout.hpp>
 
 namespace xu {
 
-using std::uint16_t;
-using std::uint32_t;
-using std::uint64_t;
-using std::uint8_t;
+enum class StackOrientation { Vertical, Horizontal };
 
-using std::int16_t;
-using std::int32_t;
-using std::int64_t;
-using std::int8_t;
+class XU_API BoxStack : public Layout {
+public:
+    BoxStack();
+
+    FSize2 MinSize() const override;
+    std::size_t NumItems() const override;
+
+    enum StackOrientation stackOrientation;
+    float spacing;
+
+protected:
+    void InsertItem(std::size_t where, LayoutItem item) override;
+    void UpdateItems() override;
+
+    float FSize2::*OrientationSubject() const;
+
+private:
+    std::vector<LayoutItem> items;
+};
 
 } // namespace xu

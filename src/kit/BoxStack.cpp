@@ -20,34 +20,45 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-#pragma once
-
-#include <cstdint> // Fixed-width integer types
-
-#ifdef _MSC_VER
-
-#if XU_IMPORT
-#define XU_API __declspec(dllimport)
-#elif XU_SHARED
-#define XU_API __declspec(dllexport)
-#else
-#define XU_API
-#endif // XU_IMPORT/XU_EXPORT
-
-#else // _MSC_VER
-#define XU_API
-#endif // _MSC_VER
+#include <xu/kit/BoxStack.hpp>
 
 namespace xu {
 
-using std::uint16_t;
-using std::uint32_t;
-using std::uint64_t;
-using std::uint8_t;
+BoxStack::BoxStack() :
+    stackOrientation{StackOrientation::Vertical},
+    spacing{0.f} {}
 
-using std::int16_t;
-using std::int32_t;
-using std::int64_t;
-using std::int8_t;
+FSize2 BoxStack::MinSize() const {
+    if (NumItems() == 0) { return FSize2{0.f, 0.f}; }
+
+    const auto os = OrientationSubject();
+    FSize2 sz{0.f, 0.f};
+    for (auto const& item : items) { sz.*os += item.Rect().size.*os; }
+    sz.*os += spacing * (NumItems() - 1);
+
+    return sz;
+}
+
+std::size_t BoxStack::NumItems() const { return items.size(); }
+
+void BoxStack::InsertItem(std::size_t where, LayoutItem item) {
+    items.insert(items.begin() + where, std::move(item));
+}
+
+void BoxStack::UpdateItems() {
+    const auto os = OrientationSubject();
+    auto pos = Geometry().origin;
+    for (auto& item : items) {
+        item.SetRect(FRect2{pos, item.Rect().size});
+        pos.*os += item.Rect().size.*os + spacing;
+    }
+}
+
+float FSize2::*BoxStack::OrientationSubject() const {
+    switch (stackOrientation) {
+        case StackOrientation::Vertical: return &FSize2::y;
+        case StackOrientation::Horizontal: return &FSize2::x;
+    }
+}
 
 } // namespace xu

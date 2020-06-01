@@ -25,55 +25,49 @@
 
 namespace xu {
 
-void LayoutItem::SetRect(FRect2 const &rect) {
-  switch (type) {
-  case Type::Widget:
-    std::get<0>(item)->SetGeometry(rect);
-    break;
-  case Type::Layout:
-    std::get<1>(item)->SetGeometry(rect);
-    break;
-  }
+void LayoutItem::SetRect(FRect2 const& rect) {
+    switch (type) {
+        case Type::Widget: std::get<0>(item)->SetGeometry(rect); break;
+        case Type::Layout: std::get<1>(item)->SetGeometry(rect); break;
+    }
 }
 
 Layout::~Layout() {}
 
-void Layout::Update(FRect2 const &rect) {
-  if (invalid) {
-    UpdateItems();
-    invalid = false;
-  }
+void Layout::Update(FRect2 const& rect) {
+    if (invalid) {
+        UpdateItems();
+        invalid = false;
+    }
 }
 
 void Layout::Invalidate() {
-  invalid = true;
-  for (auto const &layout : childLayouts) {
-    layout->Invalidate();
-  }
+    invalid = true;
+    for (auto const& layout : childLayouts) { layout->Invalidate(); }
 }
 
-void Layout::InsertWidget(std::size_t where, Widget *widget) {
-  InsertItem(where, LayoutItem{widget});
+void Layout::InsertWidget(std::size_t where, Widget* widget) {
+    InsertItem(where, LayoutItem{widget});
 }
 
-void Layout::AddWidget(Widget *widget) {
-  InsertItem(NumItems(), LayoutItem{widget});
+void Layout::AddWidget(Widget* widget) {
+    InsertItem(NumItems(), LayoutItem{widget});
 }
 
 void Layout::InsertLayout(std::size_t where, std::unique_ptr<Layout> layout) {
-  InsertItem(where, LayoutItem{std::move(layout)});
-  childLayouts.push_back(layout.get());
+    InsertItem(where, LayoutItem{std::move(layout)});
+    childLayouts.push_back(layout.get());
 }
 
 void Layout::AddLayout(std::unique_ptr<Layout> layout) {
-  InsertItem(NumItems(), LayoutItem{std::move(layout)});
-  childLayouts.push_back(layout.get());
+    InsertItem(NumItems(), LayoutItem{std::move(layout)});
+    childLayouts.push_back(layout.get());
 }
 
-void Layout::SetGeometry(FRect2 const &geometry) {
-  this->geometry = geometry;
-  Invalidate();
-  OnGeometryChanged();
+void Layout::SetGeometry(FRect2 const& geometry) {
+    this->geometry = geometry;
+    Invalidate();
+    OnGeometryChanged();
 }
 
 FRect2 Layout::Geometry() const { return geometry; }

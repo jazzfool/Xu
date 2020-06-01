@@ -28,12 +28,17 @@ set(HEADERS
     "include/xu/core/RenderData.hpp"
     "include/xu/core/Signal.hpp"
     "include/xu/core/UniqueSlot.hpp"
+
+    "include/xu/kit/BoxStack.hpp"
 )
 
 set(SOURCES
     "src/core/Widget.cpp"
     "src/core/Context.cpp"
     "src/core/Layout.cpp"
+    "src/core/RenderData.cpp"
+
+    "src/kit/BoxStack.cpp"
 )
 
 add_library(Xu)
@@ -42,6 +47,13 @@ add_subdirectory(external)
 
 target_sources(Xu PRIVATE ${SOURCES})
 target_include_directories(Xu PRIVATE include)
+
+if (${BUILD_SHARED_LIBS})
+    target_compile_definitions(Xu PRIVATE -DXU_EXPORT)
+    target_compile_definitions(Xu PUBLIC -DXU_SHARED=1)
+else()
+    target_compile_definitions(Xu PUBLIC -DXU_SHARED=0)
+endif(${BUILD_SHARED_LIBS})
 
 if (${XU_BUILD_DOCS})
     add_custom_target(Xu-Docs ALL

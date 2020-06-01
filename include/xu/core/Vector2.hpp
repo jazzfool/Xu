@@ -176,6 +176,7 @@ struct Vector2 {
 
     // Friend Vector|Scalar arithmetic operators (so once can do, say 2 +
     // Vector2<int>(3, 4) == Vector2<int>(5, 6))
+
     constexpr friend Vector2<T> operator+(T sclr, const Vector2<T>& rhs) {
         return rhs + sclr;
     }
