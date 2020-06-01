@@ -27,64 +27,68 @@
 namespace xu {
 
 void Context::NotifyEvent(MouseMoveEvent const &evt) {
-  switch (inputReception) {
-  case InputReception::Queued: {
-    Event event;
-    event.type = EventType::MouseMove;
-    event.data.mouseMove = evt;
-    eventQueue.push(event);
-    break;
-  }
-  case InputReception::Immediate:
-    DispatchEvent(evt);
-    break;
-  }
+    switch (inputReception) {
+    case InputReception::Queued: {
+        Event event;
+        event.type = EventType::MouseMove;
+        event.data.mouseMove = evt;
+        eventQueue.push(event);
+        break;
+    }
+    case InputReception::Immediate:
+        DispatchEvent(evt);
+        break;
+    }
 }
 
 void Context::NotifyEvent(WindowResizeEvent const &evt) {
-  switch (inputReception) {
-  case InputReception::Queued: {
-    Event event;
-    event.type = EventType::WindowResize;
-    event.data.windowResize = evt;
-    eventQueue.push(event);
-    break;
-  }
-  case InputReception::Immediate:
-    DispatchEvent(evt);
-    break;
-  }
+    switch (inputReception) {
+    case InputReception::Queued: {
+        Event event;
+        event.type = EventType::WindowResize;
+        event.data.windowResize = evt;
+        eventQueue.push(event);
+        break;
+    }
+    case InputReception::Immediate:
+        DispatchEvent(evt);
+        break;
+    }
 }
 
 void Context::ProcessEvents() {
-  if (inputReception != InputReception::Queued || eventQueue.empty())
-    return;
+    if (inputReception != InputReception::Queued || eventQueue.empty())
+        return;
 
-  // Temporary
-  while (!eventQueue.empty()) {
-    const auto &evt = eventQueue.front();
+    // Temporary
+    while (!eventQueue.empty()) {
+        const auto &evt = eventQueue.front();
 
-    switch (evt.type) {
-    case EventType::MouseMove:
-      DispatchEvent(evt.data.mouseMove);
-      break;
-    case EventType::WindowResize:
-      DispatchEvent(evt.data.windowResize);
-      break;
+        switch (evt.type) {
+        case EventType::MouseMove:
+            DispatchEvent(evt.data.mouseMove);
+            break;
+        case EventType::WindowResize:
+            DispatchEvent(evt.data.windowResize);
+            break;
+        }
+
+        eventQueue.pop();
     }
+}
 
-    eventQueue.pop();
-  }
+RenderData const& Context::GetRenderData() const { 
+    return renderData; 
 }
 
 void Context::DispatchEvent(MouseMoveEvent const &evt) {
-  std::cout << "Mouse move: " << evt.position.x << " " << evt.position.y
-            << std::endl;
+    std::cout << "Mouse move: " << evt.position.x << " " << evt.position.y
+              << std::endl;
 }
 
 void Context::DispatchEvent(WindowResizeEvent const &evt) {
-  std::cout << "Window resize: " << evt.size.x << " " << evt.size.y
-            << std::endl;
+    std::cout << "Window resize: " << evt.size.x << " " << evt.size.y
+              << std::endl;
 }
 
 } // namespace xu

@@ -34,7 +34,7 @@ set(SOURCES
     "src/core/Widget.cpp"
     "src/core/Context.cpp"
     "src/core/Layout.cpp"
-)
+ "src/core/RenderData.cpp")
 
 add_library(Xu)
 

@@ -34,28 +34,31 @@ enum class InputReception { Queued, Immediate };
 
 class XU_API Context {
 public:
-  void NotifyEvent(MouseMoveEvent const &evt);
-  void NotifyEvent(WindowResizeEvent const &evt);
+    void NotifyEvent(MouseMoveEvent const &evt);
+    void NotifyEvent(WindowResizeEvent const &evt);
 
-  void ProcessEvents();
+    void ProcessEvents();
 
-  InputReception inputReception;
+    RenderData const& GetRenderData() const;
+
+    InputReception inputReception;
 
 private:
-  enum class EventType { MouseMove, WindowResize };
+    enum class EventType { MouseMove, WindowResize };
 
-  struct XU_API Event {
-    EventType type;
-    union {
-      MouseMoveEvent mouseMove;
-      WindowResizeEvent windowResize;
-    } data;
-  };
+    struct XU_API Event {
+        EventType type;
+        union {
+            MouseMoveEvent mouseMove;
+            WindowResizeEvent windowResize;
+        } data;
+    };
 
-  void DispatchEvent(MouseMoveEvent const &evt);
-  void DispatchEvent(WindowResizeEvent const &evt);
+    void DispatchEvent(MouseMoveEvent const &evt);
+    void DispatchEvent(WindowResizeEvent const &evt);
 
-  std::queue<Event> eventQueue;
+    std::queue<Event> eventQueue;
+    RenderData renderData;
 };
 
 } // namespace xu
