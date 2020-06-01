@@ -130,7 +130,8 @@ struct XU_API DrawCommand {
 
 /*!
  * \brief Stores a list of drawing commands. Each OS window gets its own command
- * list. \sa [Rendering API]
+ * list. 
+ * \sa [Rendering API]
  */
 class XU_API CommandList {
 public:
@@ -221,6 +222,14 @@ private:
  * Maintains a xu::CommandList for each OS window.
  */
 class XU_API RenderData {
+public:
+    // We will build one command list for each OS window so they can be executed
+    // in parallel for people who build a vulkan renderer. This also avoids the
+    // hassle of having CommandList::Iterator track the current window to draw
+    // to.
+    std::vector<CommandList> cmdLists;
+    std::vector<Vertex> vertices;
+    std::vector<uint32_t> indices;
 private:
     friend class Context;
 
@@ -241,14 +250,6 @@ private:
      * drawcall.
      */
     void PushQuad(CommandList& cmdList, FRect2 quad);
-
-    // We will build one command list for each OS window so they can be executed
-    // in parallel for people who build a vulkan renderer. This also avoids the
-    // hassle of having CommandList::Iterator track the current window to draw
-    // to.
-    std::vector<CommandList> cmdLists;
-    std::vector<Vertex> vertices;
-    std::vector<uint32_t> indices;
 };
 
 } // namespace xu

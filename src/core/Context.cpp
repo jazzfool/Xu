@@ -86,6 +86,10 @@ void Context::DispatchEvent(WindowResizeEvent const& evt) {
 }
 
 void Context::BuildRenderData() {
+    // TODO: RenderData::Clear() function
+    renderData.cmdLists.clear();
+    renderData.vertices.clear();
+    renderData.indices.clear();
     CommandList cmdList;
     BuildRenderData(root.get(), cmdList);
     renderData.cmdLists.push_back(cmdList);

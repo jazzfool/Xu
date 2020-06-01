@@ -165,7 +165,7 @@ void RenderData::PushQuad(CommandList& cmdList, FRect2 quad) {
     PushIndex(topRightIndex);
     // Second triangle
     PushIndex(bottomLeftIndex);
-    PushIndex(bottomRightIndex);
+    PushIndex(topRightIndex);
     PushIndex(topLeftIndex);
 
     // Create the draw command
