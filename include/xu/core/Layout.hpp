@@ -36,7 +36,7 @@ namespace xu {
 class Widget;
 class Layout;
 
-struct LayoutItem final {
+struct XU_API LayoutItem final {
 public:
   void SetRect(FRect2 const &rect);
   FRect2 Rect() const;

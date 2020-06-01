@@ -29,7 +29,7 @@ namespace xu {
 
 enum class StackOrientation { Vertical, Horizontal };
 
-class BoxStack : public Layout {
+class XU_API BoxStack : public Layout {
 public:
     BoxStack();
 
