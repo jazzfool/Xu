@@ -72,7 +72,30 @@ enum class LayerFilter {
     /*!
      * \brief Blur filter. Used to achieve effects like backdrop blur.
      */
-    Blur
+    Blur,
+    /*!
+     * \brief Color matrix filter. Used to achieve color transformations (e.g.
+     * inversion or saturation).
+     */
+    ColorMatrix
+};
+
+union LayerFilterInfo {
+    /*!
+     * \brief Blur radius to apply when merging layers with a blur filter.
+     *
+     * \sa LayerFilter::Blur
+     */
+    FVector2 blurSigma;
+    /*!
+     * \brief Color matrix (4 row, 5 col) to apply when merging layers with a
+     * color matrix filter.
+     *
+     * \sa Layerfilter::ColorMatrix
+     */
+    float colorMatrix[4][5]; // TODO: matrix (4x5) class.
+    // Note for shaders: color must be converted to a 5x1 matrix first (in the
+    // form [R | G | B | A | 1]).
 };
 
 /*!
@@ -106,6 +129,7 @@ struct XU_API CmdNewLayer {};
  */
 struct XU_API CmdMergeLayer {
     LayerFilter filter;
+    LayerFilterInfo filterInfo;
 };
 
 /*!
@@ -130,7 +154,7 @@ struct XU_API DrawCommand {
 
 /*!
  * \brief Stores a list of drawing commands. Each OS window gets its own command
- * list. 
+ * list.
  * \sa [Rendering API]
  */
 class XU_API CommandList {
@@ -230,6 +254,7 @@ public:
     std::vector<CommandList> cmdLists;
     std::vector<Vertex> vertices;
     std::vector<uint32_t> indices;
+
 private:
     friend class Context;
 
