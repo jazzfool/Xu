@@ -76,31 +76,26 @@ void Context::ProcessEvents() {
 RenderData const& Context::GetRenderData() const { return renderData; }
 
 void Context::DispatchEvent(MouseMoveEvent const& evt) {
-    std::cout << "Mouse move: " << evt.position.x << " " << evt.position.y
-              << std::endl;
+    
 }
 
 void Context::DispatchEvent(WindowResizeEvent const& evt) {
-    std::cout << "Window resize: " << evt.size.x << " " << evt.size.y
-              << std::endl;
+    
 }
 
 void Context::BuildRenderData() {
-    // TODO: RenderData::Clear() function
-    renderData.cmdLists.clear();
-    renderData.vertices.clear();
-    renderData.indices.clear();
+    renderData.Clear();
     CommandList cmdList;
-    BuildRenderData(root.get(), cmdList);
-    renderData.cmdLists.push_back(cmdList);
+    PaintWidgetAndChildren(root.get());
+    surface.GenerateGeometry(renderData, cmdList);
+    renderData.cmdLists.push_back(std::move(cmdList));
 }
 
-void Context::BuildRenderData(Widget* widget, CommandList& cmdList) {
-    // Add quad to RenderData (temporary, more complex geometry later)
-    renderData.PushQuad(cmdList, widget->Geometry());
+void Context::PaintWidgetAndChildren(Widget* widget) {
+    widget->Paint(surface);
 
     for (size_t child = 0; child < widget->NumChildren(); ++child) {
-        BuildRenderData(widget->GetChild(child), cmdList);
+        PaintWidgetAndChildren(widget->GetChild(child));
     }
 
 }

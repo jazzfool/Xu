@@ -135,6 +135,12 @@ void CommandList::PushCommand(CmdMergeLayer const& command) {
     commands.push_back(cmd);
 }
 
+void RenderData::Clear() {
+    cmdLists.clear();
+    vertices.clear();
+    indices.clear();
+}
+
 size_t RenderData::PushVertex(Vertex vertex) {
     vertices.push_back(vertex);
     return vertices.size() - 1;

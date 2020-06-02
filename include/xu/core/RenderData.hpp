@@ -252,8 +252,17 @@ public:
     // hassle of having CommandList::Iterator track the current window to draw
     // to.
     std::vector<CommandList> cmdLists;
+    /*!
+     * \brief List of all vertices used by all command lists. These vertices are in window coordinates.
+     * To use these in your shader you have to apply the correct projection matrix first (typically an orthographic projection).
+     */
     std::vector<Vertex> vertices;
     std::vector<uint32_t> indices;
+
+    /*!
+     * \brief Clears all render data stored.
+     */
+    void Clear();
 
 private:
     friend class Context;

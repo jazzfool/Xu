@@ -27,6 +27,8 @@ set(HEADERS
     "include/xu/core/Layout.hpp"
     "include/xu/core/RenderData.hpp"
     "include/xu/core/Signal.hpp"
+    "include/xu/core/Surface.hpp"
+    "include/xu/core/VectorPath.hpp"
     "include/xu/core/UniqueSlot.hpp"
 
     "include/xu/kit/BoxStack.hpp"
@@ -39,7 +41,7 @@ set(SOURCES
     "src/core/RenderData.cpp"
 
     "src/kit/BoxStack.cpp"
-)
+    "src/core/Surface.cpp")
 
 add_library(Xu)
 

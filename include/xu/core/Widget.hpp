@@ -26,6 +26,7 @@
 #include <xu/core/Layout.hpp>
 #include <xu/core/Point2.hpp>
 #include <xu/core/Size2.hpp>
+#include <xu/core/Surface.hpp>
 #include <xu/core/UniqueSlot.hpp>
 #include <xu/core/WidgetPtr.hpp>
 
@@ -52,6 +53,11 @@ public:
      * \sa [Insert layout documentation page]
      */
     virtual FSize2 SizeHint() const = 0;
+
+    /*!
+     * \brief Paint this widget's visual representation onto the surface. This function must be overridden by child widgets.
+     */
+    virtual void Paint(Surface& surface) const = 0;
 
     /*!
      * \brief Test whether the mouse pointer is hovering the widget. Custom widgets may override this to replace the default

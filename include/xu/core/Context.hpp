@@ -25,6 +25,7 @@
 #include <xu/core/Definitions.hpp>
 #include <xu/core/Events.hpp>
 #include <xu/core/RenderData.hpp>
+#include <xu/core/Surface.hpp>
 
 // Temporary?
 #include <xu/core/Widget.hpp>
@@ -101,10 +102,13 @@ private:
     void DispatchEvent(WindowResizeEvent const& evt);
 
     void BuildRenderData();
-    void BuildRenderData(Widget* widget, CommandList& cmdList);
+    void PaintWidgetAndChildren(Widget* widget);
 
     std::queue<Event> eventQueue;
     RenderData renderData;
+
+    // Temporary, a single surface, just to get the basic implementation started
+    Surface surface;
 };
 
 } // namespace xu
