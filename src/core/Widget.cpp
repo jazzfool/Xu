@@ -35,9 +35,7 @@ Widget::Widget(Widget* parent) :
 Widget::~Widget() { sigBeforeDestruction(); }
 
 bool Widget::PointerHit(FPoint2 const& pointer) const {
-    // does not compile yet
-    // return FRect2{Geometry().origin, SizeHint()}.Contains(pointer);
-    return false;
+    return Geometry().ContainsPoint(pointer);
 }
 
 void Widget::SetGeometry(FRect2 const& geometry) {
