@@ -25,6 +25,7 @@
 #include <xu/core/Definitions.hpp>
 #include <xu/core/Layout.hpp>
 #include <xu/core/Point2.hpp>
+#include <xu/core/RenderData.hpp>
 #include <xu/core/Size2.hpp>
 #include <xu/core/Surface.hpp>
 #include <xu/core/UniqueSlot.hpp>
@@ -58,6 +59,12 @@ public:
      * \brief Paint this widget's visual representation onto the surface. This function must be overridden by child widgets.
      */
     virtual void Paint(Surface& surface) const = 0;
+
+    /*!
+     * \brief Output this widget's visual representation by pushing triangle draw commands into the command list.
+     * Note: This API will be removed once vector path graphics are implemented.
+     */
+    virtual void GenerateTriangles(RenderData& renderData, CommandList& cmdList) const = 0;
 
     /*!
      * \brief Test whether the mouse pointer is hovering the widget. Custom widgets may override this to replace the default

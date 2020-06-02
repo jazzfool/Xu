@@ -22,8 +22,6 @@
 
 #include <xu/core/Context.hpp>
 
-#include <iostream> // Temporary
-
 namespace xu {
 
 void Context::NotifyEvent(MouseMoveEvent const& evt) {
@@ -86,8 +84,18 @@ void Context::DispatchEvent(WindowResizeEvent const& evt) {
 void Context::BuildRenderData() {
     renderData.Clear();
     CommandList cmdList;
-    PaintWidgetAndChildren(root.get());
-    surface.GenerateGeometry(renderData, cmdList);
+//    PaintWidgetAndChildren(root.get());
+//    surface.GenerateGeometry(renderData, cmdList);
+
+    // Temporarily use Widget::GenerateTriangles
+    auto triangleGen = [&cmdList, this](auto self, Widget* widget) -> void {
+        widget->GenerateTriangles(renderData, cmdList);
+        for (size_t child = 0; child < widget->NumChildren(); ++child) {
+            self(self, widget->GetChild(child));
+        }
+    };
+    triangleGen(triangleGen, root.get());
+
     renderData.cmdLists.push_back(std::move(cmdList));
 }
 

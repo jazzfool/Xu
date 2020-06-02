@@ -264,9 +264,6 @@ public:
      */
     void Clear();
 
-private:
-    friend class Context;
-
     /*!
      * \brief Adds a single vertex to the vertex list and returns its index
      */
