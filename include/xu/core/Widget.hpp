@@ -64,7 +64,7 @@ public:
      * \brief Output this widget's visual representation by pushing triangle draw commands into the command list.
      * Note: This API will be removed once vector path graphics are implemented.
      */
-    virtual void GenerateTriangles(RenderData& renderData, CommandList& cmdList) const = 0;
+    virtual void GenerateTriangles(RenderData& renderData, CommandList& cmdList, ISize2 windowSize) const = 0;
 
     /*!
      * \brief Test whether the mouse pointer is hovering the widget. Custom widgets may override this to replace the default

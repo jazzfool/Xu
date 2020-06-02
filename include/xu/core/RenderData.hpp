@@ -253,8 +253,8 @@ public:
     // to.
     std::vector<CommandList> cmdLists;
     /*!
-     * \brief List of all vertices used by all command lists. These vertices are in window coordinates.
-     * To use these in your shader you have to apply the correct projection matrix first (typically an orthographic projection).
+     * \brief List of all vertices used by all command lists. These positions are in range [0, 1], with the origin in the top-left
+     * corner of the window.
      */
     std::vector<Vertex> vertices;
     std::vector<uint32_t> indices;

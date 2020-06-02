@@ -78,7 +78,7 @@ void Context::DispatchEvent(MouseMoveEvent const& evt) {
 }
 
 void Context::DispatchEvent(WindowResizeEvent const& evt) {
-    
+    windowSize = evt.size;
 }
 
 void Context::BuildRenderData() {
@@ -89,7 +89,7 @@ void Context::BuildRenderData() {
 
     // Temporarily use Widget::GenerateTriangles
     auto triangleGen = [&cmdList, this](auto self, Widget* widget) -> void {
-        widget->GenerateTriangles(renderData, cmdList);
+        widget->GenerateTriangles(renderData, cmdList, windowSize);
         for (size_t child = 0; child < widget->NumChildren(); ++child) {
             self(self, widget->GetChild(child));
         }

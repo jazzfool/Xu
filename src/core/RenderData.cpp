@@ -150,7 +150,7 @@ void RenderData::PushIndex(uint32_t index) { indices.push_back(index); }
 void RenderData::PushQuad(CommandList& cmdList, FRect2 quad) {
     FVector2 bl = quad.origin;
     FVector2 tl = {quad.origin.x, quad.origin.y + quad.size.y};
-    FVector2 br = {quad.origin.x + quad.size.y, quad.origin.y};
+    FVector2 br = {quad.origin.x + quad.size.x, quad.origin.y};
     FVector2 tr = quad.origin + quad.size;
 
     // This is the starting index of the quad we're pushing
