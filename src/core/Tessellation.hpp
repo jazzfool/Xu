@@ -27,12 +27,15 @@
 #include <xu/core/Definitions.hpp>
 
 #include <vector>
+#include <utility>
 
 namespace xu {
 
-// We would want to expose this to the user so that they can
+// We would want to expose these types to the user so that they can
 // customize how the stroked path looks.
-enum class LineCap { None, Square, Round };
+
+enum class LineCap { Butt, Square };
+enum class LineJoin { Bevel, Miter };
 
 // This is the first step in the vector path triangulation process.
 //
@@ -48,8 +51,6 @@ enum class LineCap { None, Square, Round };
 // jagged and low quality.
 std::vector<FPoint2> FlattenPath(VectorPath const& path, double quality);
 
-std::vector<FPoint2> MergeDuplicatePoints(std::vector<FPoint2> const& polygon);
-
 // This is an optional step in the vector path triangulation process; right
 // after flattening.
 //
@@ -63,9 +64,11 @@ std::vector<FPoint2> MergeDuplicatePoints(std::vector<FPoint2> const& polygon);
 // quality only applies to LineCap::Round and controls how smooth the rounded
 // cap should appear.
 //
-// NOTE: You probably want to pass in the output of MergeDuplicatePoints.
-std::vector<FPoint2> ExpandStroke(std::vector<FPoint2> const& polygon,
-    float strokeWidth, LineCap cap, double quality);
+// Also, this should be the final step since it also generates indices during
+// stroke expansion.
+std::pair<std::vector<FPoint2>, std::vector<uint32_t>> ExpandStroke(
+    std::vector<FPoint2> const& polygon, float strokeWidth, LineCap cap,
+    LineJoin join, float miterLimit, double quality);
 
 // This is the final step in the vector path triangulation process.
 //

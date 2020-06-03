@@ -22,13 +22,13 @@
 
 #include "Tessellation.hpp"
 
+#include <mapbox/earcut.hpp>
+
+#include <optional>
 #include <cassert>
+#include <array>
 
 namespace xu {
-
-// https://github.com/mattdesl/polyline-normals
-static std::vector<FVector2> GenerateMiterNormals(
-    std::vector<FPoint2> const& polygon) {}
 
 // All of the following quadratic-related functions have been taken from:
 // https://raphlinus.github.io/graphics/curves/2019/12/23/flatten-quadbez.html
@@ -158,18 +158,24 @@ static std::vector<FPoint2> FlattenArc(FPoint2 center, float radius,
     return {};
 }
 
+static std::vector<FPoint2> MergeDuplicatePoints(
+    std::vector<FPoint2> const& polygon) {
+    std::vector<FPoint2> merged;
+    for (auto const& point : polygon) {
+        if (merged.size() > 0 && merged.back() == point) { continue; }
+        merged.push_back(point);
+    }
+    return merged;
+}
+
 std::vector<FPoint2> FlattenPath(VectorPath const& path, double quality) {
     std::vector<FPoint2> polygon;
 
     FPoint2 curr{0.f, 0.f};
     for (auto const& event : path.events) {
         switch (event.type) {
-            case VectorPathEventType::Move: {
-                curr = event.params.move.to;
-                break;
-            }
             case VectorPathEventType::Line: {
-                polygon.push_back(curr);
+                if (polygon.back() != curr) polygon.push_back(curr);
                 curr = event.params.line.to;
                 polygon.push_back(curr);
                 break;
@@ -178,13 +184,22 @@ std::vector<FPoint2> FlattenPath(VectorPath const& path, double quality) {
                 const auto points
                     = FlattenQuadratic(curr, event.params.quadratic.to,
                         event.params.quadratic.x0, quality);
-                polygon.insert(polygon.end(), points.begin(), points.end());
+
+                if (points.empty()) continue;
+                polygon.insert(polygon.end(),
+                    points.begin() + (points.front() == polygon.back() ? 1 : 0),
+                    points.end());
+                curr = points.back();
                 break;
             }
             case VectorPathEventType::Cubic: {
                 const auto points = FlattenCubic(curr, event.params.cubic.to,
                     event.params.cubic.x0, event.params.cubic.x1, quality);
-                polygon.insert(polygon.end(), points.begin(), points.end());
+
+                if (points.empty()) continue;
+                polygon.insert(polygon.end(),
+                    points.begin() + (points.front() == polygon.back() ? 1 : 0),
+                    points.end());
                 curr = points.back();
                 break;
             }
@@ -192,7 +207,11 @@ std::vector<FPoint2> FlattenPath(VectorPath const& path, double quality) {
                 const auto points = FlattenArc(event.params.arc.center,
                     event.params.arc.radius, event.params.arc.startAngle,
                     event.params.arc.endAngle, quality);
-                polygon.insert(polygon.end(), points.begin(), points.end());
+
+                if (points.empty()) continue;
+                polygon.insert(polygon.end(),
+                    points.begin() + (points.front() == polygon.back() ? 1 : 0),
+                    points.end());
                 curr = points.back();
                 break;
             }
@@ -200,6 +219,164 @@ std::vector<FPoint2> FlattenPath(VectorPath const& path, double quality) {
     }
 
     return polygon;
+}
+
+inline static FVector2 PolylineDirection(FPoint2 a, FPoint2 b) {
+    return (a - b).Normalized();
+}
+
+inline static FVector2 PolylineNormal(FVector2 direction) {
+    return FVector2{-direction.y, direction.x};
+}
+
+static void PolylineExtrusions(
+    std::vector<FPoint2>& points, FPoint2 point, FVector2 normal, float scale) {
+    points.push_back(point + (normal * -scale));
+    points.push_back(point + (normal * scale));
+}
+
+static float PolylineComputeMiter(FVector2& tangent, FVector2 miter,
+    FPoint2 lineA, FPoint2 lineB, float halfThick) {
+    tangent = lineA + lineB;
+    tangent = tangent.Normalized();
+    miter = {-tangent.y, tangent.x};
+    const FVector2 tmp{-lineA.y, lineA.x};
+    return halfThick / ((miter.x * tmp.x) + (miter.y * tmp.y));
+}
+
+// Taken from:
+// https://github.com/mattdesl/extrude-polyline
+std::pair<std::vector<FPoint2>, std::vector<uint32_t>> ExpandStroke(
+    std::vector<FPoint2> const& polygon, const float strokeWidth,
+    const LineCap cap, const LineJoin join, const float miterLimit,
+    const double quality) {
+    if (polygon.size() <= 1) return {};
+
+    std::pair<std::vector<FPoint2>, std::vector<uint32_t>> output;
+
+    const auto halfThick = strokeWidth / 2.f;
+
+    std::optional<FVector2> normal;
+    bool started = false;
+    FVector2 last{0.f, 0.f};
+    FVector2 capEnd{0.f, 0.f};
+    int16_t lastFlip = -1;
+    FVector2 miter;
+    FVector2 tangent;
+
+    for (std::size_t i = 1, count = 0; i < polygon.size(); ++i) {
+        auto curr = polygon[i];
+        auto last = polygon[i - 1];
+        auto lineA = PolylineDirection(curr, last);
+        auto lineB = PolylineDirection(curr, last);
+
+        const auto next = i < (polygon.size() - 1) ? &polygon[i + 1] : nullptr;
+        const auto capSquare = cap == LineCap::Square;
+        const auto joinBevel = join == LineJoin::Bevel;
+
+        if (!normal) { normal = PolylineNormal(lineA); }
+
+        if (!started) {
+            started = true;
+            if (capSquare) {
+                capEnd = last + (lineA * -halfThick);
+                last = capEnd;
+            }
+            PolylineExtrusions(
+                std::get<0>(output), last, normal.value(), halfThick);
+        }
+
+        std::get<1>(output).push_back(count);
+        std::get<1>(output).push_back(count + 1);
+        std::get<1>(output).push_back(count + 2);
+
+        if (!next) {
+            normal = PolylineNormal(lineA);
+            if (capSquare) {
+                capEnd = curr + (lineA * halfThick);
+                curr = capEnd;
+            }
+            PolylineExtrusions(
+                std::get<0>(output), curr, normal.value(), halfThick);
+            if (lastFlip == 1) {
+                std::get<1>(output).push_back(count);
+                std::get<1>(output).push_back(count + 2);
+                std::get<1>(output).push_back(count + 3);
+            } else {
+                std::get<1>(output).push_back(count + 2);
+                std::get<1>(output).push_back(count + 1);
+                std::get<1>(output).push_back(count + 3);
+            }
+            count += 2;
+        } else {
+            lineB = PolylineDirection(*next, curr);
+            const auto miterLen
+                = PolylineComputeMiter(tangent, miter, lineA, lineB, halfThick);
+
+            auto flip
+                = (((tangent.x * normal->x) + (tangent.x * normal->y)) < 0) ? -1
+                                                                            : 1;
+
+            bool bevel = joinBevel;
+            if (!bevel) {
+                const auto limit = miterLen / halfThick;
+                if (limit > miterLimit) bevel = true;
+            }
+
+            if (bevel) {
+                auto tmp = curr + (normal.value() * (-halfThick * flip));
+                std::get<0>(output).push_back(tmp);
+                tmp = curr + (miter * (miterLen * flip));
+                std::get<0>(output).push_back(tmp);
+
+                if (lastFlip != -flip) {
+                    std::get<1>(output).push_back(count);
+                    std::get<1>(output).push_back(count + 2);
+                    std::get<1>(output).push_back(count + 3);
+                } else {
+                    std::get<1>(output).push_back(count + 2);
+                    std::get<1>(output).push_back(count + 1);
+                    std::get<1>(output).push_back(count + 3);
+                }
+
+                std::get<1>(output).push_back(count + 2);
+                std::get<1>(output).push_back(count + 3);
+                std::get<1>(output).push_back(count + 4);
+
+                normal = PolylineNormal(lineB);
+                std::get<0>(output).push_back(
+                    curr + (tmp * (-halfThick * flip)));
+
+                count += 3;
+            } else {
+                PolylineExtrusions(std::get<0>(output), curr, miter, miterLen);
+                if (lastFlip == 1) {
+                    std::get<1>(output).push_back(count);
+                    std::get<1>(output).push_back(count + 2);
+                    std::get<1>(output).push_back(count + 3);
+                } else {
+                    std::get<1>(output).push_back(count + 2);
+                    std::get<1>(output).push_back(count + 1);
+                    std::get<1>(output).push_back(count + 3);
+                }
+                flip = -1;
+                normal = miter;
+                count += 2;
+            }
+            lastFlip = flip;
+        }
+    }
+    return output;
+}
+
+std::vector<uint32_t> Triangulate(std::vector<FPoint2> const& polygon) {
+    using Point = std::array<float, 2>;
+    std::vector<std::vector<Point>> x{{}};
+    x[0].resize(polygon.size());
+    for (std::size_t i = 0; i < polygon.size(); ++i) {
+        x[0][i] = {polygon[i].x, polygon[i].y};
+    }
+    return mapbox::earcut<uint32_t>(x);
 }
 
 } // namespace xu

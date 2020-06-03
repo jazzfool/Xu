@@ -28,14 +28,11 @@
 
 namespace xu {
 
-enum class XU_API VectorPathEventType { Move, Line, Quadratic, Cubic, Arc };
+enum class XU_API VectorPathEventType { Line, Quadratic, Cubic, Arc };
 
 struct XU_API VectorPathEvent {
     VectorPathEventType type;
     union XU_API {
-        struct XU_API {
-            FPoint2 to;
-        } move;
         struct XU_API {
             FPoint2 to;
         } line;

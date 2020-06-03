@@ -1,3 +1,6 @@
 [submodule "external/nano-signal-slot"]
 	path = external/nano-signal-slot
 	url = https://github.com/NoAvailableAlias/nano-signal-slot
+[submodule "external/earcut"]
+	path = external/earcut
+	url = https://github.com/mapbox/earcut.hpp
