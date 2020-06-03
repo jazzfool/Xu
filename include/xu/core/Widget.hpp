@@ -37,7 +37,8 @@
 namespace xu {
 
 /*!
- * \brief Core widget class of the library. All widgets must derive from this class.
+ * \brief Core widget class of the library. All widgets must derive from this
+ * class.
  */
 class XU_API Widget {
 public:
@@ -50,26 +51,30 @@ public:
 
     /*!
      * \brief Gives the layout system a hint of how large this widget has to be.
-     *        Note that the actual size may be different depending on the layout.
-     * \sa [Insert layout documentation page]
+     *        Note that the actual size may be different depending on the
+     * layout. \sa [Insert layout documentation page]
      */
     virtual FSize2 SizeHint() const = 0;
 
     /*!
-     * \brief Paint this widget's visual representation onto the surface. This function must be overridden by child widgets.
+     * \brief Paint this widget's visual representation onto the surface. This
+     * function must be overridden by child widgets.
      */
     virtual void Paint(Surface& surface) const = 0;
 
     /*!
-     * \brief Output this widget's visual representation by pushing triangle draw commands into the command list.
-     * Note: This API will be removed once vector path graphics are implemented.
+     * \brief Output this widget's visual representation by pushing triangle
+     * draw commands into the command list. Note: This API will be removed once
+     * vector path graphics are implemented.
      */
-    virtual void GenerateTriangles(RenderData& renderData, CommandList& cmdList, ISize2 windowSize) const = 0;
+    virtual void GenerateTriangles(RenderData& renderData, CommandList& cmdList,
+        ISize2 windowSize) const = 0;
 
     /*!
-     * \brief Test whether the mouse pointer is hovering the widget. Custom widgets may override this to replace the default
-     *        AABB intersection test.
-     * \param pointer Point with mouse coordinates. TODO: Document coordinate system
+     * \brief Test whether the mouse pointer is hovering the widget. Custom
+     * widgets may override this to replace the default AABB intersection test.
+     * \param pointer Point with mouse coordinates. TODO: Document coordinate
+     * system
      */
     virtual bool PointerHit(FPoint2 const& pointer) const;
 
@@ -85,20 +90,21 @@ public:
     virtual FRect2 Geometry() const final;
 
     /*!
-     * \brief Obtain a pointer to the parent of this widget. If there is no parent, nullptr is returned.
+     * \brief Obtain a pointer to the parent of this widget. If there is no
+     * parent, nullptr is returned.
      */
     virtual Widget* Parent() const final;
 
     /*!
-     * \brief Obtain the amount of children this widget owns. Useful for iterating over them.
+     * \brief Obtain the amount of children this widget owns. Useful for
+     * iterating over them.
      */
     virtual std::size_t NumChildren() const final;
 
     /*!
-     * \brief Create a new child widget of type T and append it to the list of children.
-     * \param args Arguments to be forwarded to the widget's constructor.
-     * \return WidgetPtr to the child widget. 
-     * \sa WidgetPtr
+     * \brief Create a new child widget of type T and append it to the list of
+     * children. \param args Arguments to be forwarded to the widget's
+     * constructor. \return WidgetPtr to the child widget. \sa WidgetPtr
      */
     template<typename T, typename... CtorArgs>
     WidgetPtr<T> MakeChild(CtorArgs&&... args) {
@@ -108,10 +114,10 @@ public:
     }
 
     /*!
-     * \brief Create a new child widget of type T and put it at the specified index in the list of children.
-     * \param at Position to insert the new child widget.
-     * \param args Arguments to be forwarded to the widget's constructor
-     * \return WidgetPtr to the child widget. 
+     * \brief Create a new child widget of type T and put it at the specified
+     * index in the list of children. \param at Position to insert the new child
+     * widget. \param args Arguments to be forwarded to the widget's constructor
+     * \return WidgetPtr to the child widget.
      * \sa WidgetPtr
      */
     template<typename T, typename... CtorArgs>
@@ -133,7 +139,8 @@ public:
     Signal<> sigBeforeDestruction;
 
     /*!
-     * \brief Toggle to indicate whether this widget is hidden or not.
+     * \brief Toggle to indicate whether this widget is hidden or not. This
+     * propagates to child widgets.
      */
     bool hidden;
 

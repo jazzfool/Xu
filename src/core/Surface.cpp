@@ -24,12 +24,8 @@
 
 namespace xu {
 
-void Surface::Paint(VectorPath const& geometry) {
+void Surface::Paint(VectorPath const& geometry) {}
 
-}
+void Surface::GenerateGeometry(RenderData& renderData, CommandList& cmdList) {}
 
-void Surface::GenerateGeometry(RenderData& renderData, CommandList& cmdList) {
-
-}
-
-}
+} // namespace xu

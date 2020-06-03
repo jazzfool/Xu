@@ -29,12 +29,17 @@ BoxStack::BoxStack() :
     spacing{0.f} {}
 
 FSize2 BoxStack::MinSize() const {
-    if (NumItems() == 0) { return FSize2{0.f, 0.f}; }
-
     const auto os = OrientationSubject();
+    std::size_t numVisible = 0; // num of *visible* (non-hidden) children
     FSize2 sz{0.f, 0.f};
-    for (auto const& item : items) { sz.*os += item.Rect().size.*os; }
-    sz.*os += spacing * (NumItems() - 1);
+    for (auto const& item : items) {
+        if (item.Hidden()) { continue; }
+        sz.*os += item.PreferredSize().*os;
+        numVisible += 1;
+    }
+
+    if (numVisible == 0) { return FSize2{0.f, 0.f}; }
+    sz.*os += spacing * (numVisible - 1);
 
     return sz;
 }
@@ -49,6 +54,7 @@ void BoxStack::UpdateItems() {
     const auto os = OrientationSubject();
     auto pos = Geometry().origin;
     for (auto& item : items) {
+        if (item.Hidden()) { continue; }
         item.SetRect(FRect2{pos, item.Rect().size});
         pos.*os += item.Rect().size.*os + spacing;
     }

@@ -39,9 +39,11 @@ set(SOURCES
     "src/core/Context.cpp"
     "src/core/Layout.cpp"
     "src/core/RenderData.cpp"
+    "src/core/Surface.cpp"
+    "src/core/Tessellation.cpp"
 
     "src/kit/BoxStack.cpp"
-    "src/core/Surface.cpp")
+)
 
 add_library(Xu)
 

@@ -32,6 +32,27 @@ void LayoutItem::SetRect(FRect2 const& rect) {
     }
 }
 
+FRect2 LayoutItem::Rect() const {
+    switch (type) {
+        case Type::Widget: return std::get<0>(item)->Geometry();
+        case Type::Layout: return std::get<1>(item)->Geometry();
+    }
+}
+
+FSize2 LayoutItem::PreferredSize() const {
+    switch (type) {
+        case Type::Widget: return std::get<0>(item)->SizeHint();
+        case Type::Layout: return std::get<1>(item)->MinSize();
+    }
+}
+
+bool LayoutItem::Hidden() const {
+    switch (type) {
+        case Type::Widget: return std::get<0>(item)->hidden;
+        case Type::Layout: return false;
+    }
+}
+
 Layout::~Layout() {}
 
 void Layout::Update(FRect2 const& rect) {
