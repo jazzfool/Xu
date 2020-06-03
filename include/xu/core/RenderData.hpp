@@ -41,7 +41,7 @@ struct XU_API Vertex {
 };
 
 /*!
- * \brief Used to describe which kinda of draw command is active in the command
+ * \brief Used to describe which kind of draw command is active in the command
  * union \sa [Insert rendering API doc link]
  */
 enum class DrawCommandType {
