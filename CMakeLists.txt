@@ -40,6 +40,7 @@ set(SOURCES
     "src/core/Layout.cpp"
     "src/core/RenderData.cpp"
     "src/core/Surface.cpp"
+    "src/core/Tessellation.cpp"
 
     "src/kit/BoxStack.cpp"
 )

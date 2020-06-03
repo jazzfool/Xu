@@ -26,8 +26,37 @@
 
 namespace xu {
 
-class XU_API VectorPath {
+enum class XU_API VectorPathEventType { Move, Line, Quadratic, Cubic, Arc };
 
+struct XU_API VectorPathEvent {
+    VectorPathEventType type;
+    union XU_API {
+        struct XU_API {
+            FPoint2 to;
+        } move;
+        struct XU_API {
+            FPoint2 to;
+        } line;
+        struct XU_API {
+            FPoint2 to;
+            FPoint2 x0;
+        } quadratic;
+        struct XU_API {
+            FPoint2 to;
+            FPoint2 x0;
+            FPoint2 x1;
+        } cubic;
+        struct XU_API {
+            FPoint2 center;
+            float radius;
+            float startAngle;
+            float endAngle;
+        } arc;
+    } params;
 };
 
-}
+struct XU_API VectorPath {
+    std::vector<VectorPathEvent> events;
+};
+
+} // namespace xu

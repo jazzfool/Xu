@@ -75,13 +75,9 @@ void Context::ProcessEvents() {
 
 RenderData const& Context::GetRenderData() const { return renderData; }
 
-void Context::DispatchEvent(MouseMoveEvent const& evt) {
-    
-}
+void Context::DispatchEvent(MouseMoveEvent const& evt) {}
 
-void Context::DispatchEvent(WindowResizeEvent const& evt) {
-    
-}
+void Context::DispatchEvent(WindowResizeEvent const& evt) {}
 
 void Context::BuildRenderData() {
     renderData.Clear();
@@ -92,12 +88,13 @@ void Context::BuildRenderData() {
 }
 
 void Context::PaintWidgetAndChildren(Widget* widget) {
+    if (widget->hidden) { return; }
+
     widget->Paint(surface);
 
     for (size_t child = 0; child < widget->NumChildren(); ++child) {
         PaintWidgetAndChildren(widget->GetChild(child));
     }
-
 }
 
 } // namespace xu
