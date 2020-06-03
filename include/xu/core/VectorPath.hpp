@@ -24,6 +24,8 @@
 
 #include <xu/core/Definitions.hpp>
 
+#include <vector>
+
 namespace xu {
 
 enum class XU_API VectorPathEventType { Move, Line, Quadratic, Cubic, Arc };
