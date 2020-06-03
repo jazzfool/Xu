@@ -109,6 +109,8 @@ private:
 
     // Temporary, a single surface, just to get the basic implementation started
     Surface surface;
+    // Temporary until proper eventing is implemented
+    ISize2 windowSize;
 };
 
 } // namespace xu
