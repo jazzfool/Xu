@@ -24,20 +24,28 @@
 
 #include <xu/core/Definitions.hpp>
 #include <xu/core/RenderData.hpp>
+#include <xu/core/Size2.hpp>
 #include <xu/core/VectorPath.hpp>
 
 namespace xu {
 
 /*!
- * \brief Represents a surface for widgets to paint their visual representation on.
+ * \brief Represents a surface for widgets to paint their visual representation
+ * on.
  */
 class XU_API Surface {
 public:
     void Paint(VectorPath const& geometry);
+
+    void Clear();
+
 private:
     friend class Context;
 
-    void GenerateGeometry(RenderData& renderData, CommandList& cmdList);
+    void GenerateGeometry(
+        RenderData& renderData, CommandList& cmdList, FSize2 windowSize);
+
+    std::vector<VectorPath> paths;
 };
 
-}
+} // namespace xu

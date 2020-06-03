@@ -22,10 +22,33 @@
 
 #include <xu/core/Surface.hpp>
 
+#include "Tessellation.hpp"
+
 namespace xu {
 
-void Surface::Paint(VectorPath const& geometry) {}
+void Surface::Paint(VectorPath const& geometry) { paths.push_back(geometry); }
 
-void Surface::GenerateGeometry(RenderData& renderData, CommandList& cmdList) {}
+void Surface::Clear() { paths.clear(); }
+
+void Surface::GenerateGeometry(
+    RenderData& renderData, CommandList& cmdList, FSize2 windowSize) {
+    for (auto const& path : paths) {
+        auto points = FlattenPath(path, 1.0f);
+        auto indices = Triangulate(points);
+
+        // TODO: A little inefficient
+        std::vector<Vertex> vertices;
+        vertices.reserve(points.size());
+        for (auto const pt : points) { 
+            Vertex vtx;
+            // Sometimes causes strange transformations
+            vtx.position.x = pt.x / windowSize.x;
+            vtx.position.y = pt.y / windowSize.y;
+            vertices.push_back(vtx); 
+        }
+
+        renderData.PushGeometry(cmdList, vertices, indices);
+    }
+}
 
 } // namespace xu

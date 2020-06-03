@@ -253,8 +253,9 @@ public:
     // to.
     std::vector<CommandList> cmdLists;
     /*!
-     * \brief List of all vertices used by all command lists. These positions are in range [0, 1], with the origin in the top-left
-     * corner of the window.
+     * \brief List of all vertices used by all command lists. These positions
+     * are in range [0, 1], with the origin in the top-left corner of the
+     * window.
      */
     std::vector<Vertex> vertices;
     std::vector<uint32_t> indices;
@@ -281,6 +282,12 @@ public:
      * drawcall.
      */
     void PushQuad(CommandList& cmdList, FRect2 quad);
+
+    /*!
+     * \brief Push custom geometry to the draw list
+     */
+    void PushGeometry(CommandList& cmdList, std::vector<Vertex> const& verts,
+        std::vector<uint32_t> const& idx);
 };
 
 } // namespace xu

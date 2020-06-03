@@ -182,4 +182,18 @@ void RenderData::PushQuad(CommandList& cmdList, FRect2 quad) {
     cmdList.PushCommand(command);
 }
 
+void RenderData::PushGeometry(CommandList& cmdList, std::vector<Vertex> const& verts, std::vector<uint32_t> const& idx) {
+    size_t const baseIndex = indices.size();
+    size_t const baseVertex = vertices.size();
+
+    vertices.insert(vertices.end(), verts.begin(), verts.end());
+    indices.insert(indices.end(), idx.begin(), idx.end());
+
+    CmdDrawTriangles command;
+    command.indexOffset = baseIndex;
+    command.vertexOffset = baseVertex;
+    command.numIndices = idx.size();
+    cmdList.PushCommand(command);
+}
+
 } // namespace xu

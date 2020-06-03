@@ -81,9 +81,10 @@ void Context::DispatchEvent(WindowResizeEvent const& evt) {
 
 void Context::BuildRenderData() {
     renderData.Clear();
+    surface.Clear();
     CommandList cmdList;
-    //    PaintWidgetAndChildren(root.get());
-    //    surface.GenerateGeometry(renderData, cmdList);
+    PaintWidgetAndChildren(root.get());
+    surface.GenerateGeometry(renderData, cmdList, FSize2(windowSize.x, windowSize.y));
 
     // Temporarily use Widget::GenerateTriangles
     auto triangleGen = [&cmdList, this](auto self, Widget* widget) -> void {
@@ -92,7 +93,9 @@ void Context::BuildRenderData() {
             self(self, widget->GetChild(child));
         }
     };
-    triangleGen(triangleGen, root.get());
+    // triangleGen(triangleGen, root.get());
+
+
 
     renderData.cmdLists.push_back(std::move(cmdList));
 }

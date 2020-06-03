@@ -186,9 +186,15 @@ std::vector<FPoint2> FlattenPath(VectorPath const& path, double quality) {
                         event.params.quadratic.x0, quality);
 
                 if (points.empty()) continue;
-                polygon.insert(polygon.end(),
-                    points.begin() + (points.front() == polygon.back() ? 1 : 0),
-                    points.end());
+                // back() is invalid on an empty vector, so we need to make this distinction
+                if (polygon.empty()) {
+                    polygon.insert(polygon.end(), points.begin(), points.end());
+                } else {
+                    polygon.insert(polygon.end(),
+                        points.begin()
+                            + (points.front() == polygon.back() ? 1 : 0),
+                        points.end());
+                }
                 curr = points.back();
                 break;
             }
@@ -196,10 +202,17 @@ std::vector<FPoint2> FlattenPath(VectorPath const& path, double quality) {
                 const auto points = FlattenCubic(curr, event.params.cubic.to,
                     event.params.cubic.x0, event.params.cubic.x1, quality);
 
-                if (points.empty()) continue;
-                polygon.insert(polygon.end(),
-                    points.begin() + (points.front() == polygon.back() ? 1 : 0),
-                    points.end());
+               if (points.empty()) continue;
+                // back() is invalid on an empty vector, so we need to make this
+                // distinction
+                if (polygon.empty()) {
+                    polygon.insert(polygon.end(), points.begin(), points.end());
+                } else {
+                    polygon.insert(polygon.end(),
+                        points.begin()
+                            + (points.front() == polygon.back() ? 1 : 0),
+                        points.end());
+                }
                 curr = points.back();
                 break;
             }
@@ -209,9 +222,16 @@ std::vector<FPoint2> FlattenPath(VectorPath const& path, double quality) {
                     event.params.arc.endAngle, quality);
 
                 if (points.empty()) continue;
-                polygon.insert(polygon.end(),
-                    points.begin() + (points.front() == polygon.back() ? 1 : 0),
-                    points.end());
+                // back() is invalid on an empty vector, so we need to make this
+                // distinction
+                if (polygon.empty()) {
+                    polygon.insert(polygon.end(), points.begin(), points.end());
+                } else {
+                    polygon.insert(polygon.end(),
+                        points.begin()
+                            + (points.front() == polygon.back() ? 1 : 0),
+                        points.end());
+                }
                 curr = points.back();
                 break;
             }
