@@ -115,7 +115,7 @@ static std::vector<FPoint2> FlattenQuadratic(
 static std::vector<FPoint2> FlattenCubic(
     FPoint2 p1, FPoint2 p2, FPoint2 p3, FPoint2 p4, double quality) {
     const auto numLines
-        = (static_cast<std::size_t>((p1 - p4).Magnitude() * 10)) + 1;
+        = (static_cast<std::size_t>((p4 - p1).Magnitude() * 2)) + 1;
     std::vector<FPoint2> points;
     points.resize(numLines);
 
@@ -395,6 +395,8 @@ std::pair<std::vector<FPoint2>, std::vector<uint32_t>> ExpandStroke(
 }
 
 std::vector<uint32_t> Triangulate(std::vector<FPoint2> const& polygon) {
+    if (polygon.size() <= 2) { return {}; }
+
     using Point = std::array<float, 2>;
     std::vector<std::vector<Point>> x{{}};
     x[0].resize(polygon.size());
