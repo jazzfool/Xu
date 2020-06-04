@@ -30,7 +30,12 @@ class Widget;
 
 /*!
  * \brief Special immutable widget pointer wrapper which can nullify the pointer
- * before the widget is destroyed.
+ * before the widget is destroyed. This reasoning behind this is that there is
+ * no way to know that a widget being pointed to (via Widget*) has been
+ * destroyed. This simple wrapper class will listen for the event emitted by the
+ * widget in its destructor and nullify the stored pointer. Therefore, when the
+ * stored pointer is null, it can be checked for widget destroyal state
+ * (otherwise not possible with a raw widget pointer).
  */
 template<typename T>
 struct WidgetPtr {

@@ -28,6 +28,13 @@ namespace xu {
 
 // RAII-like slot object that automatically disconnects the slot from the signal
 // when destructed.
+/*!
+ * \brief RAII-based slot object which will automatically call Connect and
+ * Disconnect on construction and destruction, respectively. This prevents
+ * dangling slots since Signal is not aware that a member function
+ * pointer instance is no longer valid and will wrongly continue to blindly
+ * invoke it.
+ */
 template<auto X>
 class UniqueSlot final {};
 
