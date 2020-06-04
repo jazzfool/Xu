@@ -33,7 +33,7 @@ void Surface::Clear() { paths.clear(); }
 void Surface::GenerateGeometry(
     RenderData& renderData, CommandList& cmdList, FSize2 windowSize) {
     for (auto const& path : paths) {
-        auto points = FlattenPath(path, 1.0f);
+        auto points = FlattenPath(path, 50.0f);
         auto indices = Triangulate(points);
 
         // TODO: A little inefficient
