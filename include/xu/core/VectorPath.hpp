@@ -55,6 +55,7 @@ struct XU_API VectorPathEvent {
 };
 
 struct XU_API VectorPath {
+    FPoint2 start{0.f, 0.f};
     std::vector<VectorPathEvent> events;
 };
 

@@ -90,13 +90,16 @@ static std::vector<FPoint2> FlattenQuadratic(
     const auto n = std::ceil(count);
     const auto u0 = ApproxInvMyint(a0);
     const auto u2 = ApproxInvMyint(a2);
+
     std::vector<float> result;
-    result.reserve(n + 2);
     result.push_back(0.f);
-    for (std::size_t i = 0; i < n; ++i) {
-        const auto u = ApproxInvMyint(a0 + ((a2 - a0) * i) / n);
-        const auto t = (u - u0) / (u2 - u0);
-        result.push_back(t);
+    if (std::isfinite(n)) {
+        result.reserve(n + 2);
+        for (std::size_t i = 1; i < n; ++i) {
+            const auto u = ApproxInvMyint(a0 + ((a2 - a0) * i) / n);
+            const auto t = (u - u0) / (u2 - u0);
+            result.push_back(t);
+        }
     }
     result.push_back(1.f);
 
@@ -171,11 +174,12 @@ static std::vector<FPoint2> MergeDuplicatePoints(
 std::vector<FPoint2> FlattenPath(VectorPath const& path, double quality) {
     std::vector<FPoint2> polygon;
 
-    FPoint2 curr{0.f, 0.f};
+    FPoint2 curr = path.start;
     for (auto const& event : path.events) {
         switch (event.type) {
             case VectorPathEventType::Line: {
-                if (polygon.back() != curr) polygon.push_back(curr);
+                if (polygon.empty() || polygon.back() != curr)
+                    polygon.push_back(curr);
                 curr = event.params.line.to;
                 polygon.push_back(curr);
                 break;
@@ -186,7 +190,8 @@ std::vector<FPoint2> FlattenPath(VectorPath const& path, double quality) {
                         event.params.quadratic.x0, quality);
 
                 if (points.empty()) continue;
-                // back() is invalid on an empty vector, so we need to make this distinction
+                // back() is invalid on an empty vector, so we need to make this
+                // distinction
                 if (polygon.empty()) {
                     polygon.insert(polygon.end(), points.begin(), points.end());
                 } else {
@@ -202,7 +207,7 @@ std::vector<FPoint2> FlattenPath(VectorPath const& path, double quality) {
                 const auto points = FlattenCubic(curr, event.params.cubic.to,
                     event.params.cubic.x0, event.params.cubic.x1, quality);
 
-               if (points.empty()) continue;
+                if (points.empty()) continue;
                 // back() is invalid on an empty vector, so we need to make this
                 // distinction
                 if (polygon.empty()) {
