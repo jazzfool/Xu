@@ -26,6 +26,7 @@
 #include <xu/core/Events.hpp>
 #include <xu/core/RenderData.hpp>
 #include <xu/core/Surface.hpp>
+#include <xu/core/WsiInterface.hpp>
 
 // Temporary?
 #include <xu/core/Widget.hpp>
@@ -84,8 +85,16 @@ public:
      */
     InputReception inputReception;
 
+    /*!
+     * \brief Should this be private, and should it be const? Pointer to user's window handler.
+     */
+    WsiInterface* wsiInterface = nullptr;
+
     // Temporary
     std::unique_ptr<Widget> root;
+    // Adds new root widget
+    // In turn calls the user's window handler for a new window.
+    WidgetPtr<Widget> AddWindow(const char* title, ISize2 size);
 
 private:
     enum class EventType { MouseMove, WindowResize };
@@ -106,6 +115,22 @@ private:
 
     std::queue<Event> eventQueue;
     RenderData renderData;
+
+    struct WindowData {
+        Rect2<int32_t> rect;
+
+        // Some WSI libraries will report cursor enter/leave events out of order
+        // so we store a bool per window to account for that.
+        bool cursorIsInside;
+    };
+    struct RootWidgetNode {
+        // ID for the windowing interface
+        WindowID windowID;
+        Surface surface;
+        WindowData windowData{};
+        std::unique_ptr<Widget> widget;
+    };
+    std::vector<RootWidgetNode> rootWidgets;
 
     // Temporary, a single surface, just to get the basic implementation started
     Surface surface;
