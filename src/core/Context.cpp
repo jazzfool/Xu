@@ -73,6 +73,40 @@ void Context::ProcessEvents() {
 
 RenderData const& Context::GetRenderData() const { return renderData; }
 
+struct TestWindow : public Widget {
+    TestWindow() : Widget(nullptr) {}
+
+    virtual FSize2 SizeHint() const override { 
+        return {};
+    }
+
+    virtual void Paint(Surface& surface) const override {
+        
+    }
+
+    virtual void GenerateTriangles(
+        RenderData& renderData, 
+        CommandList& cmdList,
+        ISize2 windowSize) const override {
+    }
+};
+
+WidgetPtr<Widget> Context::AddWindow(
+    const char* title,
+    ISize2 size) {
+    RootWidgetNode newNode{};
+    auto newWindowResult = wsiInterface->NewWindow(
+        "Xu test window, remember to implement window title", 
+        {500, 500});
+    newNode.windowID = newWindowResult.id;
+    newNode.windowData.rect = newWindowResult.rect;
+    newNode.widget = std::unique_ptr<Widget>(new TestWindow);
+    
+    rootWidgets.push_back(std::move(newNode));
+
+    return WidgetPtr<Widget>(rootWidgets.back().widget.get());
+}
+
 void Context::DispatchEvent(MouseMoveEvent const& evt) {}
 
 void Context::DispatchEvent(WindowResizeEvent const& evt) {

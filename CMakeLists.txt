@@ -17,6 +17,7 @@ endif()
 set(HEADERS
     "include/xu/core/Widget.hpp"
     "include/xu/core/WidgetPtr.hpp"
+    "include/xu/core/WsiInterface.hpp"
     "include/xu/core/Definitions.hpp"
     "include/xu/core/Vector2.hpp"
     "include/xu/core/Rect2.hpp"
@@ -50,7 +51,7 @@ add_library(Xu)
 add_subdirectory(external)
 
 target_sources(Xu PRIVATE ${SOURCES})
-target_include_directories(Xu PRIVATE include)
+target_include_directories(Xu PUBLIC include)
 
 if (${BUILD_SHARED_LIBS})
     target_compile_definitions(Xu PRIVATE -DXU_EXPORT)
