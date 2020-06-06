@@ -23,6 +23,7 @@
 #pragma once
 
 #include <cstdint> // Fixed-width integer types
+#include <cassert>
 
 #ifdef _MSC_VER
 
@@ -37,6 +38,8 @@
 #else // _MSC_VER
     #define XU_API
 #endif // _MSC_VER
+
+#define XU_ASSERT(x) assert(x)
 
 namespace xu {
 

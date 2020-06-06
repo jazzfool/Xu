@@ -156,7 +156,9 @@ void Layout::Invalidate() {
 }
 
 void Layout::InsertWidget(std::size_t where, Widget* widget) {
-    if (widget->parentLayout != nullptr) { return; }
+    XU_ASSERT(widget->parentLayout == nullptr);
+    XU_ASSERT(widget->ownedLayout.get() != this);
+
     widget->parentLayout = this;
 
     items.push_back(widget);
@@ -166,7 +168,8 @@ void Layout::InsertWidget(std::size_t where, Widget* widget) {
 void Layout::AddWidget(Widget* widget) { InsertWidget(NumItems(), widget); }
 
 void Layout::InsertLayout(std::size_t where, std::unique_ptr<Layout> layout) {
-    if (layout->parentLayout != nullptr) { return; }
+    XU_ASSERT(layout->parentLayout == nullptr);
+
     layout->parentLayout = this;
 
     items.push_back(layout.get());
