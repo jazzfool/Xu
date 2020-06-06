@@ -20,35 +20,31 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-#include <xu/core/Surface.hpp>
+#pragma once
 
-#include "Tessellation.hpp"
+#include <xu/core/Definitions.hpp>
 
 namespace xu {
 
-void Surface::Paint(VectorPath const& geometry) { paths.push_back(geometry); }
+/*!
+ * \brief Simple RGBA 888+F (3x8-bit RGB components, 1x float alpha) color type.
+ */
+struct XU_API Color {
+    constexpr Color(
+        uint8_t r = 0, uint8_t g = 0, uint8_t b = 0, float a = 1.f) :
+        r{r},
+        g{g},
+        b{b},
+        a{a} {}
 
-void Surface::Clear() { paths.clear(); }
+    static constexpr Color Black() { return Color(0, 0, 0, 1.f); }
+    static constexpr Color White() { return Color(255, 255, 255, 1.f); }
+    static constexpr Color Transparent() { return Color(0, 0, 0, 0.f); }
 
-void Surface::GenerateGeometry(
-    RenderData& renderData, CommandList& cmdList, FSize2 windowSize) {
-    for (auto const& path : paths) {
-        auto points = FlattenPath(path, 50.0f);
-        auto indices = Triangulate(points);
-
-        // TODO: A little inefficient
-        std::vector<Vertex> vertices;
-        vertices.reserve(points.size());
-        for (auto const pt : points) { 
-            Vertex vtx;
-            // Sometimes causes strange transformations
-            vtx.position.x = pt.x / windowSize.x;
-            vtx.position.y = pt.y / windowSize.y;
-            vertices.push_back(vtx); 
-        }
-
-        renderData.PushGeometry(cmdList, vertices, indices);
-    }
-}
+    uint8_t r;
+    uint8_t g;
+    uint8_t b;
+    float a;
+};
 
 } // namespace xu

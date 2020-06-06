@@ -126,24 +126,15 @@ RenderData const& Context::GetRenderData() const { return renderData; }
 struct TestWindow : public Widget {
     TestWindow() : Widget(nullptr) {}
 
-    virtual FSize2 SizeHint() const override { 
-        return {};
-    }
+    virtual FSize2 SizeHint() const override { return {}; }
 
-    virtual void Paint(Surface& surface) const override {
-        
-    }
+    virtual void Paint(Surface& surface, Theme* theme) const override {}
 
-    virtual void GenerateTriangles(
-        RenderData& renderData, 
-        CommandList& cmdList,
-        ISize2 windowSize) const override {
-    }
+    virtual void GenerateTriangles(RenderData& renderData, CommandList& cmdList,
+        ISize2 windowSize) const override {}
 };
 
-WidgetPtr<Widget> Context::AddWindow(
-    const char* title,
-    ISize2 size) {
+WidgetPtr<Widget> Context::AddWindow(const char* title, ISize2 size) {
     RootWidgetNode newNode{};
     auto newWindowResult = wsiInterface->NewWindow(
         title, 
@@ -151,7 +142,7 @@ WidgetPtr<Widget> Context::AddWindow(
     newNode.windowID = newWindowResult.id;
     newNode.windowData.rect = newWindowResult.rect;
     newNode.widget = std::unique_ptr<Widget>(new TestWindow);
-    
+
     rootWidgets.push_back(std::move(newNode));
 
     return WidgetPtr<Widget>(rootWidgets.back().widget.get());
@@ -203,8 +194,15 @@ void Context::DispatchEvent(CursorButtonEvent const& evt) {
 
 void Context::BuildRenderData() {
     renderData.Clear();
-    
+
     renderData.cmdLists.resize(rootWidgets.size());
+
+    surface.Clear();
+    CommandList cmdList;
+    PaintWidgetAndChildren(root.get());
+    surface.GenerateGeometry(
+        renderData, cmdList, FSize2(windowSize.x, windowSize.y));
+
 
     for (size_t i = 0; i < rootWidgets.size(); i++) {
 
@@ -228,16 +226,15 @@ void Context::BuildRenderData() {
     };
     // triangleGen(triangleGen, root.get());
     */
-
-
-
+  
     //renderData.cmdLists.push_back(std::move(cmdList));
+    renderData.cmdLists.push_back(std::move(cmdList));
 }
 
 void Context::PaintWidgetAndChildren(Widget* widget) {
     if (widget->hidden) { return; }
 
-    widget->Paint(surface);
+    widget->Paint(surface, theme.get());
 
     for (size_t child = 0; child < widget->NumChildren(); ++child) {
         PaintWidgetAndChildren(widget->GetChild(child));

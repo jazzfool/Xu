@@ -37,8 +37,9 @@ public:
         IRect2 rect;
     };
     [[nodiscard]] virtual NewWindowResult NewWindow(
-        char const* title,
-        ISize2 extent) = 0;
+        char const* title, ISize2 extent)
+        = 0;
     virtual void DestroyWindow(WindowID) = 0;
 };
-}
+
+} // namespace xu

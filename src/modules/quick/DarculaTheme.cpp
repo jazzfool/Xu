@@ -20,35 +20,42 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-#include <xu/core/Surface.hpp>
+#include <xu/modules/quick/DarculaTheme.hpp>
 
-#include "Tessellation.hpp"
+namespace xu::quick {
 
-namespace xu {
+DarculaTheme::DarculaTheme() {
+    params.normalTextSize = 12.f;
+    params.headingTextSize = 26.f;
+}
 
-void Surface::Paint(VectorPath const& geometry) { paths.push_back(geometry); }
-
-void Surface::Clear() { paths.clear(); }
-
-void Surface::GenerateGeometry(
-    RenderData& renderData, CommandList& cmdList, FSize2 windowSize) {
-    for (auto const& path : paths) {
-        auto points = FlattenPath(path, 50.0f);
-        auto indices = Triangulate(points);
-
-        // TODO: A little inefficient
-        std::vector<Vertex> vertices;
-        vertices.reserve(points.size());
-        for (auto const pt : points) { 
-            Vertex vtx;
-            // Sometimes causes strange transformations
-            vtx.position.x = pt.x / windowSize.x;
-            vtx.position.y = pt.y / windowSize.y;
-            vertices.push_back(vtx); 
-        }
-
-        renderData.PushGeometry(cmdList, vertices, indices);
+Color DarculaTheme::ColorFromPalette(std::string const& colorName) {
+    if (colorName == Theme::foregroundTextColor) {
+        return Color{230, 230, 230};
+    } else if (colorName == Theme::backgroundColor) {
+        return Color{50, 50, 50};
+    } else if (colorName == Theme::outlineColor) {
+        return Color(150, 150, 150);
+    } else {
+        return Color::Black();
     }
 }
 
-} // namespace xu
+void DarculaTheme::PaintWidget(Surface& surf, Widget const* widget,
+    PaintInfo const* info, std::type_index basePainter) {
+    /*
+
+    if (basePainter == typeid(Button)) {
+        Button const* btn = static_cast<Button*>(widget);
+        ButtonPaintInfo const* info = static_cast<ButtonPaintInfo*>(info);
+        // paint a button
+    } else if (basePainter == typeid(TextBox)) {
+        Button const* btn = static_cast<Button*>(widget);
+        ButtonPaintInfo const* info = static_cast<ButtonPaintInfo*>(info);
+        // paint a textbox
+    }
+
+    */
+}
+
+} // namespace xu::quick

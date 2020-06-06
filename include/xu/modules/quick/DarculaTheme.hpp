@@ -20,35 +20,23 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-#include <xu/core/Surface.hpp>
+#pragma once
 
-#include "Tessellation.hpp"
+#include <xu/core/Theme.hpp>
 
-namespace xu {
+namespace xu::quick {
 
-void Surface::Paint(VectorPath const& geometry) { paths.push_back(geometry); }
+class DarculaTheme : public Theme {
+public:
+    DarculaTheme();
 
-void Surface::Clear() { paths.clear(); }
+    Color ColorFromPalette(std::string const& colorName) override;
+    void PaintWidget(Surface& surf, Widget const* widget, PaintInfo const* info,
+        std::type_index basePainter) override;
+    Parameters const& GetParameters() const override;
 
-void Surface::GenerateGeometry(
-    RenderData& renderData, CommandList& cmdList, FSize2 windowSize) {
-    for (auto const& path : paths) {
-        auto points = FlattenPath(path, 50.0f);
-        auto indices = Triangulate(points);
+protected:
+    Parameters params;
+};
 
-        // TODO: A little inefficient
-        std::vector<Vertex> vertices;
-        vertices.reserve(points.size());
-        for (auto const pt : points) { 
-            Vertex vtx;
-            // Sometimes causes strange transformations
-            vtx.position.x = pt.x / windowSize.x;
-            vtx.position.y = pt.y / windowSize.y;
-            vertices.push_back(vtx); 
-        }
-
-        renderData.PushGeometry(cmdList, vertices, indices);
-    }
-}
-
-} // namespace xu
+} // namespace xu::quick

@@ -51,12 +51,24 @@ void BoxStack::InsertItem(std::size_t where, LayoutItem item) {
 }
 
 void BoxStack::UpdateItems() {
+    if (NumItems() == 0) return;
+
     const auto os = OrientationSubject();
+
+    auto itemSize = Geometry().size;
+    itemSize.*os = (Geometry().size.*os / NumItems()) - spacing;
+
     auto pos = Geometry().origin;
     for (auto& item : items) {
         if (item.Hidden()) { continue; }
-        item.SetRect(FRect2{pos, item.Rect().size});
-        pos.*os += item.Rect().size.*os + spacing;
+
+        item.SetPosition(pos);
+        item.SetMinSize({0.f, 0.f});
+        item.SetMaxSize(itemSize);
+
+        item.Apply();
+
+        pos.*os += itemSize.*os + spacing;
     }
 }
 

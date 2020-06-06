@@ -26,8 +26,6 @@
 
 namespace xu {
 
-// RAII-like slot object that automatically disconnects the slot from the signal
-// when destructed.
 /*!
  * \brief RAII-based slot object which will automatically call Connect and
  * Disconnect on construction and destruction, respectively. This prevents
@@ -44,7 +42,7 @@ public:
     UniqueSlot(Signal<Ts...>& sig, T* obj) :
         signal{&sig},
         obj{obj},
-        slotKey{sig.AddSlot(signal)} {
+        slotKey{sig.AddSlot(&signal)} {
         signal->template Connect<F>(obj);
     }
 
@@ -54,13 +52,16 @@ public:
         slotKey{other.slotKey} {
         other.signal = nullptr;
         other.obj = nullptr;
-        signal->SetSlot(slotKey, this);
+        signal->SetSlot(slotKey, &signal);
     }
 
     UniqueSlot(const UniqueSlot&) = delete;
 
     ~UniqueSlot() {
-        if (signal) signal->template Disconnect<F>(obj);
+        if (signal) {
+            signal->template Disconnect<F>(obj);
+            signal->SetSlot(slotKey, nullptr);
+        }
     }
 
     UniqueSlot& operator=(const UniqueSlot&) = delete;
@@ -73,7 +74,7 @@ public:
 
             other.signal = nullptr;
             other.obj = nullptr;
-            signal->SetSlot(slotKey, this);
+            signal->SetSlot(slotKey, &signal);
         }
         return *this;
     }
@@ -89,18 +90,24 @@ class UniqueSlot<F> {
 public:
     UniqueSlot(Signal<Ts...>& sig) :
         signal{&sig},
-        slotKey{sig.AddSlot(signal)} {
+        slotKey{sig.AddSlot(&signal)} {
         signal->template Connect<F>();
     }
 
-    UniqueSlot(UniqueSlot&& other) : signal{other.signal} {
+    UniqueSlot(UniqueSlot&& other) :
+        signal{other.signal},
+        slotKey{other.slotKey} {
         other.signal = nullptr;
+        signal->SetSlot(slotKey, &signal);
     }
 
     UniqueSlot(const UniqueSlot&) = delete;
 
     ~UniqueSlot() {
-        if (signal) signal->template Disconnect<F>();
+        if (signal) {
+            signal->template Disconnect<F>();
+            signal->SetSlot(slotKey, nullptr);
+        }
     }
 
     UniqueSlot& operator=(const UniqueSlot&) = delete;
@@ -111,7 +118,7 @@ public:
             slotKey = other.slotKey;
 
             other.signal = nullptr;
-            signal->SetSlot(slotKey, this);
+            signal->SetSlot(slotKey, &signal);
         }
         return *this;
     }

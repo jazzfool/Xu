@@ -20,35 +20,36 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-#include <xu/core/Surface.hpp>
+#pragma once
 
-#include "Tessellation.hpp"
+#include <string>
+#include <typeindex>
+
+#include <xu/core/Color.hpp>
+#include <xu/core/Surface.hpp>
 
 namespace xu {
 
-void Surface::Paint(VectorPath const& geometry) { paths.push_back(geometry); }
+class Widget;
 
-void Surface::Clear() { paths.clear(); }
+struct XU_API PaintInfo {};
 
-void Surface::GenerateGeometry(
-    RenderData& renderData, CommandList& cmdList, FSize2 windowSize) {
-    for (auto const& path : paths) {
-        auto points = FlattenPath(path, 50.0f);
-        auto indices = Triangulate(points);
+struct XU_API Parameters {
+    float normalTextSize;
+    float headingTextSize;
+};
 
-        // TODO: A little inefficient
-        std::vector<Vertex> vertices;
-        vertices.reserve(points.size());
-        for (auto const pt : points) { 
-            Vertex vtx;
-            // Sometimes causes strange transformations
-            vtx.position.x = pt.x / windowSize.x;
-            vtx.position.y = pt.y / windowSize.y;
-            vertices.push_back(vtx); 
-        }
+class XU_API Theme {
+public:
+    static constexpr char const* foregroundTextColor = "fgText";
+    static constexpr char const* backgroundColor = "bg";
+    static constexpr char const* outlineColor = "outline";
 
-        renderData.PushGeometry(cmdList, vertices, indices);
-    }
-}
+    virtual Color ColorFromPalette(std::string const& colorName) = 0;
+    virtual void PaintWidget(Surface& surf, Widget const* widget,
+        PaintInfo const* info, std::type_index basePainter)
+        = 0;
+    virtual Parameters const& GetParameters() const = 0;
+};
 
 } // namespace xu

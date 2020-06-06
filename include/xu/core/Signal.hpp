@@ -114,13 +114,13 @@ private:
     template<auto X>
     friend class UniqueSlot;
 
-    std::uint32_t AddSlot(Signal*& slot) {
-        uniqueSlots.push_back(&slot);
+    inline std::uint32_t AddSlot(Signal** slot) {
+        uniqueSlots.push_back(slot);
         return uniqueSlots.size() - 1;
     }
 
-    inline void SetSlot(std::uint32_t slot, Signal*& value) {
-        uniqueSlots[slot] = &value;
+    inline void SetSlot(std::uint32_t slot, Signal** value) {
+        uniqueSlots[slot] = value;
     }
 
     SignalT sig;
