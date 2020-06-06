@@ -7,6 +7,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 option(XU_BUILD_DOCS CACHE ON)
 option(XU_ENABLE_TESTS CACHE OFF)
+option(XU_QUICK_MODULE CACHE ON)
 
 if (${FORCE_GNU_CXX17})
     add_compile_options("--std=c++17")
@@ -31,6 +32,8 @@ set(HEADERS
     "include/xu/core/Surface.hpp"
     "include/xu/core/VectorPath.hpp"
     "include/xu/core/UniqueSlot.hpp"
+    "include/xu/core/Color.hpp"
+    "include/xu/core/Theme.hpp"
 
     "include/xu/kit/BoxStack.hpp"
 )
@@ -45,6 +48,16 @@ set(SOURCES
 
     "src/kit/BoxStack.cpp"
 )
+
+if (${XU_QUICK_MODULE})
+    set(HEADERS ${HEADERS}
+        "include/xu/modules/quick/DarculaTheme.hpp"
+    )
+
+    set(SOURCES ${SOURCES}
+        "src/modules/quick/DarculaTheme.cpp"
+    )
+endif()
 
 add_library(Xu)
 
