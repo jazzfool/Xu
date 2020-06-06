@@ -131,7 +131,24 @@ public:
      * \brief Obtain a pointer to the widget at index at
      * \param at Index of the child widget to get a pointer to.
      */
-    Widget* GetChild(std::size_t at);
+    virtual Widget* GetChild(std::size_t at) final;
+
+    /*!
+     * \brief Changes the horizontal (width) SizeHint behaviour.
+     */
+    virtual void SetHorizontalSizeHintBehaviour(SizeHintBehaviour shb) final;
+    /*!
+     * \brief Returns the horizontal (width) SizeHint behaviour.
+     */
+    virtual SizeHintBehaviour HorizontalSizeHintBehaviour() const final;
+    /*!
+     * \brief Changes the vertical (height) SizeHint behaviour.
+     */
+    virtual void SetVerticalSizeHintBehaviour(SizeHintBehaviour shb) final;
+    /*!
+     * \brief Returns the vertical (height) SizeHint behaviour.
+     */
+    virtual SizeHintBehaviour VerticalSizeHintBehaviour() const final;
 
     /*!
      * \brief Signal to be called before destroying this widget
@@ -145,10 +162,17 @@ public:
     bool hidden;
 
 private:
+    friend class LayoutItem;
+    friend class Layout;
+
     FRect2 geometry;
     std::unique_ptr<Layout>
         ownedLayout;      //!< Layout this widget owns (possibly nullptr).
     Layout* parentLayout; //!< Layout this widget is in (possibly nullptr).
+    LayoutItem* layoutItem;
+
+    SizeHintBehaviour horizontalShb;
+    SizeHintBehaviour verticalShb;
 
     Widget* parent;
     std::vector<std::unique_ptr<Widget>> children;

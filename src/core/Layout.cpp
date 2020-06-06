@@ -25,19 +25,36 @@
 
 namespace xu {
 
-void LayoutItem::SetRect(FRect2 const& rect) {
-    switch (type) {
-        case Type::Widget: std::get<0>(item)->SetGeometry(rect); break;
-        case Type::Layout: std::get<1>(item)->SetGeometry(rect); break;
+static float SizeValue(
+    float min, float max, float hint, SizeHintBehaviour behaviour) {
+    switch (behaviour) {
+        case SizeHintBehaviour::Static: return hint;
+        case SizeHintBehaviour::Minimum: return std::max(max, hint);
+        case SizeHintBehaviour::Maximum: return std::min(min, hint);
+        case SizeHintBehaviour::Preferred:
+            return (hint >= min && hint <= max)
+                ? hint
+                : ((std::abs(max - hint) <= std::abs(min - hint)) ? max : min);
+        case SizeHintBehaviour::Expanding:
+            return (hint >= min && hint <= max) ? hint : max;
+        case SizeHintBehaviour::DontCare: return max;
     }
 }
 
-FRect2 LayoutItem::Rect() const {
+LayoutItem::~LayoutItem() {
     switch (type) {
-        case Type::Widget: return std::get<0>(item)->Geometry();
-        case Type::Layout: return std::get<1>(item)->Geometry();
+        case Type::Widget: std::get<0>(item)->layoutItem = nullptr;
+        case Type::Layout: std::get<1>(item)->layoutItem = nullptr;
     }
 }
+
+void LayoutItem::SetMaxSize(FSize2 const& max) { maxSize = max; }
+
+FSize2 LayoutItem::MaxSize() const { return maxSize; }
+
+void LayoutItem::SetMinSize(FSize2 const& min) { minSize = min; }
+
+FSize2 LayoutItem::MinSize() const { return minSize; }
 
 FSize2 LayoutItem::PreferredSize() const {
     switch (type) {
@@ -46,6 +63,12 @@ FSize2 LayoutItem::PreferredSize() const {
     }
 }
 
+void LayoutItem::SetPosition(FPoint2 const& position) {
+    this->position = position;
+}
+
+FPoint2 LayoutItem::Position() const { return position; }
+
 bool LayoutItem::Hidden() const {
     switch (type) {
         case Type::Widget: return std::get<0>(item)->hidden;
@@ -53,7 +76,70 @@ bool LayoutItem::Hidden() const {
     }
 }
 
-Layout::~Layout() {}
+SizeHintBehaviour LayoutItem::HorizontalSizeHintBehaviour() const {
+    switch (type) {
+        case Type::Widget:
+            return std::get<0>(item)->HorizontalSizeHintBehaviour();
+        case Type::Layout:
+            return std::get<1>(item)->HorizontalSizeHintBehaviour();
+    }
+}
+
+SizeHintBehaviour LayoutItem::VerticalSizeHintBehaviour() const {
+    switch (type) {
+        case Type::Widget:
+            return std::get<0>(item)->VerticalSizeHintBehaviour();
+        case Type::Layout:
+            return std::get<1>(item)->VerticalSizeHintBehaviour();
+    }
+}
+
+void LayoutItem::Apply() {
+    const auto horizHint = HorizontalSizeHintBehaviour();
+    const auto vertHint = VerticalSizeHintBehaviour();
+
+    const auto hint = PreferredSize();
+    const auto size = FSize2{SizeValue(minSize.x, maxSize.x, hint.x, horizHint),
+        SizeValue(minSize.y, maxSize.y, hint.y, vertHint)};
+
+    switch (type) {
+        case Type::Widget:
+            std::get<0>(item)->geometry.size = size;
+            std::get<0>(item)->geometry.origin = position;
+            break;
+        case Type::Layout:
+            std::get<1>(item)->geometry.size = size;
+            std::get<1>(item)->geometry.origin = position;
+            break;
+    }
+}
+
+LayoutItem::LayoutItem(Widget* widget) : type{Type::Widget}, item{widget} {
+    widget->layoutItem = this;
+}
+
+LayoutItem::LayoutItem(std::unique_ptr<Layout> layout) :
+    type{Type::Layout},
+    item{std::move(layout)} {
+    layout->layoutItem = this;
+}
+
+Layout::Layout() :
+    geometry{{0.f, 0.f}, {0.f, 0.f}},
+    parentLayout{nullptr},
+    layoutItem{nullptr},
+    horizontalShb{SizeHintBehaviour::Preferred},
+    verticalShb{SizeHintBehaviour::Preferred},
+    invalid{true} {}
+
+Layout::~Layout() {
+    for (auto const& item : items) {
+        switch (item.index()) {
+            case 0: std::get<0>(item)->parentLayout = nullptr;
+            case 1: std::get<1>(item)->parentLayout = nullptr;
+        }
+    }
+}
 
 void Layout::Update(FRect2 const& rect) {
     if (invalid) {
@@ -64,25 +150,31 @@ void Layout::Update(FRect2 const& rect) {
 
 void Layout::Invalidate() {
     invalid = true;
-    for (auto const& layout : childLayouts) { layout->Invalidate(); }
+    for (auto const& item : items) {
+        if (item.index() == 1) { std::get<1>(item)->Invalidate(); }
+    }
 }
 
 void Layout::InsertWidget(std::size_t where, Widget* widget) {
+    if (widget->parentLayout != nullptr) { return; }
+    widget->parentLayout = this;
+
+    items.push_back(widget);
     InsertItem(where, LayoutItem{widget});
 }
 
-void Layout::AddWidget(Widget* widget) {
-    InsertItem(NumItems(), LayoutItem{widget});
-}
+void Layout::AddWidget(Widget* widget) { InsertWidget(NumItems(), widget); }
 
 void Layout::InsertLayout(std::size_t where, std::unique_ptr<Layout> layout) {
+    if (layout->parentLayout != nullptr) { return; }
+    layout->parentLayout = this;
+
+    items.push_back(layout.get());
     InsertItem(where, LayoutItem{std::move(layout)});
-    childLayouts.push_back(layout.get());
 }
 
 void Layout::AddLayout(std::unique_ptr<Layout> layout) {
-    InsertItem(NumItems(), LayoutItem{std::move(layout)});
-    childLayouts.push_back(layout.get());
+    InsertLayout(NumItems(), std::move(layout));
 }
 
 void Layout::SetGeometry(FRect2 const& geometry) {

@@ -37,6 +37,42 @@ class Widget;
 class Layout;
 
 /*!
+ * \brief Modes of how Widget::SizeHint should be treated by LayoutItem.
+ */
+enum class SizeHintBehaviour {
+    /*!
+     * \brief The Widget::SizeHint value is the final size always; no more, no
+     * less.
+     */
+    Static,
+    /*!
+     * \brief The Widget::SizeHint value is the minimum size, it cannot be any
+     * less, but it can be more.
+     */
+    Minimum,
+    /*!
+     * \brief The Widget::SizeHint value is the maxmimum size, it cannot be any
+     * more, but it can be less.
+     */
+    Maximum,
+    /*!
+     * \brief The Widget::SizeHint value is the preferred size and should be
+     * applied where possible, but it may be either less or more.
+     */
+    Preferred,
+    /*!
+     * \brief The Widget::SizeHint value is the sensible (default) size,
+     * but it is preferred that as much space as possible be taken up.
+     */
+    Expanding,
+    /*!
+     * \brief The Widget::SizeHint value should be completely ignored. Whatever
+     * size is given by layout (i.e. the maximum) is what should be applied.
+     */
+    DontCare
+};
+
+/*!
  * \brief Mediating class which acts as a proxy for anything that can be placed
  * in a layout (namely other layouts and widgets).
  * \sa Layout
@@ -49,16 +85,32 @@ public:
     LayoutItem& operator=(LayoutItem const&) = delete;
     LayoutItem& operator=(LayoutItem&&) = default;
 
+    ~LayoutItem();
+
     /*!
-     * \brief Changes the geometry rectangle of the underlying object.
-     * \sa LayoutItem::Rect
+     * \brief Changes the maximum geometry size available to the underlying
+     * object.
+     * \sa LayoutItem::MaxSize
      */
-    void SetRect(FRect2 const& rect);
+    void SetMaxSize(FSize2 const& max);
     /*!
-     * \brief Returns the geometry rectangle of the underlying object.
-     * \sa LayoutItem::SetRect
+     * \brief Returns the maximum geometry size available to the underlying
+     * object.
+     * \sa LayoutItem::SetMaxSize
      */
-    FRect2 Rect() const;
+    FSize2 MaxSize() const;
+    /*!
+     * \brief Changes the minimum geometry size available to the underlying
+     * object.
+     * \sa LayoutItem::MinSize
+     */
+    void SetMinSize(FSize2 const& min);
+    /*!
+     * \brief Returns the minimum geometry size available to the underlying
+     * object.
+     * \sa LayoutItem::SetMinSize
+     */
+    FSize2 MinSize() const;
     /*!
      * \brief Returns the preferred size of the underlying object. For widgets
      * this is Widget::SizeHint, and for layouts this is Layout::MinSize.
@@ -67,18 +119,51 @@ public:
     FSize2 PreferredSize() const;
 
     /*!
+     * \brief Changes the geometry position of the underlying
+     * object.
+     * \sa LayoutItem::Position
+     */
+    void SetPosition(FPoint2 const& position);
+    /*!
+     * \brief Returns the geometry position of the underlying
+     * object.
+     * \sa LayoutItem::SetPosition
+     */
+    FPoint2 Position() const;
+
+    /*!
      * \brief Returns the hidden state of this object. That is to say; should
      * its rectangle be considered in the layout.
      * \sa Widget::hidden
      */
     bool Hidden() const;
 
+    /*!
+     * \brief Returns how the underlying item's preferred width should be
+     * treated.
+     */
+    SizeHintBehaviour HorizontalSizeHintBehaviour() const;
+    /*!
+     * \brief Returns how the underlying item's preferred height should be
+     * treated.
+     */
+    SizeHintBehaviour VerticalSizeHintBehaviour() const;
+
+    /*!
+     * \brief Updates the actual geometry using the item's SizeHintBehaviour,
+     * MaxSize and MinSize
+     */
+    void Apply();
+
 private:
     friend class Layout;
-    LayoutItem(Widget* widget) : type{Type::Widget}, item{widget} {}
-    LayoutItem(std::unique_ptr<Layout> layout) :
-        type{Type::Layout},
-        item{std::move(layout)} {}
+
+    LayoutItem(Widget* widget);
+    LayoutItem(std::unique_ptr<Layout> layout);
+
+    FPoint2 position;
+    FSize2 maxSize;
+    FSize2 minSize;
 
     enum class Type { Widget, Layout } type;
     std::variant<Widget*, std::unique_ptr<Layout>> item;
@@ -93,6 +178,7 @@ private:
  */
 class XU_API Layout {
 public:
+    Layout();
     virtual ~Layout();
 
     /*!
@@ -157,6 +243,23 @@ public:
      */
     virtual FRect2 Geometry() const final;
 
+    /*!
+     * \brief Changes the horizontal (width) SizeHint behaviour.
+     */
+    virtual void SetHorizontalSizeHintBehaviour(SizeHintBehaviour shb) final;
+    /*!
+     * \brief Returns the horizontal (width) SizeHint behaviour.
+     */
+    virtual SizeHintBehaviour HorizontalSizeHintBehaviour() const final;
+    /*!
+     * \brief Changes the vertical (height) SizeHint behaviour.
+     */
+    virtual void SetVerticalSizeHintBehaviour(SizeHintBehaviour shb) final;
+    /*!
+     * \brief Returns the vertical (height) SizeHint behaviour.
+     */
+    virtual SizeHintBehaviour VerticalSizeHintBehaviour() const final;
+
 protected:
     /*!
      * \brief Request for an item insertion at a certain index.
@@ -173,11 +276,20 @@ protected:
     virtual void OnGeometryChanged() {}
 
 private:
+    friend class LayoutItem;
+
     FRect2 geometry;
+    Layout* parentLayout;
+    LayoutItem* layoutItem;
+
+    SizeHintBehaviour horizontalShb;
+    SizeHintBehaviour verticalShb;
+
     bool invalid;
-    std::vector<Layout*>
-        childLayouts; //!< We need to keep a list of child layouts so that we
-                      //!< can propagate layout invalidation.
+    std::vector<std::variant<Widget*, Layout*>>
+        items; //!< The implementing class should have its own list of
+               //!< LayoutItems, but we also maintain an (orderless) list for
+               //!< various purposes.
 };
 
 } // namespace xu

@@ -26,11 +26,14 @@
 namespace xu {
 
 Widget::Widget(Widget* parent) :
+    hidden{false},
+    geometry{{0.0f, 0.0f}, {0.0f, 0.0f}},
     ownedLayout{nullptr},
     parentLayout{nullptr},
-    parent{parent},
-    hidden{false},
-    geometry{{0.0f, 0.0f}, {0.0f, 0.0f}} {}
+    layoutItem{nullptr},
+    horizontalShb{SizeHintBehaviour::Preferred},
+    verticalShb{SizeHintBehaviour::Preferred},
+    parent{parent} {}
 
 Widget::~Widget() { sigBeforeDestruction(); }
 
@@ -41,9 +44,7 @@ bool Widget::PointerHit(FPoint2 const& pointer) const {
 void Widget::SetGeometry(FRect2 const& geometry) {
     this->geometry = geometry;
 
-    if (ownedLayout) { ownedLayout->Invalidate(); }
-
-    if (parentLayout) { parentLayout->Invalidate(); }
+    if (layoutItem) { layoutItem->Apply(); }
 }
 
 FRect2 Widget::Geometry() const { return geometry; }
@@ -53,5 +54,23 @@ Widget* Widget::Parent() const { return parent; }
 std::size_t Widget::NumChildren() const { return children.size(); }
 
 Widget* Widget::GetChild(std::size_t at) { return children[at].get(); }
+
+void Widget::SetHorizontalSizeHintBehaviour(SizeHintBehaviour shb) {
+    horizontalShb = shb;
+    if (layoutItem) { layoutItem->Apply(); }
+}
+
+SizeHintBehaviour Widget::HorizontalSizeHintBehaviour() const {
+    return horizontalShb;
+}
+
+void Widget::SetVerticalSizeHintBehaviour(SizeHintBehaviour shb) {
+    verticalShb = shb;
+    if (layoutItem) { layoutItem->Apply(); }
+}
+
+SizeHintBehaviour Widget::VerticalSizeHintBehaviour() const {
+    return verticalShb;
+}
 
 } // namespace xu

@@ -26,8 +26,6 @@
 
 namespace xu {
 
-// RAII-like slot object that automatically disconnects the slot from the signal
-// when destructed.
 /*!
  * \brief RAII-based slot object which will automatically call Connect and
  * Disconnect on construction and destruction, respectively. This prevents
