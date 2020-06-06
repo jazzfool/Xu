@@ -26,16 +26,16 @@
 
 #ifdef _MSC_VER
 
-#if XU_IMPORT
-#define XU_API __declspec(dllimport)
-#elif XU_SHARED
-#define XU_API __declspec(dllexport)
-#else
-#define XU_API
-#endif // XU_IMPORT/XU_EXPORT
+    #if XU_IMPORT
+        #define XU_API __declspec(dllimport)
+    #elif XU_SHARED
+        #define XU_API __declspec(dllexport)
+    #else
+        #define XU_API
+    #endif // XU_IMPORT/XU_EXPORT
 
 #else // _MSC_VER
-#define XU_API
+    #define XU_API
 #endif // _MSC_VER
 
 namespace xu {

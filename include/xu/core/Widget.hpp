@@ -67,9 +67,7 @@ public:
      * draw commands into the command list. Note: This API will be removed once
      * vector path graphics are implemented.
      */
-    virtual void GenerateTriangles(
-        RenderData& renderData,
-        CommandList& cmdList,
+    virtual void GenerateTriangles(RenderData& renderData, CommandList& cmdList,
         ISize2 windowSize) const = 0;
 
     /*!

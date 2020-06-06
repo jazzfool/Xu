@@ -38,23 +38,24 @@ namespace xu {
 /*!
  * \brief Select which method must be used for event processing.
  */
-enum class InputReception { 
+enum class InputReception {
     /*!
-     * \brief Indicates that events will be dispatched in order of submission (FIFO) on calling Context::ProcessEvents()
+     * \brief Indicates that events will be dispatched in order of submission
+     * (FIFO) on calling Context::ProcessEvents()
      */
-    Queued, 
+    Queued,
     /*!
-     * \brief Indicates that events will be dispatched immediately as they are received.
+     * \brief Indicates that events will be dispatched immediately as they are
+     * received.
      */
-    Immediate 
+    Immediate
 };
 
 /*!
- * \brief Core context class of the Xu library. 
+ * \brief Core context class of the Xu library.
  */
 class XU_API Context {
 public:
-
     /*!
      * \brief Notifies Xu that a mouse move event has occured.
      * \sa [Insert windowing event docs link]
@@ -68,8 +69,8 @@ public:
     void NotifyEvent(WindowResizeEvent const& evt);
 
     /*!
-     * \brief Processes all events until none are left. After this call, the event queue is empty.
-     * \sa [Insert windowing event docs link]
+     * \brief Processes all events until none are left. After this call, the
+     * event queue is empty. \sa [Insert windowing event docs link]
      */
     void ProcessEvents();
 
@@ -86,7 +87,8 @@ public:
     InputReception inputReception;
 
     /*!
-     * \brief Should this be private, and should it be const? Pointer to user's window handler.
+     * \brief Should this be private, and should it be const? Pointer to user's
+     * window handler.
      */
     WsiInterface* wsiInterface = nullptr;
 

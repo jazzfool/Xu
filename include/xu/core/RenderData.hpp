@@ -247,7 +247,6 @@ private:
  */
 class XU_API RenderData {
 public:
-
     // We will build one command list for each OS window so they can be executed
     // in parallel for people who build a vulkan renderer. This also avoids the
     // hassle of having CommandList::Iterator track the current window to draw

@@ -30,6 +30,7 @@
 #include <type_traits>
 
 namespace xu {
+
 // 2D rectangle type with helper methods.
 template<typename T>
 struct XU_API Bounds2 {
@@ -44,8 +45,8 @@ struct XU_API Bounds2 {
         upper(upper) {}
     constexpr Bounds2(const std::initializer_list<Point2<T>>& vertices) :
         lower(std::numeric_limits<T>::max(), std::numeric_limits<T>::max()),
-        upper(std::numeric_limits<T>::lowest(), std::numeric_limits<T>::lowest()) 
-    {
+        upper(std::numeric_limits<T>::lowest(),
+            std::numeric_limits<T>::lowest()) {
         for (const auto& v : vertices) {
             lower.x = std::min(v.x, lower.x);
             lower.y = std::min(v.y, lower.y);
