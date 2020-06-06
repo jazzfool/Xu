@@ -27,6 +27,7 @@
 #include <xu/core/RenderData.hpp>
 #include <xu/core/Surface.hpp>
 #include <xu/core/WsiInterface.hpp>
+#include <xu/core/Theme.hpp>
 
 // Temporary?
 #include <xu/core/Widget.hpp>
@@ -91,6 +92,11 @@ public:
      * window handler.
      */
     WsiInterface* wsiInterface = nullptr;
+
+    /*!
+     * \brief The theme that should be given to widgets during rendering.
+     */
+    std::unique_ptr<Theme> theme;
 
     // Temporary
     std::unique_ptr<Widget> root;

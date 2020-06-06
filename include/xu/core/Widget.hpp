@@ -36,6 +36,8 @@
 
 namespace xu {
 
+class Theme;
+
 /*!
  * \brief Core widget class of the library. All widgets must derive from this
  * class.
@@ -60,7 +62,7 @@ public:
      * \brief Paint this widget's visual representation onto the surface. This
      * function must be overridden by child widgets.
      */
-    virtual void Paint(Surface& surface) const = 0;
+    virtual void Paint(Surface& surface, Theme* theme) const = 0;
 
     /*!
      * \brief Output this widget's visual representation by pushing triangle
