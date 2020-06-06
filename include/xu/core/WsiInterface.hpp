@@ -28,8 +28,6 @@
 
 namespace xu {
 
-enum class WindowID : uint64_t;
-
 class WsiInterface {
 public:
     virtual ~WsiInterface() {}

@@ -15,6 +15,8 @@ elseif (${FORCE_MSVC_CXX17})
 endif() 
 
 set(HEADERS
+    "include/xu/core/InputEnums.hpp"
+    "include/xu/core/InputState.hpp"
     "include/xu/core/Widget.hpp"
     "include/xu/core/WidgetPtr.hpp"
     "include/xu/core/WsiInterface.hpp"

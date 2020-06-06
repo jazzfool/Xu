@@ -22,34 +22,28 @@
 
 #pragma once
 
-#include <cstdint> // Fixed-width integer types
-
-#ifdef _MSC_VER
-
-#if XU_IMPORT
-#define XU_API __declspec(dllimport)
-#elif XU_SHARED
-#define XU_API __declspec(dllexport)
-#else
-#define XU_API
-#endif // XU_IMPORT/XU_EXPORT
-
-#else // _MSC_VER
-#define XU_API
-#endif // _MSC_VER
+#include <xu/core/Definitions.hpp>
+#include <xu/core/Vector2.hpp>
+#include <xu/core/InputEnums.hpp>
 
 namespace xu {
 
-using std::uint16_t;
-using std::uint32_t;
-using std::uint64_t;
-using std::uint8_t;
+	class XU_API InputState {
+    public:
+		IVector2 cursorPosition;
+        IVector2 cursorPositionDelta;
 
-using std::int16_t;
-using std::int32_t;
-using std::int64_t;
-using std::int8_t;
+		[[nodiscard]] bool GetCursorButton(CursorButton btn) const {
+            return cursorButtonStates[(int)btn];
+        }
+		void SetCursorButton(CursorButton btn, bool newState) {
+            cursorButtonStates[(int)btn] = newState;
+		}
+        void ToggleCursorButton(CursorButton btn) {
+            cursorButtonStates[(int)btn] = !cursorButtonStates[(int)btn];
+		}
+	private:
+        bool cursorButtonStates[(int)CursorButton::COUNT] = {};
+	};
 
-enum class WindowID : uint64_t;
-
-} // namespace xu
+}

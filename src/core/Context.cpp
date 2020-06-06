@@ -22,20 +22,9 @@
 
 #include <xu/core/Context.hpp>
 
-namespace xu {
+#include <iostream> // For debugging.
 
-void Context::NotifyEvent(MouseMoveEvent const& evt) {
-    switch (inputReception) {
-        case InputReception::Queued: {
-            Event event;
-            event.type = EventType::MouseMove;
-            event.data.mouseMove = evt;
-            eventQueue.push(event);
-            break;
-        }
-        case InputReception::Immediate: DispatchEvent(evt); break;
-    }
-}
+namespace xu {
 
 void Context::NotifyEvent(WindowResizeEvent const& evt) {
     switch (inputReception) {
@@ -50,17 +39,78 @@ void Context::NotifyEvent(WindowResizeEvent const& evt) {
     }
 }
 
+void Context::NotifyEvent(WindowMoveEvent const& evt) {
+    switch (inputReception) {
+        case InputReception::Queued: {
+            Event event;
+            event.type = EventType::WindowMove;
+            event.data.windowMove = evt;
+            eventQueue.push(event);
+            break;
+        }
+        case InputReception::Immediate: DispatchEvent(evt); break;
+    }
+}
+
+void Context::NotifyEvent(WindowCursorEnterEvent const& evt) {
+    switch (inputReception) {
+        case InputReception::Queued: {
+            Event event;
+            event.type = EventType::WindowCursorEnter;
+            event.data.windowCursorEnter = evt;
+            eventQueue.push(event);
+            break;
+        }
+        case InputReception::Immediate: DispatchEvent(evt); break;
+    }
+}
+
+void Context::NotifyEvent(CursorMoveEvent const& evt) {
+    switch (inputReception) {
+        case InputReception::Queued: {
+            Event event;
+            event.type = EventType::CursorMove;
+            event.data.cursorMove = evt;
+            eventQueue.push(event);
+            break;
+        }
+        case InputReception::Immediate: DispatchEvent(evt); break;
+    }
+}
+
+void Context::NotifyEvent(CursorButtonEvent const& evt) {
+    switch (inputReception) {
+        case InputReception::Queued: {
+            Event event;
+            event.type = EventType::CursorButton;
+            event.data.cursorButton = evt;
+            eventQueue.push(event);
+            break;
+        }
+        case InputReception::Immediate: DispatchEvent(evt); break;
+    }
+}
+
 void Context::ProcessEvents() {
     if (inputReception == InputReception::Queued) {
         while (!eventQueue.empty()) {
-            const auto& evt = eventQueue.front();
+            auto const& evt = eventQueue.front();
 
             switch (evt.type) {
-                case EventType::MouseMove:
-                    DispatchEvent(evt.data.mouseMove);
+                case EventType::WindowMove:
+                    DispatchEvent(evt.data.windowMove);
                     break;
                 case EventType::WindowResize:
                     DispatchEvent(evt.data.windowResize);
+                    break;
+                case EventType::WindowCursorEnter:
+                    DispatchEvent(evt.data.windowCursorEnter);
+                    break;
+                case EventType::CursorMove:
+                    DispatchEvent(evt.data.cursorMove);
+                    break;
+                case EventType::CursorButton:
+                    DispatchEvent(evt.data.cursorButton);
                     break;
             }
 
@@ -96,7 +146,7 @@ WidgetPtr<Widget> Context::AddWindow(
     ISize2 size) {
     RootWidgetNode newNode{};
     auto newWindowResult = wsiInterface->NewWindow(
-        "Xu test window, remember to implement window title", 
+        title, 
         {500, 500});
     newNode.windowID = newWindowResult.id;
     newNode.windowData.rect = newWindowResult.rect;
@@ -107,19 +157,68 @@ WidgetPtr<Widget> Context::AddWindow(
     return WidgetPtr<Widget>(rootWidgets.back().widget.get());
 }
 
-void Context::DispatchEvent(MouseMoveEvent const& evt) {}
-
 void Context::DispatchEvent(WindowResizeEvent const& evt) {
+    auto& rootWidgetNode = *std::find_if(rootWidgets.begin(), rootWidgets.end(),
+        [&evt](RootWidgetNode const& node) -> bool {
+            return evt.id == node.windowID;
+        });
+    
+    rootWidgetNode.windowData.rect.size = evt.size;
+
     windowSize = evt.size;
+}
+
+void Context::DispatchEvent(WindowMoveEvent const& evt) {
+    auto& rootWidgetNode = *std::find_if(rootWidgets.begin(), rootWidgets.end(),
+        [&evt](RootWidgetNode const& node) -> bool {
+            return evt.id == node.windowID;
+        });
+
+    rootWidgetNode.windowData.rect.origin = evt.position;
+}
+
+void Context::DispatchEvent(WindowCursorEnterEvent const& evt) {
+    auto& rootWidgetNode = *std::find_if(rootWidgets.begin(), rootWidgets.end(),
+        [&evt](RootWidgetNode const& node) -> bool {
+            return evt.id == node.windowID;
+        });
+
+    rootWidgetNode.windowData.cursorIsInside = evt.entered;
+}
+
+void Context::DispatchEvent(CursorMoveEvent const& evt) {
+    inputState.cursorPosition = evt.position;
+    inputState.cursorPositionDelta = evt.positionDelta;
+
+    // Possibly move down the widget hierarchy
+    // and invoke some cursor hover events?
+}
+
+void Context::DispatchEvent(CursorButtonEvent const& evt) {
+    inputState.SetCursorButton(evt.button, evt.value);
+
+    // Possibly move down the widget hierarchy
+    // and invoke some click events if it is also hovering the widget?
 }
 
 void Context::BuildRenderData() {
     renderData.Clear();
-    surface.Clear();
-    CommandList cmdList;
-    PaintWidgetAndChildren(root.get());
-    surface.GenerateGeometry(renderData, cmdList, FSize2(windowSize.x, windowSize.y));
+    
+    renderData.cmdLists.resize(rootWidgets.size());
 
+    for (size_t i = 0; i < rootWidgets.size(); i++) {
+
+        RootWidgetNode& window = rootWidgets[i];
+        CommandList& cmdList = renderData.cmdLists[i];
+
+        PaintWidgetAndChildren(window.widget.get());
+        window.surface.Clear();
+        surface.GenerateGeometry(
+            renderData,
+            cmdList, 
+            FSize2{ (float)window.windowData.rect.size.x, (float)window.windowData.rect.size.y });
+    }
+    /*
     // Temporarily use Widget::GenerateTriangles
     auto triangleGen = [&cmdList, this](auto self, Widget* widget) -> void {
         widget->GenerateTriangles(renderData, cmdList, windowSize);
@@ -128,10 +227,11 @@ void Context::BuildRenderData() {
         }
     };
     // triangleGen(triangleGen, root.get());
+    */
 
 
 
-    renderData.cmdLists.push_back(std::move(cmdList));
+    //renderData.cmdLists.push_back(std::move(cmdList));
 }
 
 void Context::PaintWidgetAndChildren(Widget* widget) {
