@@ -41,6 +41,18 @@ Color DarculaTheme::ColorFromPalette(std::string const& colorName) {
     }
 }
 
+void DarculaTheme::InitializeWidget(Widget* widget, PaintInfo* info, std::type_index basePainter) {
+    /*
+
+    if (basePainter == typeid(Button)) {
+        Button* btn = static_cast<Button*>(widget);
+
+        info->
+    }
+
+    */
+}
+
 void DarculaTheme::PaintWidget(Surface& surf, Widget const* widget,
     PaintInfo const* info, std::type_index basePainter) {
     /*

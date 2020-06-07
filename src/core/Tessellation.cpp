@@ -155,10 +155,23 @@ static std::vector<FPoint2> FlattenCubic(
     return points;
 }
 
+static float Lerp(float a, float b, float f) { return a + f * (b - a); }
+
+static FPoint2 PointForAngle(float radians, FPoint2 center, float radius) {
+    const float s = std::sinf(radians);
+    const float c = std::cosf(radians);
+    return FPoint2{c * radius + center.x, s * radius + center.y};
+}
+
 static std::vector<FPoint2> FlattenArc(FPoint2 center, float radius,
     float startAngle, float endAngle, double quality) {
-    // funnily enough this is literally the easiest one to implement
-    return {};
+    std::vector<FPoint2> polygon;
+    for (size_t i = 0; i < std::ceil(quality); ++i) {
+        float t = i / static_cast<float>(std::ceil(quality));
+        polygon.push_back(
+            PointForAngle(Lerp(startAngle, endAngle, t), center, radius));
+    }
+    return polygon;
 }
 
 static std::vector<FPoint2> MergeDuplicatePoints(

@@ -31,12 +31,6 @@
 
 namespace xu {
 
-// We would want to expose these types to the user so that they can
-// customize how the stroked path looks.
-
-enum class LineCap { Butt, Square };
-enum class LineJoin { Bevel, Miter };
-
 // This is the first step in the vector path triangulation process.
 //
 // This essentially "flattens" the path. That is to say; it converts bezier
