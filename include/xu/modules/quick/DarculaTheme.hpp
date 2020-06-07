@@ -31,6 +31,8 @@ public:
     DarculaTheme();
 
     Color ColorFromPalette(std::string const& colorName) override;
+    void InitializeWidget(
+        Widget* widget, PaintInfo* info, std::type_index basePainter) override;
     void PaintWidget(Surface& surf, Widget const* widget, PaintInfo const* info,
         std::type_index basePainter) override;
     Parameters const& GetParameters() const override;

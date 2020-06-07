@@ -82,6 +82,21 @@ public:
     RenderData const& GetRenderData() const;
 
     /*!
+     * \brief Changes the theme that should be given to widgets during
+     * rendering.
+     *
+     * \param theme The theme to change to. If nullptr is given, the theme
+     * mechanics are disabled.
+     */
+    void SetTheme(std::unique_ptr<Theme> theme = nullptr);
+
+    /*!
+     * \brief Returns the theme that would be given to widgets during
+     * rendering. Possibly nullptr.
+     */
+    Theme* GetTheme() const;
+
+    /*!
      * \brief Select which method must be used for event processing.
      * \sa InputReception
      */
@@ -92,11 +107,6 @@ public:
      * window handler.
      */
     WsiInterface* wsiInterface = nullptr;
-
-    /*!
-     * \brief The theme that should be given to widgets during rendering.
-     */
-    std::unique_ptr<Theme> theme;
 
     // Temporary
     std::unique_ptr<Widget> root;
@@ -120,9 +130,12 @@ private:
 
     void BuildRenderData();
     void PaintWidgetAndChildren(Widget* widget);
+    void InitializeWidgetThemeAndChildren(Widget* widget);
 
     std::queue<Event> eventQueue;
     RenderData renderData;
+
+    std::unique_ptr<Theme> theme;
 
     struct WindowData {
         Rect2<int32_t> rect;

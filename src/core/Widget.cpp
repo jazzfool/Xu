@@ -37,6 +37,10 @@ Widget::Widget(Widget* parent) :
 
 Widget::~Widget() { sigBeforeDestruction(); }
 
+void Widget::Paint(Surface& surf, Theme* theme) const {}
+
+void Widget::InitializeTheme(Theme& theme) {}
+
 bool Widget::PointerHit(FPoint2 const& pointer) const {
     return Geometry().ContainsPoint(pointer);
 }

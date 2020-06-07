@@ -73,6 +73,17 @@ void Context::ProcessEvents() {
 
 RenderData const& Context::GetRenderData() const { return renderData; }
 
+void Context::SetTheme(std::unique_ptr<Theme> theme) {
+    if (theme) {
+        this->theme = std::move(theme);
+        InitializeWidgetThemeAndChildren(root.get());
+    } else {
+        this->theme.reset();
+    }
+}
+
+Theme* Context::GetTheme() const { return this->theme.get(); }
+
 struct TestWindow : public Widget {
     TestWindow() : Widget(nullptr) {}
 
@@ -130,6 +141,13 @@ void Context::PaintWidgetAndChildren(Widget* widget) {
 
     for (size_t child = 0; child < widget->NumChildren(); ++child) {
         PaintWidgetAndChildren(widget->GetChild(child));
+    }
+}
+
+void Context::InitializeWidgetThemeAndChildren(Widget* widget) {
+    widget->InitializeTheme(*theme.get());
+    for (size_t child = 0; child < widget->NumChildren(); ++child) {
+        InitializeWidgetThemeAndChildren(widget->GetChild(child));
     }
 }
 

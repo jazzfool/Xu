@@ -54,15 +54,30 @@ public:
     /*!
      * \brief Gives the layout system a hint of how large this widget has to be.
      *        Note that the actual size may be different depending on the
-     * layout. \sa [Insert layout documentation page]
+     * layout.
+     * \sa [Insert layout documentation page]
      */
     virtual FSize2 SizeHint() const = 0;
 
     /*!
      * \brief Paint this widget's visual representation onto the surface. This
-     * function must be overridden by child widgets.
+     * function should be overridden by types implementing Widget if it is
+     * intended that they have a standalone visual appearance.
+     *
+     * \param surface The surface to render to (i.e. submit high-level commands
+     * to). \param theme The theme of the context this widget resides in. It is
+     * possible that it is nullptr.
      */
-    virtual void Paint(Surface& surface, Theme* theme) const = 0;
+    virtual void Paint(Surface& surface, Theme* theme) const;
+
+    /*!
+     * \brief Should invoke Theme::InitializeWidget if this widget employs
+     * the use of painting delegation to themes.
+     *
+     * \param theme The theme that should be notified of widget initialization
+     * (Theme::InitializeWidget) if necessary.
+     */
+    virtual void InitializeTheme(Theme& theme);
 
     /*!
      * \brief Output this widget's visual representation by pushing triangle

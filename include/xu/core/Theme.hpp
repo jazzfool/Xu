@@ -32,7 +32,9 @@ namespace xu {
 
 class Widget;
 
-struct XU_API PaintInfo {};
+struct XU_API PaintInfo {
+    std::vector<BakedVectorPath> paths;
+};
 
 struct XU_API Parameters {
     float normalTextSize;
@@ -45,7 +47,12 @@ public:
     static constexpr char const* backgroundColor = "bg";
     static constexpr char const* outlineColor = "outline";
 
+    virtual ~Theme() = default;
+
     virtual Color ColorFromPalette(std::string const& colorName) = 0;
+    virtual void InitializeWidget(
+        Widget* widget, PaintInfo* info, std::type_index basePainter)
+        = 0;
     virtual void PaintWidget(Surface& surf, Widget const* widget,
         PaintInfo const* info, std::type_index basePainter)
         = 0;
