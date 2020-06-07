@@ -20,25 +20,26 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-#pragma once
-
+#include <xu/kit/Button.hpp>
 #include <xu/core/Theme.hpp>
 
-namespace xu::quick {
+namespace xu {
 
-class DarculaTheme : public Theme {
-public:
-    DarculaTheme();
+Button::Button(Widget* parent) : Widget{parent} {}
 
-    Color ColorFromPalette(std::string const& colorName) override;
-    void InitializeWidget(
-        Widget* widget, PaintInfo* info, PainterType basePainter) override;
-    void PaintWidget(Surface& surf, Widget const* widget, PaintInfo const* info,
-        PainterType basePainter) override;
-    Parameters const& GetParameters() const override;
+FSize2 Button::SizeHint() const {
+    // TODO: measuring text size
+    return FSize2{100.f, 40.f};
+}
 
-protected:
-    Parameters params;
-};
+void Button::InitializeTheme(Theme& theme) {
+    theme.InitializeWidget(this, &paintInfo, Button::Painter());
+}
 
-} // namespace xu::quick
+void Button::Paint(Surface& surf, Theme* theme) const {
+    if (theme) theme->PaintWidget(surf, this, &paintInfo, Button::Painter());
+}
+
+PainterType Button::Painter() { return typeid(Button); }
+
+} // namespace xu

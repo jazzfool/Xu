@@ -22,23 +22,24 @@
 
 #pragma once
 
+#include <xu/core/Widget.hpp>
 #include <xu/core/Theme.hpp>
 
-namespace xu::quick {
+namespace xu {
 
-class DarculaTheme : public Theme {
+class Button : public Widget {
 public:
-    DarculaTheme();
+    explicit Button(Widget* parent);
 
-    Color ColorFromPalette(std::string const& colorName) override;
-    void InitializeWidget(
-        Widget* widget, PaintInfo* info, PainterType basePainter) override;
-    void PaintWidget(Surface& surf, Widget const* widget, PaintInfo const* info,
-        PainterType basePainter) override;
-    Parameters const& GetParameters() const override;
+    FSize2 SizeHint() const override;
+
+    void InitializeTheme(Theme& theme) override;
+    void Paint(Surface& surf, Theme* theme) const override;
+
+    static std::type_index Painter();
 
 protected:
-    Parameters params;
+    PaintInfo paintInfo;
 };
 
-} // namespace xu::quick
+} // namespace xu

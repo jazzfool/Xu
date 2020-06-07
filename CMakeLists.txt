@@ -38,6 +38,7 @@ set(HEADERS
     "include/xu/core/Theme.hpp"
 
     "include/xu/kit/BoxStack.hpp"
+    "include/xu/kit/Button.hpp"
 )
 
 set(SOURCES
@@ -49,6 +50,7 @@ set(SOURCES
     "src/core/Tessellation.cpp"
 
     "src/kit/BoxStack.cpp"
+    "src/kit/Button.cpp"
 )
 
 if (${XU_QUICK_MODULE})

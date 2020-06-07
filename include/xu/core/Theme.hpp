@@ -41,6 +41,8 @@ struct XU_API Parameters {
     float headingTextSize;
 };
 
+using PainterType = std::type_index;
+
 class XU_API Theme {
 public:
     static constexpr char const* foregroundTextColor = "fgText";
@@ -51,10 +53,10 @@ public:
 
     virtual Color ColorFromPalette(std::string const& colorName) = 0;
     virtual void InitializeWidget(
-        Widget* widget, PaintInfo* info, std::type_index basePainter)
+        Widget* widget, PaintInfo* info, PainterType basePainter)
         = 0;
     virtual void PaintWidget(Surface& surf, Widget const* widget,
-        PaintInfo const* info, std::type_index basePainter)
+        PaintInfo const* info, PainterType basePainter)
         = 0;
     virtual Parameters const& GetParameters() const = 0;
 };

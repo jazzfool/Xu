@@ -24,6 +24,8 @@
 
 namespace xu::quick {
 
+static constexpr float CornerRadius = 10.f;
+
 DarculaTheme::DarculaTheme() {
     params.normalTextSize = 12.f;
     params.headingTextSize = 26.f;
@@ -41,20 +43,21 @@ Color DarculaTheme::ColorFromPalette(std::string const& colorName) {
     }
 }
 
-void DarculaTheme::InitializeWidget(Widget* widget, PaintInfo* info, std::type_index basePainter) {
+void DarculaTheme::InitializeWidget(
+    Widget* widget, PaintInfo* info, PainterType basePainter) {
     /*
 
     if (basePainter == typeid(Button)) {
         Button* btn = static_cast<Button*>(widget);
 
-        info->
+        info->push
     }
 
     */
 }
 
 void DarculaTheme::PaintWidget(Surface& surf, Widget const* widget,
-    PaintInfo const* info, std::type_index basePainter) {
+    PaintInfo const* info, PainterType basePainter) {
     /*
 
     if (basePainter == typeid(Button)) {
