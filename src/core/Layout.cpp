@@ -135,8 +135,8 @@ Layout::Layout() :
 Layout::~Layout() {
     for (auto const& item : items) {
         switch (item.index()) {
-            case 0: std::get<0>(item)->parentLayout = nullptr;
-            case 1: std::get<1>(item)->parentLayout = nullptr;
+            case 0: std::get<0>(item)->parentLayout = nullptr; break;
+            case 1: std::get<1>(item)->parentLayout = nullptr; break;
         }
     }
 }
