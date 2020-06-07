@@ -197,8 +197,7 @@ private:
     friend class Layout;
 
     FRect2 geometry;
-    std::unique_ptr<Layout>
-        ownedLayout;      //!< Layout this widget owns (possibly nullptr).
+    std::unique_ptr<Layout> ownedLayout;      //!< Layout this widget owns (possibly nullptr).
     Layout* parentLayout; //!< Layout this widget is in (possibly nullptr).
     LayoutItem* layoutItem;
 

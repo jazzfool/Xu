@@ -43,8 +43,8 @@ static float SizeValue(
 
 LayoutItem::~LayoutItem() {
     switch (type) {
-        case Type::Widget: std::get<0>(item)->layoutItem = nullptr;
-        case Type::Layout: std::get<1>(item)->layoutItem = nullptr;
+        case Type::Widget: std::get<0>(item)->layoutItem = nullptr; break;
+        case Type::Layout: std::get<1>(item)->layoutItem = nullptr; break;
     }
 }
 
