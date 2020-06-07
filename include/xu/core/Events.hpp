@@ -77,12 +77,12 @@ struct XU_API WindowCursorEnterEvent {
 struct XU_API CursorMoveEvent {
     /*!
      * \brief New mouse position in global pixel coordinates.
-     *        Relative to the top left of the primary display.    
+     *        Relative to the top left of the primary display.
      */
     IPoint2 position;
 
     /*!
-     * \brief Mouse movement since last tick. 
+     * \brief Mouse movement since last tick.
      *        Measured in pixel coordinates.
      */
     IVector2 positionDelta;
