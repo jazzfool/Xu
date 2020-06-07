@@ -22,6 +22,8 @@
 
 #include <xu/modules/quick/DarculaTheme.hpp>
 
+#include <xu/kit/Button.hpp>
+
 namespace xu::quick {
 
 static constexpr float CornerRadius = 10.f;
@@ -45,32 +47,21 @@ Color DarculaTheme::ColorFromPalette(std::string const& colorName) {
 
 void DarculaTheme::InitializeWidget(
     Widget* widget, PaintInfo* info, PainterType basePainter) {
-    /*
-
     if (basePainter == typeid(Button)) {
         Button* btn = static_cast<Button*>(widget);
-
-        info->push
+        info->paths = std::move(std::vector{
+            VectorPath::RoundRectangle(btn->Geometry().size, CornerRadius)
+                .BakeFill(50.)});
     }
-
-    */
 }
 
 void DarculaTheme::PaintWidget(Surface& surf, Widget const* widget,
     PaintInfo const* info, PainterType basePainter) {
-    /*
-
     if (basePainter == typeid(Button)) {
-        Button const* btn = static_cast<Button*>(widget);
-        ButtonPaintInfo const* info = static_cast<ButtonPaintInfo*>(info);
-        // paint a button
-    } else if (basePainter == typeid(TextBox)) {
-        Button const* btn = static_cast<Button*>(widget);
-        ButtonPaintInfo const* info = static_cast<ButtonPaintInfo*>(info);
-        // paint a textbox
+        for (auto const& path : info->paths) {
+            // surf.Paint(path);
+        }
     }
-
-    */
 }
 
 } // namespace xu::quick
