@@ -53,4 +53,6 @@ using std::int32_t;
 using std::int64_t;
 using std::int8_t;
 
+enum class WindowID : uint64_t;
+
 } // namespace xu

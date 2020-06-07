@@ -22,24 +22,15 @@
 
 #pragma once
 
-#include <xu/core/Definitions.hpp>
-#include <xu/core/Rect2.hpp>
-#include <xu/core/Size2.hpp>
-
 namespace xu {
 
-class WsiInterface {
-public:
-    virtual ~WsiInterface() {}
-
-    struct NewWindowResult {
-        WindowID id;
-        IRect2 rect;
-    };
-    [[nodiscard]] virtual NewWindowResult NewWindow(
-        char const* title, ISize2 extent)
-        = 0;
-    virtual void DestroyWindow(WindowID) = 0;
+enum class CursorButton {
+    Primary,
+    Secondary,
+    /*!
+        \brief For internal usage in Xu. Do not use.
+    */
+    COUNT
 };
 
-} // namespace xu
+}

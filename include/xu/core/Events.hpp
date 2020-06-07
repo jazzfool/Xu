@@ -24,6 +24,9 @@
 
 #include <xu/core/Definitions.hpp>
 #include <xu/core/Size2.hpp>
+#include <xu/core/Point2.hpp>
+#include <xu/core/Vector2.hpp>
+#include <xu/core/InputEnums.hpp>
 
 namespace xu {
 
@@ -33,16 +36,67 @@ namespace xu {
  */
 struct XU_API WindowResizeEvent {
     /*!
+     * \brief ID of the window being resized.
+     */
+    WindowID id;
+
+    /*!
      * \brief New window size.
      */
     ISize2 size;
 };
 
-struct XU_API MouseMoveEvent {
+/*!
+ * \brief Struct used to describe a window move event.
+ */
+struct XU_API WindowMoveEvent {
     /*!
-     * \brief New mouse position, relative to the top left of the screen.
+     * \brief ID of the window being resized.
      */
-    ISize2 position;
+    WindowID id;
+
+    /*!
+     * \brief New window position.
+     */
+    IPoint2 position;
+};
+
+struct XU_API WindowCursorEnterEvent {
+    /*!
+     * \brief ID of the window the cursor entered/left.
+     */
+    WindowID id;
+
+    /*!
+     * \brief Cursor entered if set to true
+     *        Cursor left if set to false
+     */
+    bool entered;
+};
+
+struct XU_API CursorMoveEvent {
+    /*!
+     * \brief New mouse position in global pixel coordinates.
+     *        Relative to the top left of the primary display.    
+     */
+    IPoint2 position;
+
+    /*!
+     * \brief Mouse movement since last tick. 
+     *        Measured in pixel coordinates.
+     */
+    IVector2 positionDelta;
+};
+
+struct XU_API CursorButtonEvent {
+    /*!
+     * \brief Cursor button that was had an event.
+     */
+    CursorButton button;
+    /*!
+     * \brief Set to true if the button was clicked. If not, set to false.
+     */
+    bool value;
 };
 
 } // namespace xu

@@ -23,23 +23,27 @@
 #pragma once
 
 #include <xu/core/Definitions.hpp>
-#include <xu/core/Rect2.hpp>
-#include <xu/core/Size2.hpp>
+#include <xu/core/Vector2.hpp>
+#include <xu/core/InputEnums.hpp>
 
 namespace xu {
 
-class WsiInterface {
-public:
-    virtual ~WsiInterface() {}
+	class XU_API InputState {
+    public:
+		IVector2 cursorPosition;
+        IVector2 cursorPositionDelta;
 
-    struct NewWindowResult {
-        WindowID id;
-        IRect2 rect;
-    };
-    [[nodiscard]] virtual NewWindowResult NewWindow(
-        char const* title, ISize2 extent)
-        = 0;
-    virtual void DestroyWindow(WindowID) = 0;
-};
+		[[nodiscard]] bool GetCursorButton(CursorButton btn) const {
+            return cursorButtonStates[(int)btn];
+        }
+		void SetCursorButton(CursorButton btn, bool newState) {
+            cursorButtonStates[(int)btn] = newState;
+		}
+        void ToggleCursorButton(CursorButton btn) {
+            cursorButtonStates[(int)btn] = !cursorButtonStates[(int)btn];
+		}
+	private:
+        bool cursorButtonStates[(int)CursorButton::COUNT] = {};
+	};
 
-} // namespace xu
+}

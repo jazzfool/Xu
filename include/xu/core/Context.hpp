@@ -23,10 +23,13 @@
 #pragma once
 
 #include <xu/core/Definitions.hpp>
+#include <xu/core/Point2.hpp>
+#include <xu/core/Vector2.hpp>
 #include <xu/core/Events.hpp>
 #include <xu/core/RenderData.hpp>
 #include <xu/core/Surface.hpp>
 #include <xu/core/WsiInterface.hpp>
+#include <xu/core/InputState.hpp>
 #include <xu/core/Theme.hpp>
 
 // Temporary?
@@ -58,16 +61,31 @@ enum class InputReception {
 class XU_API Context {
 public:
     /*!
-     * \brief Notifies Xu that a mouse move event has occured.
-     * \sa [Insert windowing event docs link]
-     */
-    void NotifyEvent(MouseMoveEvent const& evt);
-
-    /*!
      * \brief Notifies Xu that a window resize event has occured.
      * \sa [Insert windowing event docs link]
      */
     void NotifyEvent(WindowResizeEvent const& evt);
+    /*!
+     * \brief Notifies Xu that a window resize event has occured.
+     * \sa [Insert windowing event docs link]
+     */
+    void NotifyEvent(WindowMoveEvent const& evt);
+    /*!
+     * \brief Notifies Xu that a cursor has entered/left a window.
+     * \sa [Insert windowing event docs link]
+     */
+    void NotifyEvent(WindowCursorEnterEvent const& evt);
+    /*!
+     * \brief Notifies Xu that a cursor move event has occured.
+     * \sa [Insert windowing event docs link]
+     */
+    void NotifyEvent(CursorMoveEvent const& evt);
+    /*!
+     * \brief Notifies Xu that a cursor button event has occurred.
+     * \sa [Insert windowing event docs link]
+     */
+    void NotifyEvent(CursorButtonEvent const& evt);
+
 
     /*!
      * \brief Processes all events until none are left. After this call, the
@@ -115,24 +133,37 @@ public:
     WidgetPtr<Widget> AddWindow(const char* title, ISize2 size);
 
 private:
-    enum class EventType { MouseMove, WindowResize };
-
+    enum class EventType { 
+        WindowResize,
+        WindowMove,
+        WindowCursorEnter,
+        CursorMove,
+        CursorButton,
+    };
     struct XU_API Event {
         EventType type;
         union {
-            MouseMoveEvent mouseMove;
             WindowResizeEvent windowResize;
+            WindowMoveEvent windowMove;
+            WindowCursorEnterEvent windowCursorEnter;
+            CursorMoveEvent cursorMove;
+            CursorButtonEvent cursorButton;
         } data;
     };
-
-    void DispatchEvent(MouseMoveEvent const& evt);
     void DispatchEvent(WindowResizeEvent const& evt);
+    void DispatchEvent(WindowMoveEvent const& evt);
+    void DispatchEvent(WindowCursorEnterEvent const& evt);
+    void DispatchEvent(CursorMoveEvent const& evt);
+    void DispatchEvent(CursorButtonEvent const& evt);
+    std::queue<Event> eventQueue;
 
     void BuildRenderData();
     void PaintWidgetAndChildren(Widget* widget);
     void InitializeWidgetThemeAndChildren(Widget* widget);
 
-    std::queue<Event> eventQueue;
+   
+
+
     RenderData renderData;
 
     std::unique_ptr<Theme> theme;
@@ -152,6 +183,10 @@ private:
         std::unique_ptr<Widget> widget;
     };
     std::vector<RootWidgetNode> rootWidgets;
+
+    // Temporary?
+    InputState inputState;
+   
 
     // Temporary, a single surface, just to get the basic implementation started
     Surface surface;
