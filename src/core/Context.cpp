@@ -139,7 +139,9 @@ struct TestWindow : public Widget {
 
     virtual FSize2 SizeHint() const override { return {}; }
 
-    virtual void Paint(Surface& surface, Theme* theme) const override {}
+    virtual void Paint(Surface& surface, Theme* theme) const override {
+        
+    }
 
     virtual void GenerateTriangles(RenderData& renderData, CommandList& cmdList,
         ISize2 windowSize) const override {}
@@ -149,7 +151,7 @@ WidgetPtr<Widget> Context::AddWindow(const char* title, ISize2 size) {
     RootWidgetNode newNode{};
     auto newWindowResult = wsiInterface->NewWindow(
         title, 
-        {500, 500});
+        { size.x, size.y });
     newNode.windowID = newWindowResult.id;
     newNode.windowData.rect = newWindowResult.rect;
     newNode.widget = std::unique_ptr<Widget>(new TestWindow);
@@ -208,11 +210,13 @@ void Context::BuildRenderData() {
 
     renderData.cmdLists.resize(rootWidgets.size());
 
+    /*
     surface.Clear();
     CommandList cmdList;
     PaintWidgetAndChildren(root.get());
     surface.GenerateGeometry(
         renderData, cmdList, FSize2(windowSize.x, windowSize.y));
+        */
 
 
     for (size_t i = 0; i < rootWidgets.size(); i++) {
@@ -221,6 +225,7 @@ void Context::BuildRenderData() {
         CommandList& cmdList = renderData.cmdLists[i];
 
         PaintWidgetAndChildren(window.widget.get());
+        
         window.surface.Clear();
         surface.GenerateGeometry(
             renderData,
@@ -239,7 +244,7 @@ void Context::BuildRenderData() {
     */
   
     //renderData.cmdLists.push_back(std::move(cmdList));
-    renderData.cmdLists.push_back(std::move(cmdList));
+    //renderData.cmdLists.push_back(std::move(cmdList));
 }
 
 void Context::PaintWidgetAndChildren(Widget* widget) {
