@@ -36,7 +36,7 @@ public:
     void InitializeTheme(Theme& theme) override;
     void Paint(Surface& surf, Theme* theme) const override;
 
-    static std::type_index Painter();
+    static PainterType Painter();
 
 protected:
     PaintInfo paintInfo;
