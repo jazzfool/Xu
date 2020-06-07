@@ -28,22 +28,25 @@
 
 namespace xu {
 
-	class XU_API InputState {
-    public:
-		IVector2 cursorPosition;
-        IVector2 cursorPositionDelta;
+class XU_API InputState {
+public:
+    IVector2 cursorPosition;
+    IVector2 cursorPositionDelta;
 
-		[[nodiscard]] bool GetCursorButton(CursorButton btn) const {
-            return cursorButtonStates[(int)btn];
-        }
-		void SetCursorButton(CursorButton btn, bool newState) {
-            cursorButtonStates[(int)btn] = newState;
-		}
-        void ToggleCursorButton(CursorButton btn) {
-            cursorButtonStates[(int)btn] = !cursorButtonStates[(int)btn];
-		}
-	private:
-        bool cursorButtonStates[(int)CursorButton::COUNT] = {};
-	};
+    [[nodiscard]] bool GetCursorButton(CursorButton btn) const {
+        return cursorButtonStates[(int)btn];
+    }
 
-}
+    void SetCursorButton(CursorButton btn, bool newState) {
+        cursorButtonStates[(int)btn] = newState;
+    }
+
+    void ToggleCursorButton(CursorButton btn) {
+        cursorButtonStates[(int)btn] = !cursorButtonStates[(int)btn];
+    }
+
+private:
+    bool cursorButtonStates[(int)CursorButton::COUNT] = {};
+};
+
+} // namespace xu
