@@ -37,6 +37,7 @@
 namespace xu {
 
 class Theme;
+class Context;
 
 /*!
  * \brief Core widget class of the library. All widgets must derive from this
@@ -49,6 +50,13 @@ public:
      * \param parent Pointer to the parent of this widget. May be nullptr.
      */
     explicit Widget(Widget* parent);
+    /*!
+     * \brief Top-level Widget constructor. Only use this overload for root
+     * widgets.
+     * \param context Reference to the top-level context.
+     */
+    explicit Widget(Context& context);
+
     virtual ~Widget();
 
     /*!
@@ -111,6 +119,11 @@ public:
      * parent, nullptr is returned.
      */
     virtual Widget* Parent() const final;
+
+    /*!
+     * \brief Obtain a reference to the context this widget resides in.
+     */
+    virtual Context& GetContext() const final;
 
     /*!
      * \brief Obtain the amount of children this widget owns. Useful for
@@ -196,14 +209,18 @@ private:
     friend class LayoutItem;
     friend class Layout;
 
+    explicit Widget(Widget* parent, Context* context);
+
     FRect2 geometry;
-    std::unique_ptr<Layout> ownedLayout;      //!< Layout this widget owns (possibly nullptr).
+    std::unique_ptr<Layout>
+        ownedLayout;      //!< Layout this widget owns (possibly nullptr).
     Layout* parentLayout; //!< Layout this widget is in (possibly nullptr).
     LayoutItem* layoutItem;
 
     SizeHintBehaviour horizontalShb;
     SizeHintBehaviour verticalShb;
 
+    Context* context;
     Widget* parent;
     std::vector<std::unique_ptr<Widget>> children;
 };

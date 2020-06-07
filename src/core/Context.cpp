@@ -135,13 +135,11 @@ void Context::SetTheme(std::unique_ptr<Theme> theme) {
 Theme* Context::GetTheme() const { return this->theme.get(); }
 
 struct TestWindow : public Widget {
-    TestWindow() : Widget(nullptr) {}
+    TestWindow(Context& context) : Widget(context) {}
 
     virtual FSize2 SizeHint() const override { return {}; }
 
-    virtual void Paint(Surface& surface, Theme* theme) const override {
-        
-    }
+    virtual void Paint(Surface& surface, Theme* theme) const override {}
 
     virtual void GenerateTriangles(RenderData& renderData, CommandList& cmdList,
         ISize2 windowSize) const override {}
@@ -149,12 +147,10 @@ struct TestWindow : public Widget {
 
 WidgetPtr<Widget> Context::AddWindow(const char* title, ISize2 size) {
     RootWidgetNode newNode{};
-    auto newWindowResult = wsiInterface->NewWindow(
-        title, 
-        { size.x, size.y });
+    auto newWindowResult = wsiInterface->NewWindow(title, {size.x, size.y});
     newNode.windowID = newWindowResult.id;
     newNode.windowData.rect = newWindowResult.rect;
-    newNode.widget = std::unique_ptr<Widget>(new TestWindow);
+    newNode.widget = std::unique_ptr<Widget>(new TestWindow(*this));
 
     rootWidgets.push_back(std::move(newNode));
 
@@ -166,7 +162,7 @@ void Context::DispatchEvent(WindowResizeEvent const& evt) {
         [&evt](RootWidgetNode const& node) -> bool {
             return evt.id == node.windowID;
         });
-    
+
     rootWidgetNode.windowData.rect.size = evt.size;
 
     windowSize = evt.size;
@@ -218,19 +214,16 @@ void Context::BuildRenderData() {
         renderData, cmdList, FSize2(windowSize.x, windowSize.y));
         */
 
-
     for (size_t i = 0; i < rootWidgets.size(); i++) {
-
         RootWidgetNode& window = rootWidgets[i];
         CommandList& cmdList = renderData.cmdLists[i];
 
         PaintWidgetAndChildren(window.widget.get());
-        
+
         window.surface.Clear();
-        surface.GenerateGeometry(
-            renderData,
-            cmdList, 
-            FSize2{ (float)window.windowData.rect.size.x, (float)window.windowData.rect.size.y });
+        surface.GenerateGeometry(renderData, cmdList,
+            FSize2{(float)window.windowData.rect.size.x,
+                (float)window.windowData.rect.size.y});
     }
     /*
     // Temporarily use Widget::GenerateTriangles
@@ -242,9 +235,9 @@ void Context::BuildRenderData() {
     };
     // triangleGen(triangleGen, root.get());
     */
-  
-    //renderData.cmdLists.push_back(std::move(cmdList));
-    //renderData.cmdLists.push_back(std::move(cmdList));
+
+    // renderData.cmdLists.push_back(std::move(cmdList));
+    // renderData.cmdLists.push_back(std::move(cmdList));
 }
 
 void Context::PaintWidgetAndChildren(Widget* widget) {

@@ -25,7 +25,7 @@
 
 namespace xu {
 
-Widget::Widget(Widget* parent) :
+Widget::Widget(Widget* parent, Context* context) :
     hidden{false},
     geometry{{0.0f, 0.0f}, {0.0f, 0.0f}},
     ownedLayout{nullptr},
@@ -34,6 +34,9 @@ Widget::Widget(Widget* parent) :
     horizontalShb{SizeHintBehaviour::Preferred},
     verticalShb{SizeHintBehaviour::Preferred},
     parent{parent} {}
+
+Widget::Widget(Widget* parent) : Widget{parent, parent->context} {}
+Widget::Widget(Context& context) : Widget{nullptr, &context} {}
 
 Widget::~Widget() { sigBeforeDestruction(); }
 
@@ -54,6 +57,8 @@ void Widget::SetGeometry(FRect2 const& geometry) {
 FRect2 Widget::Geometry() const { return geometry; }
 
 Widget* Widget::Parent() const { return parent; }
+
+Context& Widget::GetContext() const { return *context; }
 
 std::size_t Widget::NumChildren() const { return children.size(); }
 
