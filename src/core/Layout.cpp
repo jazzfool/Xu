@@ -188,4 +188,22 @@ void Layout::SetGeometry(FRect2 const& geometry) {
 
 FRect2 Layout::Geometry() const { return geometry; }
 
+void Layout::SetHorizontalSizeHintBehaviour(SizeHintBehaviour shb) {
+    horizontalShb = shb;
+    if (layoutItem) { layoutItem->Apply(); }
+}
+
+SizeHintBehaviour Layout::HorizontalSizeHintBehaviour() const {
+    return horizontalShb;
+}
+
+void Layout::SetVerticalSizeHintBehaviour(SizeHintBehaviour shb) {
+    verticalShb = shb;
+    if (layoutItem) { layoutItem->Apply(); }
+}
+
+SizeHintBehaviour Layout::VerticalSizeHintBehaviour() const {
+    return verticalShb;
+}
+
 } // namespace xu
