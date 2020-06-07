@@ -77,4 +77,13 @@ SizeHintBehaviour Widget::VerticalSizeHintBehaviour() const {
     return verticalShb;
 }
 
+void Widget::SetLayout(Layout& layout) {
+    if (ownedLayout) RemoveLayout();
+    ownedLayout.reset(&layout);
+}
+
+void Widget::RemoveLayout() { ownedLayout.reset(); }
+
+Layout* Widget::GetLayout() const { return ownedLayout.get(); }
+
 } // namespace xu

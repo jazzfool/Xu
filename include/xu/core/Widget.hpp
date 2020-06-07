@@ -168,6 +168,20 @@ public:
     virtual SizeHintBehaviour VerticalSizeHintBehaviour() const final;
 
     /*!
+     * \brief Changes the layout this widget manages. This will take ownership
+     * of the pointer.
+     */
+    virtual void SetLayout(Layout& layout) final;
+    /*!
+     * \brief Removes the layout this widget manages, if any.
+     */
+    virtual void RemoveLayout() final;
+    /*!
+     * \brief Returns the layout this widget manages. Possibly nullptr.
+     */
+    virtual Layout* GetLayout() const final;
+
+    /*!
      * \brief Signal to be called before destroying this widget
      */
     Signal<> sigBeforeDestruction;
