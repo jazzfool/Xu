@@ -146,6 +146,10 @@ void Layout::Update(FRect2 const& rect) {
         UpdateItems();
         invalid = false;
     }
+
+    for (auto const& item : items) {
+        if (item.index() == 1) { std::get<1>(item)->Update(); }
+    }
 }
 
 void Layout::Invalidate() {

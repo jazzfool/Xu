@@ -196,7 +196,7 @@ public:
      * \brief Updates the geometry for each item in whatever manner deemed
      * suitable by the implementation. The underlying implementation method is
      * only called if the layout has been invalidated (the invalidation process
-     * is handled automatically).
+     * is handled automatically). This will propagate to all child layouts.
      * \sa LayoutItem::SetRect
      */
     virtual void Update(FRect2 const& rect) final;
