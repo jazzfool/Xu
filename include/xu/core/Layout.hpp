@@ -199,7 +199,7 @@ public:
      * is handled automatically). This will propagate to all child layouts.
      * \sa LayoutItem::SetRect
      */
-    virtual void Update(FRect2 const& rect) final;
+    virtual void Update() final;
     /*!
      * \brief Forcefully invalidates this layout. Note: This does not call
      * Layout::Update.

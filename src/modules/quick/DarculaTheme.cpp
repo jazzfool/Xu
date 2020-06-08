@@ -58,9 +58,7 @@ void DarculaTheme::InitializeWidget(
 void DarculaTheme::PaintWidget(Surface& surf, Widget const* widget,
     PaintInfo const* info, PainterType basePainter) {
     if (basePainter == typeid(Button)) {
-        for (auto const& path : info->paths) {
-            // surf.Paint(path);
-        }
+        for (auto const& path : info->paths) { surf.Paint(path); }
     }
 }
 

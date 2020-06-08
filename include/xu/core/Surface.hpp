@@ -35,7 +35,7 @@ namespace xu {
  */
 class XU_API Surface {
 public:
-    void Paint(VectorPath const& geometry);
+    void Paint(BakedVectorPath const& geometry);
 
     void Clear();
 
@@ -45,7 +45,7 @@ private:
     void GenerateGeometry(
         RenderData& renderData, CommandList& cmdList, FSize2 windowSize);
 
-    std::vector<VectorPath> paths;
+    std::vector<BakedVectorPath> paths;
 };
 
 } // namespace xu

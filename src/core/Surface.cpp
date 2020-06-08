@@ -26,28 +26,27 @@
 
 namespace xu {
 
-void Surface::Paint(VectorPath const& geometry) { paths.push_back(geometry); }
+void Surface::Paint(BakedVectorPath const& geometry) {
+    paths.push_back(geometry);
+}
 
 void Surface::Clear() { paths.clear(); }
 
 void Surface::GenerateGeometry(
     RenderData& renderData, CommandList& cmdList, FSize2 windowSize) {
     for (auto const& path : paths) {
-        auto points = FlattenPath(path, 50.0f);
-        auto indices = Triangulate(points);
-
         // TODO: A little inefficient
         std::vector<Vertex> vertices;
-        vertices.reserve(points.size());
-        for (auto const pt : points) { 
+        vertices.reserve(path.vertices.size());
+        for (auto const pt : path.vertices) {
             Vertex vtx;
             // Sometimes causes strange transformations
             vtx.position.x = pt.x / windowSize.x;
             vtx.position.y = pt.y / windowSize.y;
-            vertices.push_back(vtx); 
+            vertices.push_back(vtx);
         }
 
-        renderData.PushGeometry(cmdList, vertices, indices);
+        renderData.PushGeometry(cmdList, vertices, path.indices);
     }
 }
 

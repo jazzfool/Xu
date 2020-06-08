@@ -141,7 +141,7 @@ Layout::~Layout() {
     }
 }
 
-void Layout::Update(FRect2 const& rect) {
+void Layout::Update() {
     if (invalid) {
         UpdateItems();
         invalid = false;
