@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['uniqueslot_70',['UniqueSlot',['../classxu_1_1_unique_slot.html',1,'xu']]],
-  ['uniqueslot_3c_20f_20_3e_71',['UniqueSlot&lt; F &gt;',['../classxu_1_1_unique_slot_3_01_f_01_4.html',1,'xu']]],
-  ['uniqueslot_3c_26widgetptr_3a_3abeforedestruction_20_3e_72',['UniqueSlot&lt;&amp;WidgetPtr::BeforeDestruction &gt;',['../classxu_1_1_unique_slot.html',1,'xu']]]
+  ['signal_149',['Signal',['../classxu_1_1_signal.html',1,'xu']]],
+  ['signal_3c_20ts_2e_2e_2e_20_3e_150',['Signal&lt; Ts... &gt;',['../classxu_1_1_signal.html',1,'xu']]],
+  ['surface_151',['Surface',['../classxu_1_1_surface.html',1,'xu']]]
 ];

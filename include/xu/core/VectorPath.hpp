@@ -24,6 +24,7 @@
 
 #include <xu/core/Definitions.hpp>
 #include <xu/core/Size2.hpp>
+#include <xu/core/Point2.hpp>
 
 #include <array>
 #include <vector>
@@ -69,8 +70,9 @@ struct XU_API BakedVectorPath {
     BakedVectorPath WithOffset(FVector2 offset) const;
     BakedVectorPath WithScale(FVector2 scale) const;
 
-    const std::vector<FPoint2> vertices;
-    const std::vector<uint32_t> indices;
+    // Removed const as this prevents moving to and from a BakedVectorPath - pengu
+    std::vector<FPoint2> vertices;
+    std::vector<uint32_t> indices;
 };
 
 struct XU_API VectorPath {

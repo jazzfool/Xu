@@ -1,6 +1,10 @@
 var searchData=
 [
-  ['indexoffset_13',['indexOffset',['../structxu_1_1_cmd_draw_triangles.html#aba79cd4a0cb661ae61c5c3a9ef467e70',1,'xu::CmdDrawTriangles']]],
-  ['inputreception_14',['inputReception',['../classxu_1_1_context.html#a8f38ed86b74a1aca096671bb7d748d0f',1,'xu::Context']]],
-  ['iterator_15',['Iterator',['../classxu_1_1_command_list_1_1_iterator.html',1,'xu::CommandList']]]
+  ['generatetriangles_26',['GenerateTriangles',['../classxu_1_1_widget.html#ab545b0ff12e20438b1d2d88ce9661797',1,'xu::Widget::GenerateTriangles()'],['../classxu_1_1_button.html#aa8362dcc42ce6068e793c75b4629b822',1,'xu::Button::GenerateTriangles()']]],
+  ['geometry_27',['Geometry',['../classxu_1_1_layout.html#a57be558e5c784b2ee2389ba23a3168dd',1,'xu::Layout::Geometry()'],['../classxu_1_1_widget.html#a6f342f4613cb484187346829e37d5107',1,'xu::Widget::Geometry()']]],
+  ['getchild_28',['GetChild',['../classxu_1_1_widget.html#a4e0bd91fc9cd8aeb7b5363a97e8be5c6',1,'xu::Widget']]],
+  ['getcontext_29',['GetContext',['../classxu_1_1_widget.html#abfd1de080f184adc8875c1247f4e5c2e',1,'xu::Widget']]],
+  ['getlayout_30',['GetLayout',['../classxu_1_1_widget.html#a107100dabb474b4decd45c94a7f528c7',1,'xu::Widget']]],
+  ['getrenderdata_31',['GetRenderData',['../classxu_1_1_context.html#a4682ab2a45aae997dd38261a84a46a7f',1,'xu::Context']]],
+  ['gettheme_32',['GetTheme',['../classxu_1_1_context.html#a25969461ee37dcf0a57fe35d199e851f',1,'xu::Context']]]
 ];

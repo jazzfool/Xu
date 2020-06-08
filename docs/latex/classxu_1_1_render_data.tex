@@ -9,11 +9,35 @@ Main class that stores all data needed to render the full UI. Maintains a \mbox{
 
 {\ttfamily \#include $<$Render\+Data.\+hpp$>$}
 
-\doxysubsection*{Friends}
+\doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\Hypertarget{classxu_1_1_render_data_ac26c806e60ca4a0547680edb68f6e39b}\label{classxu_1_1_render_data_ac26c806e60ca4a0547680edb68f6e39b}} 
-class {\bfseries Context}
+\mbox{\Hypertarget{classxu_1_1_render_data_a363d7fffafad65c406ecb4b7ef91078c}\label{classxu_1_1_render_data_a363d7fffafad65c406ecb4b7ef91078c}} 
+void \mbox{\hyperlink{classxu_1_1_render_data_a363d7fffafad65c406ecb4b7ef91078c}{Clear}} ()
+\begin{DoxyCompactList}\small\item\em Clears all render data stored. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classxu_1_1_render_data_a7fe4b72c57a9d3ca3daa9bf108ae72df}\label{classxu_1_1_render_data_a7fe4b72c57a9d3ca3daa9bf108ae72df}} 
+size\+\_\+t \mbox{\hyperlink{classxu_1_1_render_data_a7fe4b72c57a9d3ca3daa9bf108ae72df}{Push\+Vertex}} (\mbox{\hyperlink{structxu_1_1_vertex}{Vertex}} vertex)
+\begin{DoxyCompactList}\small\item\em Adds a single vertex to the vertex list and returns its index. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classxu_1_1_render_data_aa7035ed39df152d407ac869984ddad76}\label{classxu_1_1_render_data_aa7035ed39df152d407ac869984ddad76}} 
+void \mbox{\hyperlink{classxu_1_1_render_data_aa7035ed39df152d407ac869984ddad76}{Push\+Index}} (uint32\+\_\+t index)
+\begin{DoxyCompactList}\small\item\em Adds a single index to the index list. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classxu_1_1_render_data_a149fd8e337990492085c6128c0fe6129}\label{classxu_1_1_render_data_a149fd8e337990492085c6128c0fe6129}} 
+void \mbox{\hyperlink{classxu_1_1_render_data_a149fd8e337990492085c6128c0fe6129}{Push\+Quad}} (\mbox{\hyperlink{classxu_1_1_command_list}{Command\+List}} \&cmd\+List, \mbox{\hyperlink{structxu_1_1_rect2}{F\+Rect2}} quad)
+\begin{DoxyCompactList}\small\item\em Adds a single quad to the index and vertex list. Also adds a drawcommand for it. It is not recommended to use this function to create complex geometry, since multiple quads should be condensed into A single drawcall. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classxu_1_1_render_data_a274f0411ff1321cd0302f60bcd3f922c}\label{classxu_1_1_render_data_a274f0411ff1321cd0302f60bcd3f922c}} 
+void \mbox{\hyperlink{classxu_1_1_render_data_a274f0411ff1321cd0302f60bcd3f922c}{Push\+Geometry}} (\mbox{\hyperlink{classxu_1_1_command_list}{Command\+List}} \&cmd\+List, std\+::vector$<$ \mbox{\hyperlink{structxu_1_1_vertex}{Vertex}} $>$ const \&verts, std\+::vector$<$ uint32\+\_\+t $>$ const \&idx)
+\begin{DoxyCompactList}\small\item\em Push custom geometry to the draw list. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classxu_1_1_render_data_abfcc055ade524ad7a8a8d2e268669672}\label{classxu_1_1_render_data_abfcc055ade524ad7a8a8d2e268669672}} 
+std\+::vector$<$ \mbox{\hyperlink{classxu_1_1_command_list}{Command\+List}} $>$ {\bfseries cmd\+Lists}
+\item 
+\mbox{\Hypertarget{classxu_1_1_render_data_a791aea831f404612c4d8754240e32091}\label{classxu_1_1_render_data_a791aea831f404612c4d8754240e32091}} 
+std\+::vector$<$ \mbox{\hyperlink{structxu_1_1_vertex}{Vertex}} $>$ \mbox{\hyperlink{classxu_1_1_render_data_a791aea831f404612c4d8754240e32091}{vertices}}
+\begin{DoxyCompactList}\small\item\em List of all vertices used by all command lists. These positions are in range \mbox{[}0, 1\mbox{]}, with the origin in the top-\/left corner of the window. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classxu_1_1_render_data_a8ad0ec2da566709c8ec56d58866b5f81}\label{classxu_1_1_render_data_a8ad0ec2da566709c8ec56d58866b5f81}} 
+std\+::vector$<$ uint32\+\_\+t $>$ {\bfseries indices}
 \end{DoxyCompactItemize}
 
 

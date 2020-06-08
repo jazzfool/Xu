@@ -12,19 +12,36 @@ Core context class of the Xu library.
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-void \mbox{\hyperlink{classxu_1_1_context_a42eb94cc2df26ab5afcba77f25fccb3d}{Notify\+Event}} (\mbox{\hyperlink{structxu_1_1_mouse_move_event}{Mouse\+Move\+Event}} const \&evt)
-\begin{DoxyCompactList}\small\item\em Notifies Xu that a mouse move event has occured. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{classxu_1_1_context_a8e59e82c893f058ae020f862d5450a68}{Notify\+Event}} (\mbox{\hyperlink{structxu_1_1_window_resize_event}{Window\+Resize\+Event}} const \&evt)
 \begin{DoxyCompactList}\small\item\em Notifies Xu that a window resize event has occured. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classxu_1_1_context_afd08396a36127abd966adefb84c2e08d}{Notify\+Event}} (\mbox{\hyperlink{structxu_1_1_window_move_event}{Window\+Move\+Event}} const \&evt)
+\begin{DoxyCompactList}\small\item\em Notifies Xu that a window resize event has occured. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classxu_1_1_context_ac1e4746ba73a9475ae6e756fe734e1d5}{Notify\+Event}} (\mbox{\hyperlink{structxu_1_1_window_cursor_enter_event}{Window\+Cursor\+Enter\+Event}} const \&evt)
+\begin{DoxyCompactList}\small\item\em Notifies Xu that a cursor has entered/left a window. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classxu_1_1_context_ad8edf04db8ac028a5d630de81a243db8}{Notify\+Event}} (\mbox{\hyperlink{structxu_1_1_cursor_move_event}{Cursor\+Move\+Event}} const \&evt)
+\begin{DoxyCompactList}\small\item\em Notifies Xu that a cursor move event has occured. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classxu_1_1_context_ab7b498310ada8c1b5b7e863da99d1591}{Notify\+Event}} (\mbox{\hyperlink{structxu_1_1_cursor_button_event}{Cursor\+Button\+Event}} const \&evt)
+\begin{DoxyCompactList}\small\item\em Notifies Xu that a cursor button event has occurred. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{classxu_1_1_context_a7fa3ceac3ceb96d394fd83fa34c325af}{Process\+Events}} ()
 \begin{DoxyCompactList}\small\item\em Processes all events until none are left. After this call, the event queue is empty. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{classxu_1_1_render_data}{Render\+Data}} const  \& \mbox{\hyperlink{classxu_1_1_context_a4682ab2a45aae997dd38261a84a46a7f}{Get\+Render\+Data}} () const
-\begin{DoxyCompactList}\small\item\em Obtain data necessary to render the UI. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Obtain data necessary to render the UI. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classxu_1_1_context_aa79382cc535c1987379d820c81c1f8e3}{Set\+Theme}} (std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classxu_1_1_theme}{Theme}} $>$ theme=nullptr)
+\begin{DoxyCompactList}\small\item\em Changes the theme that should be given to widgets during rendering. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classxu_1_1_context_a25969461ee37dcf0a57fe35d199e851f}\label{classxu_1_1_context_a25969461ee37dcf0a57fe35d199e851f}} 
+\mbox{\hyperlink{classxu_1_1_theme}{Theme}} $\ast$ \mbox{\hyperlink{classxu_1_1_context_a25969461ee37dcf0a57fe35d199e851f}{Get\+Theme}} () const
+\begin{DoxyCompactList}\small\item\em Returns the theme that would be given to widgets during rendering. Possibly nullptr. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classxu_1_1_context_a8258941a5aa5bb94e51866b3868a3682}\label{classxu_1_1_context_a8258941a5aa5bb94e51866b3868a3682}} 
+\mbox{\hyperlink{structxu_1_1_widget_ptr}{Widget\+Ptr}}$<$ \mbox{\hyperlink{classxu_1_1_widget}{Widget}} $>$ {\bfseries Add\+Window} (const char $\ast$title, \mbox{\hyperlink{structxu_1_1_vector2}{I\+Size2}} size)
+\end{DoxyCompactItemize}
 \doxysubsection*{Public Attributes}
 \begin{DoxyCompactItemize}
 \item 
 Input\+Reception \mbox{\hyperlink{classxu_1_1_context_a8f38ed86b74a1aca096671bb7d748d0f}{input\+Reception}}
 \begin{DoxyCompactList}\small\item\em Select which method must be used for event processing. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classxu_1_1_context_ad08d220601351c96b4ae7de596312849}\label{classxu_1_1_context_ad08d220601351c96b4ae7de596312849}} 
+\mbox{\hyperlink{classxu_1_1_wsi_interface}{Wsi\+Interface}} $\ast$ \mbox{\hyperlink{classxu_1_1_context_ad08d220601351c96b4ae7de596312849}{wsi\+Interface}} = nullptr
+\begin{DoxyCompactList}\small\item\em Should this be private, and should it be const? Pointer to user\textquotesingle{}s window handler. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classxu_1_1_context_ae1f539a0de5fa1191eb6424fdfc52bc9}\label{classxu_1_1_context_ae1f539a0de5fa1191eb6424fdfc52bc9}} 
 std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classxu_1_1_widget}{Widget}} $>$ {\bfseries root}
 \end{DoxyCompactItemize}
@@ -47,15 +64,54 @@ Obtain data necessary to render the UI.
 \begin{DoxySeeAlso}{See also}
 \mbox{[}Insert rendering A\+PI docs link\mbox{]} 
 \end{DoxySeeAlso}
-\mbox{\Hypertarget{classxu_1_1_context_a42eb94cc2df26ab5afcba77f25fccb3d}\label{classxu_1_1_context_a42eb94cc2df26ab5afcba77f25fccb3d}} 
+\mbox{\Hypertarget{classxu_1_1_context_ab7b498310ada8c1b5b7e863da99d1591}\label{classxu_1_1_context_ab7b498310ada8c1b5b7e863da99d1591}} 
 \index{xu::Context@{xu::Context}!NotifyEvent@{NotifyEvent}}
 \index{NotifyEvent@{NotifyEvent}!xu::Context@{xu::Context}}
-\doxysubsubsection{\texorpdfstring{NotifyEvent()}{NotifyEvent()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
-{\footnotesize\ttfamily void xu\+::\+Context\+::\+Notify\+Event (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structxu_1_1_mouse_move_event}{Mouse\+Move\+Event}} const \&}]{evt }\end{DoxyParamCaption})}
+\doxysubsubsection{\texorpdfstring{NotifyEvent()}{NotifyEvent()}\hspace{0.1cm}{\footnotesize\ttfamily [1/5]}}
+{\footnotesize\ttfamily void xu\+::\+Context\+::\+Notify\+Event (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structxu_1_1_cursor_button_event}{Cursor\+Button\+Event}} const \&}]{evt }\end{DoxyParamCaption})}
 
 
 
-Notifies Xu that a mouse move event has occured. 
+Notifies Xu that a cursor button event has occurred. 
+
+\begin{DoxySeeAlso}{See also}
+\mbox{[}Insert windowing event docs link\mbox{]} 
+\end{DoxySeeAlso}
+\mbox{\Hypertarget{classxu_1_1_context_ad8edf04db8ac028a5d630de81a243db8}\label{classxu_1_1_context_ad8edf04db8ac028a5d630de81a243db8}} 
+\index{xu::Context@{xu::Context}!NotifyEvent@{NotifyEvent}}
+\index{NotifyEvent@{NotifyEvent}!xu::Context@{xu::Context}}
+\doxysubsubsection{\texorpdfstring{NotifyEvent()}{NotifyEvent()}\hspace{0.1cm}{\footnotesize\ttfamily [2/5]}}
+{\footnotesize\ttfamily void xu\+::\+Context\+::\+Notify\+Event (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structxu_1_1_cursor_move_event}{Cursor\+Move\+Event}} const \&}]{evt }\end{DoxyParamCaption})}
+
+
+
+Notifies Xu that a cursor move event has occured. 
+
+\begin{DoxySeeAlso}{See also}
+\mbox{[}Insert windowing event docs link\mbox{]} 
+\end{DoxySeeAlso}
+\mbox{\Hypertarget{classxu_1_1_context_ac1e4746ba73a9475ae6e756fe734e1d5}\label{classxu_1_1_context_ac1e4746ba73a9475ae6e756fe734e1d5}} 
+\index{xu::Context@{xu::Context}!NotifyEvent@{NotifyEvent}}
+\index{NotifyEvent@{NotifyEvent}!xu::Context@{xu::Context}}
+\doxysubsubsection{\texorpdfstring{NotifyEvent()}{NotifyEvent()}\hspace{0.1cm}{\footnotesize\ttfamily [3/5]}}
+{\footnotesize\ttfamily void xu\+::\+Context\+::\+Notify\+Event (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structxu_1_1_window_cursor_enter_event}{Window\+Cursor\+Enter\+Event}} const \&}]{evt }\end{DoxyParamCaption})}
+
+
+
+Notifies Xu that a cursor has entered/left a window. 
+
+\begin{DoxySeeAlso}{See also}
+\mbox{[}Insert windowing event docs link\mbox{]} 
+\end{DoxySeeAlso}
+\mbox{\Hypertarget{classxu_1_1_context_afd08396a36127abd966adefb84c2e08d}\label{classxu_1_1_context_afd08396a36127abd966adefb84c2e08d}} 
+\index{xu::Context@{xu::Context}!NotifyEvent@{NotifyEvent}}
+\index{NotifyEvent@{NotifyEvent}!xu::Context@{xu::Context}}
+\doxysubsubsection{\texorpdfstring{NotifyEvent()}{NotifyEvent()}\hspace{0.1cm}{\footnotesize\ttfamily [4/5]}}
+{\footnotesize\ttfamily void xu\+::\+Context\+::\+Notify\+Event (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structxu_1_1_window_move_event}{Window\+Move\+Event}} const \&}]{evt }\end{DoxyParamCaption})}
+
+
+
+Notifies Xu that a window resize event has occured. 
 
 \begin{DoxySeeAlso}{See also}
 \mbox{[}Insert windowing event docs link\mbox{]} 
@@ -63,7 +119,7 @@ Notifies Xu that a mouse move event has occured.
 \mbox{\Hypertarget{classxu_1_1_context_a8e59e82c893f058ae020f862d5450a68}\label{classxu_1_1_context_a8e59e82c893f058ae020f862d5450a68}} 
 \index{xu::Context@{xu::Context}!NotifyEvent@{NotifyEvent}}
 \index{NotifyEvent@{NotifyEvent}!xu::Context@{xu::Context}}
-\doxysubsubsection{\texorpdfstring{NotifyEvent()}{NotifyEvent()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+\doxysubsubsection{\texorpdfstring{NotifyEvent()}{NotifyEvent()}\hspace{0.1cm}{\footnotesize\ttfamily [5/5]}}
 {\footnotesize\ttfamily void xu\+::\+Context\+::\+Notify\+Event (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structxu_1_1_window_resize_event}{Window\+Resize\+Event}} const \&}]{evt }\end{DoxyParamCaption})}
 
 
@@ -86,6 +142,21 @@ Processes all events until none are left. After this call, the event queue is em
 \begin{DoxySeeAlso}{See also}
 \mbox{[}Insert windowing event docs link\mbox{]} 
 \end{DoxySeeAlso}
+\mbox{\Hypertarget{classxu_1_1_context_aa79382cc535c1987379d820c81c1f8e3}\label{classxu_1_1_context_aa79382cc535c1987379d820c81c1f8e3}} 
+\index{xu::Context@{xu::Context}!SetTheme@{SetTheme}}
+\index{SetTheme@{SetTheme}!xu::Context@{xu::Context}}
+\doxysubsubsection{\texorpdfstring{SetTheme()}{SetTheme()}}
+{\footnotesize\ttfamily void xu\+::\+Context\+::\+Set\+Theme (\begin{DoxyParamCaption}\item[{std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classxu_1_1_theme}{Theme}} $>$}]{theme = {\ttfamily nullptr} }\end{DoxyParamCaption})}
+
+
+
+Changes the theme that should be given to widgets during rendering. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em theme} & The theme to change to. If nullptr is given, the theme mechanics are disabled. \\
+\hline
+\end{DoxyParams}
 
 
 \doxysubsection{Member Data Documentation}

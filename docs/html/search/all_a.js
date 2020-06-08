@@ -1,8 +1,9 @@
 var searchData=
 [
-  ['parent_28',['Parent',['../classxu_1_1_widget.html#ae47b304bae66a1912d9b72a0768db388',1,'xu::Widget']]],
-  ['pointerhit_29',['PointerHit',['../classxu_1_1_widget.html#a6ac6d36e8c0b4f46991d819df8228019',1,'xu::Widget']]],
-  ['position_30',['position',['../structxu_1_1_mouse_move_event.html#a96234a5386fca0fee89cf92635080201',1,'xu::MouseMoveEvent::position()'],['../structxu_1_1_vertex.html#a53bd496ed6a2f7ff9e2681886b013a2e',1,'xu::Vertex::position()']]],
-  ['processevents_31',['ProcessEvents',['../classxu_1_1_context.html#a7fa3ceac3ceb96d394fd83fa34c325af',1,'xu::Context']]],
-  ['pushcommand_32',['PushCommand',['../classxu_1_1_command_list.html#a4e37db2266fe41532626cbee36d02c95',1,'xu::CommandList::PushCommand(CmdDrawTriangles const &amp;command)'],['../classxu_1_1_command_list.html#a5d6c9be841bf931892c387a8bf36f873',1,'xu::CommandList::PushCommand(CmdNewLayer const &amp;command)'],['../classxu_1_1_command_list.html#a79a0580b3e4de4eb55f6a9d4ea4b9414',1,'xu::CommandList::PushCommand(CmdMergeLayer const &amp;command)']]]
+  ['newwindowresult_53',['NewWindowResult',['../structxu_1_1_wsi_interface_1_1_new_window_result.html',1,'xu::WsiInterface']]],
+  ['notifyevent_54',['NotifyEvent',['../classxu_1_1_context.html#a8e59e82c893f058ae020f862d5450a68',1,'xu::Context::NotifyEvent(WindowResizeEvent const &amp;evt)'],['../classxu_1_1_context.html#afd08396a36127abd966adefb84c2e08d',1,'xu::Context::NotifyEvent(WindowMoveEvent const &amp;evt)'],['../classxu_1_1_context.html#ac1e4746ba73a9475ae6e756fe734e1d5',1,'xu::Context::NotifyEvent(WindowCursorEnterEvent const &amp;evt)'],['../classxu_1_1_context.html#ad8edf04db8ac028a5d630de81a243db8',1,'xu::Context::NotifyEvent(CursorMoveEvent const &amp;evt)'],['../classxu_1_1_context.html#ab7b498310ada8c1b5b7e863da99d1591',1,'xu::Context::NotifyEvent(CursorButtonEvent const &amp;evt)']]],
+  ['numchildren_55',['NumChildren',['../classxu_1_1_widget.html#a24fe55202bb2c0ac66bc6d19a3f4498b',1,'xu::Widget']]],
+  ['numindices_56',['numIndices',['../structxu_1_1_cmd_draw_triangles.html#ac64acc098ced9dfbf36d2546ccf6733c',1,'xu::CmdDrawTriangles']]],
+  ['numitems_57',['NumItems',['../classxu_1_1_layout.html#ab067e1cf54c2c8625acd1c2458375393',1,'xu::Layout::NumItems()'],['../classxu_1_1_box_stack.html#af46a1b620239b5826666b3e006617c71',1,'xu::BoxStack::NumItems()']]],
+  ['numlayers_58',['NumLayers',['../classxu_1_1_command_list.html#a630cdd9cedbbf5737891cae60be5e021',1,'xu::CommandList']]]
 ];

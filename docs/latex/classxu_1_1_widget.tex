@@ -9,13 +9,28 @@ Core widget class of the library. All widgets must derive from this class.
 
 {\ttfamily \#include $<$Widget.\+hpp$>$}
 
+Inheritance diagram for xu\+::Widget\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classxu_1_1_widget}
+\end{center}
+\end{figure}
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
 \mbox{\hyperlink{classxu_1_1_widget_a96b0aa33c925c69a34c5cf0b8e389b1f}{Widget}} (\mbox{\hyperlink{classxu_1_1_widget}{Widget}} $\ast$parent)
 \begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{classxu_1_1_widget}{Widget}} constructor. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classxu_1_1_widget_a630bcf065e34d1f245b7c3c46fd2e061}{Widget}} (\mbox{\hyperlink{classxu_1_1_context}{Context}} \&context)
+\begin{DoxyCompactList}\small\item\em Top-\/level \mbox{\hyperlink{classxu_1_1_widget}{Widget}} constructor. Only use this overload for root widgets. \end{DoxyCompactList}\item 
 virtual \mbox{\hyperlink{structxu_1_1_vector2}{F\+Size2}} \mbox{\hyperlink{classxu_1_1_widget_a97e32a6f14bd7a90b4e8cba607066269}{Size\+Hint}} () const =0
 \begin{DoxyCompactList}\small\item\em Gives the layout system a hint of how large this widget has to be. Note that the actual size may be different depending on the layout. \end{DoxyCompactList}\item 
+virtual void \mbox{\hyperlink{classxu_1_1_widget_aa469288e02e5665be1b688a970312337}{Paint}} (\mbox{\hyperlink{classxu_1_1_surface}{Surface}} \&surface, \mbox{\hyperlink{classxu_1_1_theme}{Theme}} $\ast$theme) const
+\begin{DoxyCompactList}\small\item\em Paint this widget\textquotesingle{}s visual representation onto the surface. This function should be overridden by types implementing \mbox{\hyperlink{classxu_1_1_widget}{Widget}} if it is intended that they have a standalone visual appearance. \end{DoxyCompactList}\item 
+virtual void \mbox{\hyperlink{classxu_1_1_widget_af31e1bf73ac10981ad0ef167f642773f}{Initialize\+Theme}} (\mbox{\hyperlink{classxu_1_1_theme}{Theme}} \&theme)
+\begin{DoxyCompactList}\small\item\em Should invoke Theme\+::\+Initialize\+Widget if this widget employs the use of painting delegation to themes. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classxu_1_1_widget_ab545b0ff12e20438b1d2d88ce9661797}\label{classxu_1_1_widget_ab545b0ff12e20438b1d2d88ce9661797}} 
+virtual void \mbox{\hyperlink{classxu_1_1_widget_ab545b0ff12e20438b1d2d88ce9661797}{Generate\+Triangles}} (\mbox{\hyperlink{classxu_1_1_render_data}{Render\+Data}} \&render\+Data, \mbox{\hyperlink{classxu_1_1_command_list}{Command\+List}} \&cmd\+List, \mbox{\hyperlink{structxu_1_1_vector2}{I\+Size2}} window\+Size) const =0
+\begin{DoxyCompactList}\small\item\em Output this widget\textquotesingle{}s visual representation by pushing triangle draw commands into the command list. Note\+: This A\+PI will be removed once vector path graphics are implemented. \end{DoxyCompactList}\item 
 virtual bool \mbox{\hyperlink{classxu_1_1_widget_a6ac6d36e8c0b4f46991d819df8228019}{Pointer\+Hit}} (\mbox{\hyperlink{structxu_1_1_vector2}{F\+Point2}} const \&pointer) const
 \begin{DoxyCompactList}\small\item\em Test whether the mouse pointer is hovering the widget. Custom widgets may override this to replace the default A\+A\+BB intersection test. \end{DoxyCompactList}\item 
 virtual void \mbox{\hyperlink{classxu_1_1_widget_a886e3e06b898a70d300c4b49c4114c89}{Set\+Geometry}} (\mbox{\hyperlink{structxu_1_1_rect2}{F\+Rect2}} const \&geometry) final
@@ -26,6 +41,9 @@ virtual \mbox{\hyperlink{structxu_1_1_rect2}{F\+Rect2}} \mbox{\hyperlink{classxu
 \mbox{\Hypertarget{classxu_1_1_widget_ae47b304bae66a1912d9b72a0768db388}\label{classxu_1_1_widget_ae47b304bae66a1912d9b72a0768db388}} 
 virtual \mbox{\hyperlink{classxu_1_1_widget}{Widget}} $\ast$ \mbox{\hyperlink{classxu_1_1_widget_ae47b304bae66a1912d9b72a0768db388}{Parent}} () const final
 \begin{DoxyCompactList}\small\item\em Obtain a pointer to the parent of this widget. If there is no parent, nullptr is returned. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classxu_1_1_widget_abfd1de080f184adc8875c1247f4e5c2e}\label{classxu_1_1_widget_abfd1de080f184adc8875c1247f4e5c2e}} 
+virtual \mbox{\hyperlink{classxu_1_1_context}{Context}} \& \mbox{\hyperlink{classxu_1_1_widget_abfd1de080f184adc8875c1247f4e5c2e}{Get\+Context}} () const final
+\begin{DoxyCompactList}\small\item\em Obtain a reference to the context this widget resides in. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classxu_1_1_widget_a24fe55202bb2c0ac66bc6d19a3f4498b}\label{classxu_1_1_widget_a24fe55202bb2c0ac66bc6d19a3f4498b}} 
 virtual std\+::size\+\_\+t \mbox{\hyperlink{classxu_1_1_widget_a24fe55202bb2c0ac66bc6d19a3f4498b}{Num\+Children}} () const final
 \begin{DoxyCompactList}\small\item\em Obtain the amount of children this widget owns. Useful for iterating over them. \end{DoxyCompactList}\item 
@@ -33,8 +51,29 @@ virtual std\+::size\+\_\+t \mbox{\hyperlink{classxu_1_1_widget_a24fe55202bb2c0ac
 \begin{DoxyCompactList}\small\item\em Create a new child widget of type T and append it to the list of children. \end{DoxyCompactList}\item 
 {\footnotesize template$<$typename T , typename... Ctor\+Args$>$ }\\\mbox{\hyperlink{structxu_1_1_widget_ptr}{Widget\+Ptr}}$<$ T $>$ \mbox{\hyperlink{classxu_1_1_widget_ad58f56c1eed1dc18d8e913065600514d}{Make\+Child\+At}} (std\+::size\+\_\+t at, Ctor\+Args \&\&... args)
 \begin{DoxyCompactList}\small\item\em Create a new child widget of type T and put it at the specified index in the list of children. \end{DoxyCompactList}\item 
-\mbox{\hyperlink{classxu_1_1_widget}{Widget}} $\ast$ \mbox{\hyperlink{classxu_1_1_widget_a6e0d14a094cc3fae2c5333b9732d047d}{Get\+Child}} (std\+::size\+\_\+t at)
-\begin{DoxyCompactList}\small\item\em Obtain a pointer to the widget at index at. \end{DoxyCompactList}\end{DoxyCompactItemize}
+virtual \mbox{\hyperlink{classxu_1_1_widget}{Widget}} $\ast$ \mbox{\hyperlink{classxu_1_1_widget_a4e0bd91fc9cd8aeb7b5363a97e8be5c6}{Get\+Child}} (std\+::size\+\_\+t at) final
+\begin{DoxyCompactList}\small\item\em Obtain a pointer to the widget at index at. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classxu_1_1_widget_a0fbcb7a53846e54a9922d76469a85f62}\label{classxu_1_1_widget_a0fbcb7a53846e54a9922d76469a85f62}} 
+virtual void \mbox{\hyperlink{classxu_1_1_widget_a0fbcb7a53846e54a9922d76469a85f62}{Set\+Horizontal\+Size\+Hint\+Behaviour}} (Size\+Hint\+Behaviour shb) final
+\begin{DoxyCompactList}\small\item\em Changes the horizontal (width) Size\+Hint behaviour. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classxu_1_1_widget_a5d2a33ed88406744fe608f3a6492f52d}\label{classxu_1_1_widget_a5d2a33ed88406744fe608f3a6492f52d}} 
+virtual Size\+Hint\+Behaviour \mbox{\hyperlink{classxu_1_1_widget_a5d2a33ed88406744fe608f3a6492f52d}{Horizontal\+Size\+Hint\+Behaviour}} () const final
+\begin{DoxyCompactList}\small\item\em Returns the horizontal (width) Size\+Hint behaviour. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classxu_1_1_widget_a6598e696f14956b6afe0a554cc4f30df}\label{classxu_1_1_widget_a6598e696f14956b6afe0a554cc4f30df}} 
+virtual void \mbox{\hyperlink{classxu_1_1_widget_a6598e696f14956b6afe0a554cc4f30df}{Set\+Vertical\+Size\+Hint\+Behaviour}} (Size\+Hint\+Behaviour shb) final
+\begin{DoxyCompactList}\small\item\em Changes the vertical (height) Size\+Hint behaviour. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classxu_1_1_widget_a581b3d37906861e7975908032ca0853f}\label{classxu_1_1_widget_a581b3d37906861e7975908032ca0853f}} 
+virtual Size\+Hint\+Behaviour \mbox{\hyperlink{classxu_1_1_widget_a581b3d37906861e7975908032ca0853f}{Vertical\+Size\+Hint\+Behaviour}} () const final
+\begin{DoxyCompactList}\small\item\em Returns the vertical (height) Size\+Hint behaviour. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classxu_1_1_widget_a4eea85ae7c42bcedf0dd98094c4be23f}\label{classxu_1_1_widget_a4eea85ae7c42bcedf0dd98094c4be23f}} 
+virtual void \mbox{\hyperlink{classxu_1_1_widget_a4eea85ae7c42bcedf0dd98094c4be23f}{Set\+Layout}} (\mbox{\hyperlink{classxu_1_1_layout}{Layout}} \&layout) final
+\begin{DoxyCompactList}\small\item\em Changes the layout this widget manages. This will take ownership of the pointer. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classxu_1_1_widget_a87f7fe54fafd22073f5fc4290dda977f}\label{classxu_1_1_widget_a87f7fe54fafd22073f5fc4290dda977f}} 
+virtual void \mbox{\hyperlink{classxu_1_1_widget_a87f7fe54fafd22073f5fc4290dda977f}{Remove\+Layout}} () final
+\begin{DoxyCompactList}\small\item\em Removes the layout this widget manages, if any. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classxu_1_1_widget_a107100dabb474b4decd45c94a7f528c7}\label{classxu_1_1_widget_a107100dabb474b4decd45c94a7f528c7}} 
+virtual \mbox{\hyperlink{classxu_1_1_layout}{Layout}} $\ast$ \mbox{\hyperlink{classxu_1_1_widget_a107100dabb474b4decd45c94a7f528c7}{Get\+Layout}} () const final
+\begin{DoxyCompactList}\small\item\em Returns the layout this widget manages. Possibly nullptr. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsection*{Public Attributes}
 \begin{DoxyCompactItemize}
 \item 
@@ -43,7 +82,16 @@ virtual std\+::size\+\_\+t \mbox{\hyperlink{classxu_1_1_widget_a24fe55202bb2c0ac
 \begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{classxu_1_1_signal}{Signal}} to be called before destroying this widget. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classxu_1_1_widget_aa57048eef11e40dcc3a2a99be39af59c}\label{classxu_1_1_widget_aa57048eef11e40dcc3a2a99be39af59c}} 
 bool \mbox{\hyperlink{classxu_1_1_widget_aa57048eef11e40dcc3a2a99be39af59c}{hidden}}
-\begin{DoxyCompactList}\small\item\em Toggle to indicate whether this widget is hidden or not. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Toggle to indicate whether this widget is hidden or not. This propagates to child widgets. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classxu_1_1_widget_a9bba3480c39d761e472b3ab401eb3b5e}\label{classxu_1_1_widget_a9bba3480c39d761e472b3ab401eb3b5e}} 
+class {\bfseries Layout\+Item}
+\item 
+\mbox{\Hypertarget{classxu_1_1_widget_ac902f1ffeb3ca8ce28827888af71848b}\label{classxu_1_1_widget_ac902f1ffeb3ca8ce28827888af71848b}} 
+class {\bfseries Layout}
+\end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}
@@ -53,7 +101,7 @@ Core widget class of the library. All widgets must derive from this class.
 \mbox{\Hypertarget{classxu_1_1_widget_a96b0aa33c925c69a34c5cf0b8e389b1f}\label{classxu_1_1_widget_a96b0aa33c925c69a34c5cf0b8e389b1f}} 
 \index{xu::Widget@{xu::Widget}!Widget@{Widget}}
 \index{Widget@{Widget}!xu::Widget@{xu::Widget}}
-\doxysubsubsection{\texorpdfstring{Widget()}{Widget()}}
+\doxysubsubsection{\texorpdfstring{Widget()}{Widget()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
 {\footnotesize\ttfamily xu\+::\+Widget\+::\+Widget (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classxu_1_1_widget}{Widget}} $\ast$}]{parent }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}}
 
 
@@ -65,14 +113,29 @@ Core widget class of the library. All widgets must derive from this class.
 {\em parent} & Pointer to the parent of this widget. May be nullptr. \\
 \hline
 \end{DoxyParams}
+\mbox{\Hypertarget{classxu_1_1_widget_a630bcf065e34d1f245b7c3c46fd2e061}\label{classxu_1_1_widget_a630bcf065e34d1f245b7c3c46fd2e061}} 
+\index{xu::Widget@{xu::Widget}!Widget@{Widget}}
+\index{Widget@{Widget}!xu::Widget@{xu::Widget}}
+\doxysubsubsection{\texorpdfstring{Widget()}{Widget()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily xu\+::\+Widget\+::\+Widget (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classxu_1_1_context}{Context}} \&}]{context }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}}
+
+
+
+Top-\/level \mbox{\hyperlink{classxu_1_1_widget}{Widget}} constructor. Only use this overload for root widgets. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em context} & Reference to the top-\/level context. \\
+\hline
+\end{DoxyParams}
 
 
 \doxysubsection{Member Function Documentation}
-\mbox{\Hypertarget{classxu_1_1_widget_a6e0d14a094cc3fae2c5333b9732d047d}\label{classxu_1_1_widget_a6e0d14a094cc3fae2c5333b9732d047d}} 
+\mbox{\Hypertarget{classxu_1_1_widget_a4e0bd91fc9cd8aeb7b5363a97e8be5c6}\label{classxu_1_1_widget_a4e0bd91fc9cd8aeb7b5363a97e8be5c6}} 
 \index{xu::Widget@{xu::Widget}!GetChild@{GetChild}}
 \index{GetChild@{GetChild}!xu::Widget@{xu::Widget}}
 \doxysubsubsection{\texorpdfstring{GetChild()}{GetChild()}}
-{\footnotesize\ttfamily \mbox{\hyperlink{classxu_1_1_widget}{Widget}}$\ast$ xu\+::\+Widget\+::\+Get\+Child (\begin{DoxyParamCaption}\item[{std\+::size\+\_\+t}]{at }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily virtual \mbox{\hyperlink{classxu_1_1_widget}{Widget}}$\ast$ xu\+::\+Widget\+::\+Get\+Child (\begin{DoxyParamCaption}\item[{std\+::size\+\_\+t}]{at }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [final]}, {\ttfamily [virtual]}}
 
 
 
@@ -83,6 +146,25 @@ Obtain a pointer to the widget at index at.
 {\em at} & Index of the child widget to get a pointer to. \\
 \hline
 \end{DoxyParams}
+\mbox{\Hypertarget{classxu_1_1_widget_af31e1bf73ac10981ad0ef167f642773f}\label{classxu_1_1_widget_af31e1bf73ac10981ad0ef167f642773f}} 
+\index{xu::Widget@{xu::Widget}!InitializeTheme@{InitializeTheme}}
+\index{InitializeTheme@{InitializeTheme}!xu::Widget@{xu::Widget}}
+\doxysubsubsection{\texorpdfstring{InitializeTheme()}{InitializeTheme()}}
+{\footnotesize\ttfamily virtual void xu\+::\+Widget\+::\+Initialize\+Theme (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classxu_1_1_theme}{Theme}} \&}]{theme }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Should invoke Theme\+::\+Initialize\+Widget if this widget employs the use of painting delegation to themes. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em theme} & The theme that should be notified of widget initialization (Theme\+::\+Initialize\+Widget) if necessary. \\
+\hline
+\end{DoxyParams}
+
+
+Reimplemented in \mbox{\hyperlink{classxu_1_1_button_a31aa08402e91675924ac74cbdce4d1dd}{xu\+::\+Button}}.
+
 \mbox{\Hypertarget{classxu_1_1_widget_aa805ceb90a7e29df81854b4aceb98de5}\label{classxu_1_1_widget_aa805ceb90a7e29df81854b4aceb98de5}} 
 \index{xu::Widget@{xu::Widget}!MakeChild@{MakeChild}}
 \index{MakeChild@{MakeChild}!xu::Widget@{xu::Widget}}
@@ -118,7 +200,7 @@ Create a new child widget of type T and put it at the specified index in the lis
 
 
 \begin{DoxyParams}{Parameters}
-{\em at} & Position to insert the new child widget. \\
+{\em at} & Position to insert the new child widget.\\
 \hline
 {\em args} & Arguments to be forwarded to the widget\textquotesingle{}s constructor \\
 \hline
@@ -129,6 +211,27 @@ Create a new child widget of type T and put it at the specified index in the lis
 \begin{DoxySeeAlso}{See also}
 \mbox{\hyperlink{structxu_1_1_widget_ptr}{Widget\+Ptr}} 
 \end{DoxySeeAlso}
+\mbox{\Hypertarget{classxu_1_1_widget_aa469288e02e5665be1b688a970312337}\label{classxu_1_1_widget_aa469288e02e5665be1b688a970312337}} 
+\index{xu::Widget@{xu::Widget}!Paint@{Paint}}
+\index{Paint@{Paint}!xu::Widget@{xu::Widget}}
+\doxysubsubsection{\texorpdfstring{Paint()}{Paint()}}
+{\footnotesize\ttfamily virtual void xu\+::\+Widget\+::\+Paint (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classxu_1_1_surface}{Surface}} \&}]{surface,  }\item[{\mbox{\hyperlink{classxu_1_1_theme}{Theme}} $\ast$}]{theme }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Paint this widget\textquotesingle{}s visual representation onto the surface. This function should be overridden by types implementing \mbox{\hyperlink{classxu_1_1_widget}{Widget}} if it is intended that they have a standalone visual appearance. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em surface} & The surface to render to (i.\+e. submit high-\/level commands to).\\
+\hline
+{\em theme} & The theme of the context this widget resides in. It is possible that it is nullptr. \\
+\hline
+\end{DoxyParams}
+
+
+Reimplemented in \mbox{\hyperlink{classxu_1_1_button_a947ce7a0d166540f822c89e2b7825bd0}{xu\+::\+Button}}.
+
 \mbox{\Hypertarget{classxu_1_1_widget_a6ac6d36e8c0b4f46991d819df8228019}\label{classxu_1_1_widget_a6ac6d36e8c0b4f46991d819df8228019}} 
 \index{xu::Widget@{xu::Widget}!PointerHit@{PointerHit}}
 \index{PointerHit@{PointerHit}!xu::Widget@{xu::Widget}}
@@ -172,6 +275,10 @@ Gives the layout system a hint of how large this widget has to be. Note that the
 \begin{DoxySeeAlso}{See also}
 \mbox{[}Insert layout documentation page\mbox{]} 
 \end{DoxySeeAlso}
+
+
+Implemented in \mbox{\hyperlink{classxu_1_1_button_a9afbee6bfac4c1dea4c21ba998751f23}{xu\+::\+Button}}.
+
 
 
 The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}

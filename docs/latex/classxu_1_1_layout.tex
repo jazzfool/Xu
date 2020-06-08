@@ -1,5 +1,14 @@
 \hypertarget{classxu_1_1_layout}{}\doxysection{xu\+::Layout Class Reference}
 \label{classxu_1_1_layout}\index{xu::Layout@{xu::Layout}}
+
+
+Minimal layout interface which is capable of selecting a minimum fitting size and changing the geometry of its items when invalidated. The implementor of this interface is responsible for storing children via \mbox{\hyperlink{classxu_1_1_layout_ab3fb38fbb7f64cc87c19b08f3b537d33}{Layout\+::\+Insert\+Item}} and \mbox{\hyperlink{classxu_1_1_layout_ab067e1cf54c2c8625acd1c2458375393}{Layout\+::\+Num\+Items}}.  
+
+
+
+
+{\ttfamily \#include $<$Layout.\+hpp$>$}
+
 Inheritance diagram for xu\+::Layout\+:\begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -9,48 +18,193 @@ Inheritance diagram for xu\+::Layout\+:\begin{figure}[H]
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\Hypertarget{classxu_1_1_layout_ac56a1a5eda291ebd280da6eb7e2726a5}\label{classxu_1_1_layout_ac56a1a5eda291ebd280da6eb7e2726a5}} 
-virtual \mbox{\hyperlink{structxu_1_1_vector2}{F\+Size2}} {\bfseries Min\+Size} () const =0
-\item 
+virtual \mbox{\hyperlink{structxu_1_1_vector2}{F\+Size2}} \mbox{\hyperlink{classxu_1_1_layout_ac56a1a5eda291ebd280da6eb7e2726a5}{Min\+Size}} () const =0
+\begin{DoxyCompactList}\small\item\em Computes the minimum size required by this layout to fit all its item. Normally this is a rectangular convex hull. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classxu_1_1_layout_ab067e1cf54c2c8625acd1c2458375393}\label{classxu_1_1_layout_ab067e1cf54c2c8625acd1c2458375393}} 
-virtual std\+::size\+\_\+t {\bfseries Num\+Items} () const =0
-\item 
-\mbox{\Hypertarget{classxu_1_1_layout_a5f85e999cef422634b20312564d5e300}\label{classxu_1_1_layout_a5f85e999cef422634b20312564d5e300}} 
-virtual void {\bfseries Update} (\mbox{\hyperlink{structxu_1_1_rect2}{F\+Rect2}} const \&rect) final
-\item 
+virtual std\+::size\+\_\+t \mbox{\hyperlink{classxu_1_1_layout_ab067e1cf54c2c8625acd1c2458375393}{Num\+Items}} () const =0
+\begin{DoxyCompactList}\small\item\em Number of items present in this layout. \end{DoxyCompactList}\item 
+virtual void \mbox{\hyperlink{classxu_1_1_layout_a4844573f3759a84622e1e1e3068b8fbf}{Update}} () final
+\begin{DoxyCompactList}\small\item\em Updates the geometry for each item in whatever manner deemed suitable by the implementation. The underlying implementation method is only called if the layout has been invalidated (the invalidation process is handled automatically). This will propagate to all child layouts. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classxu_1_1_layout_a8e5d81407c709638f78ca376509fcf8d}\label{classxu_1_1_layout_a8e5d81407c709638f78ca376509fcf8d}} 
-virtual void {\bfseries Invalidate} () final
-\item 
-\mbox{\Hypertarget{classxu_1_1_layout_aa510cb474b20528c44d65d03aab20549}\label{classxu_1_1_layout_aa510cb474b20528c44d65d03aab20549}} 
-virtual void {\bfseries Insert\+Widget} (std\+::size\+\_\+t where, \mbox{\hyperlink{classxu_1_1_widget}{Widget}} $\ast$widget) final
-\item 
-\mbox{\Hypertarget{classxu_1_1_layout_ae39d43f086257b8db8ac0e3687019ad1}\label{classxu_1_1_layout_ae39d43f086257b8db8ac0e3687019ad1}} 
-virtual void {\bfseries Add\+Widget} (\mbox{\hyperlink{classxu_1_1_widget}{Widget}} $\ast$widget) final
-\item 
-\mbox{\Hypertarget{classxu_1_1_layout_a84f507f88ea996e3f0aacfec0c0bc5eb}\label{classxu_1_1_layout_a84f507f88ea996e3f0aacfec0c0bc5eb}} 
-virtual void {\bfseries Insert\+Layout} (std\+::size\+\_\+t where, std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classxu_1_1_layout}{Layout}} $>$ layout) final
-\item 
-\mbox{\Hypertarget{classxu_1_1_layout_a7f5971b53f9b40c7db6234174bf003aa}\label{classxu_1_1_layout_a7f5971b53f9b40c7db6234174bf003aa}} 
-virtual void {\bfseries Add\+Layout} (std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classxu_1_1_layout}{Layout}} $>$ layout) final
-\item 
-\mbox{\Hypertarget{classxu_1_1_layout_a15a3171fe9f3ee22b97275d72ac844ce}\label{classxu_1_1_layout_a15a3171fe9f3ee22b97275d72ac844ce}} 
-virtual void {\bfseries Set\+Geometry} (\mbox{\hyperlink{structxu_1_1_rect2}{F\+Rect2}} const \&geometry) final
-\item 
-\mbox{\Hypertarget{classxu_1_1_layout_a57be558e5c784b2ee2389ba23a3168dd}\label{classxu_1_1_layout_a57be558e5c784b2ee2389ba23a3168dd}} 
-virtual \mbox{\hyperlink{structxu_1_1_rect2}{F\+Rect2}} {\bfseries Geometry} () const final
-\end{DoxyCompactItemize}
+virtual void \mbox{\hyperlink{classxu_1_1_layout_a8e5d81407c709638f78ca376509fcf8d}{Invalidate}} () final
+\begin{DoxyCompactList}\small\item\em Forcefully invalidates this layout. Note\+: This does not call \mbox{\hyperlink{classxu_1_1_layout_a4844573f3759a84622e1e1e3068b8fbf}{Layout\+::\+Update}}. \end{DoxyCompactList}\item 
+virtual void \mbox{\hyperlink{classxu_1_1_layout_aa510cb474b20528c44d65d03aab20549}{Insert\+Widget}} (std\+::size\+\_\+t where, \mbox{\hyperlink{classxu_1_1_widget}{Widget}} $\ast$widget) final
+\begin{DoxyCompactList}\small\item\em Insert a widget item at a certain index. \end{DoxyCompactList}\item 
+virtual void \mbox{\hyperlink{classxu_1_1_layout_ae39d43f086257b8db8ac0e3687019ad1}{Add\+Widget}} (\mbox{\hyperlink{classxu_1_1_widget}{Widget}} $\ast$widget) final
+\begin{DoxyCompactList}\small\item\em Adds a widget item onto the end. \end{DoxyCompactList}\item 
+virtual void \mbox{\hyperlink{classxu_1_1_layout_a84f507f88ea996e3f0aacfec0c0bc5eb}{Insert\+Layout}} (std\+::size\+\_\+t where, std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classxu_1_1_layout}{Layout}} $>$ layout) final
+\begin{DoxyCompactList}\small\item\em Insert a layout item at a certain index. \end{DoxyCompactList}\item 
+virtual void \mbox{\hyperlink{classxu_1_1_layout_a7f5971b53f9b40c7db6234174bf003aa}{Add\+Layout}} (std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classxu_1_1_layout}{Layout}} $>$ layout) final
+\begin{DoxyCompactList}\small\item\em Adds a layout item onto the end. \end{DoxyCompactList}\item 
+virtual void \mbox{\hyperlink{classxu_1_1_layout_a15a3171fe9f3ee22b97275d72ac844ce}{Set\+Geometry}} (\mbox{\hyperlink{structxu_1_1_rect2}{F\+Rect2}} const \&geometry) final
+\begin{DoxyCompactList}\small\item\em Changes the layout geometry. This is the same geometry that is typically used by the implementor to infer the size available for item geometry layout. \end{DoxyCompactList}\item 
+virtual \mbox{\hyperlink{structxu_1_1_rect2}{F\+Rect2}} \mbox{\hyperlink{classxu_1_1_layout_a57be558e5c784b2ee2389ba23a3168dd}{Geometry}} () const final
+\begin{DoxyCompactList}\small\item\em Returns the layout geometry. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classxu_1_1_layout_ab920086d3090cdf78d828e637310f14f}\label{classxu_1_1_layout_ab920086d3090cdf78d828e637310f14f}} 
+virtual void \mbox{\hyperlink{classxu_1_1_layout_ab920086d3090cdf78d828e637310f14f}{Set\+Horizontal\+Size\+Hint\+Behaviour}} (Size\+Hint\+Behaviour shb) final
+\begin{DoxyCompactList}\small\item\em Changes the horizontal (width) Size\+Hint behaviour. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classxu_1_1_layout_a850129f26413254a150a6e76e407f9e2}\label{classxu_1_1_layout_a850129f26413254a150a6e76e407f9e2}} 
+virtual Size\+Hint\+Behaviour \mbox{\hyperlink{classxu_1_1_layout_a850129f26413254a150a6e76e407f9e2}{Horizontal\+Size\+Hint\+Behaviour}} () const final
+\begin{DoxyCompactList}\small\item\em Returns the horizontal (width) Size\+Hint behaviour. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classxu_1_1_layout_a01f8e48c4cc0136ebb869fd4ba43a910}\label{classxu_1_1_layout_a01f8e48c4cc0136ebb869fd4ba43a910}} 
+virtual void \mbox{\hyperlink{classxu_1_1_layout_a01f8e48c4cc0136ebb869fd4ba43a910}{Set\+Vertical\+Size\+Hint\+Behaviour}} (Size\+Hint\+Behaviour shb) final
+\begin{DoxyCompactList}\small\item\em Changes the vertical (height) Size\+Hint behaviour. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classxu_1_1_layout_a523e83284b8058ee522ad2f54874b6f0}\label{classxu_1_1_layout_a523e83284b8058ee522ad2f54874b6f0}} 
+virtual Size\+Hint\+Behaviour \mbox{\hyperlink{classxu_1_1_layout_a523e83284b8058ee522ad2f54874b6f0}{Vertical\+Size\+Hint\+Behaviour}} () const final
+\begin{DoxyCompactList}\small\item\em Returns the vertical (height) Size\+Hint behaviour. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsection*{Protected Member Functions}
 \begin{DoxyCompactItemize}
 \item 
 \mbox{\Hypertarget{classxu_1_1_layout_ab3fb38fbb7f64cc87c19b08f3b537d33}\label{classxu_1_1_layout_ab3fb38fbb7f64cc87c19b08f3b537d33}} 
-virtual void {\bfseries Insert\+Item} (std\+::size\+\_\+t where, \mbox{\hyperlink{classxu_1_1_layout_item}{Layout\+Item}} item)=0
-\item 
-\mbox{\Hypertarget{classxu_1_1_layout_a33f8bd105eb2807f45ff73fd13acec9c}\label{classxu_1_1_layout_a33f8bd105eb2807f45ff73fd13acec9c}} 
-virtual void {\bfseries Update\+Items} ()=0
-\item 
+virtual void \mbox{\hyperlink{classxu_1_1_layout_ab3fb38fbb7f64cc87c19b08f3b537d33}{Insert\+Item}} (std\+::size\+\_\+t where, \mbox{\hyperlink{classxu_1_1_layout_item}{Layout\+Item}} item)=0
+\begin{DoxyCompactList}\small\item\em Request for an item insertion at a certain index. \end{DoxyCompactList}\item 
+virtual void \mbox{\hyperlink{classxu_1_1_layout_a33f8bd105eb2807f45ff73fd13acec9c}{Update\+Items}} ()=0
+\begin{DoxyCompactList}\small\item\em Updates all the stored \mbox{\hyperlink{classxu_1_1_layout_item}{Layout\+Item}} geometry. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classxu_1_1_layout_a31263d95fb4679ebca553d27d0fd55f5}\label{classxu_1_1_layout_a31263d95fb4679ebca553d27d0fd55f5}} 
-virtual void {\bfseries On\+Geometry\+Changed} ()
+virtual void \mbox{\hyperlink{classxu_1_1_layout_a31263d95fb4679ebca553d27d0fd55f5}{On\+Geometry\+Changed}} ()
+\begin{DoxyCompactList}\small\item\em Invoked whenever Set\+Geometry is invoked. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classxu_1_1_layout_a9bba3480c39d761e472b3ab401eb3b5e}\label{classxu_1_1_layout_a9bba3480c39d761e472b3ab401eb3b5e}} 
+class {\bfseries Layout\+Item}
 \end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Minimal layout interface which is capable of selecting a minimum fitting size and changing the geometry of its items when invalidated. The implementor of this interface is responsible for storing children via \mbox{\hyperlink{classxu_1_1_layout_ab3fb38fbb7f64cc87c19b08f3b537d33}{Layout\+::\+Insert\+Item}} and \mbox{\hyperlink{classxu_1_1_layout_ab067e1cf54c2c8625acd1c2458375393}{Layout\+::\+Num\+Items}}. 
+
+\begin{DoxySeeAlso}{See also}
+\mbox{\hyperlink{classxu_1_1_layout_item}{Layout\+Item}}, \mbox{\hyperlink{classxu_1_1_widget}{Widget}} 
+\end{DoxySeeAlso}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classxu_1_1_layout_a7f5971b53f9b40c7db6234174bf003aa}\label{classxu_1_1_layout_a7f5971b53f9b40c7db6234174bf003aa}} 
+\index{xu::Layout@{xu::Layout}!AddLayout@{AddLayout}}
+\index{AddLayout@{AddLayout}!xu::Layout@{xu::Layout}}
+\doxysubsubsection{\texorpdfstring{AddLayout()}{AddLayout()}}
+{\footnotesize\ttfamily virtual void xu\+::\+Layout\+::\+Add\+Layout (\begin{DoxyParamCaption}\item[{std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classxu_1_1_layout}{Layout}} $>$}]{layout }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [final]}, {\ttfamily [virtual]}}
+
+
+
+Adds a layout item onto the end. 
+
+\begin{DoxySeeAlso}{See also}
+\mbox{\hyperlink{classxu_1_1_layout_a84f507f88ea996e3f0aacfec0c0bc5eb}{Insert\+Layout}}, \mbox{\hyperlink{classxu_1_1_layout_ae39d43f086257b8db8ac0e3687019ad1}{Add\+Widget}} 
+\end{DoxySeeAlso}
+\mbox{\Hypertarget{classxu_1_1_layout_ae39d43f086257b8db8ac0e3687019ad1}\label{classxu_1_1_layout_ae39d43f086257b8db8ac0e3687019ad1}} 
+\index{xu::Layout@{xu::Layout}!AddWidget@{AddWidget}}
+\index{AddWidget@{AddWidget}!xu::Layout@{xu::Layout}}
+\doxysubsubsection{\texorpdfstring{AddWidget()}{AddWidget()}}
+{\footnotesize\ttfamily virtual void xu\+::\+Layout\+::\+Add\+Widget (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classxu_1_1_widget}{Widget}} $\ast$}]{widget }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [final]}, {\ttfamily [virtual]}}
+
+
+
+Adds a widget item onto the end. 
+
+\begin{DoxySeeAlso}{See also}
+\mbox{\hyperlink{classxu_1_1_layout_aa510cb474b20528c44d65d03aab20549}{Insert\+Widget}}, \mbox{\hyperlink{classxu_1_1_layout_a7f5971b53f9b40c7db6234174bf003aa}{Add\+Layout}} 
+\end{DoxySeeAlso}
+\mbox{\Hypertarget{classxu_1_1_layout_a57be558e5c784b2ee2389ba23a3168dd}\label{classxu_1_1_layout_a57be558e5c784b2ee2389ba23a3168dd}} 
+\index{xu::Layout@{xu::Layout}!Geometry@{Geometry}}
+\index{Geometry@{Geometry}!xu::Layout@{xu::Layout}}
+\doxysubsubsection{\texorpdfstring{Geometry()}{Geometry()}}
+{\footnotesize\ttfamily virtual \mbox{\hyperlink{structxu_1_1_rect2}{F\+Rect2}} xu\+::\+Layout\+::\+Geometry (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [final]}, {\ttfamily [virtual]}}
+
+
+
+Returns the layout geometry. 
+
+\begin{DoxySeeAlso}{See also}
+\mbox{\hyperlink{classxu_1_1_layout_a15a3171fe9f3ee22b97275d72ac844ce}{Set\+Geometry}} 
+\end{DoxySeeAlso}
+\mbox{\Hypertarget{classxu_1_1_layout_a84f507f88ea996e3f0aacfec0c0bc5eb}\label{classxu_1_1_layout_a84f507f88ea996e3f0aacfec0c0bc5eb}} 
+\index{xu::Layout@{xu::Layout}!InsertLayout@{InsertLayout}}
+\index{InsertLayout@{InsertLayout}!xu::Layout@{xu::Layout}}
+\doxysubsubsection{\texorpdfstring{InsertLayout()}{InsertLayout()}}
+{\footnotesize\ttfamily virtual void xu\+::\+Layout\+::\+Insert\+Layout (\begin{DoxyParamCaption}\item[{std\+::size\+\_\+t}]{where,  }\item[{std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classxu_1_1_layout}{Layout}} $>$}]{layout }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [final]}, {\ttfamily [virtual]}}
+
+
+
+Insert a layout item at a certain index. 
+
+\begin{DoxySeeAlso}{See also}
+\mbox{\hyperlink{classxu_1_1_layout_a7f5971b53f9b40c7db6234174bf003aa}{Add\+Layout}}, \mbox{\hyperlink{classxu_1_1_layout_aa510cb474b20528c44d65d03aab20549}{Insert\+Widget}} 
+\end{DoxySeeAlso}
+\mbox{\Hypertarget{classxu_1_1_layout_aa510cb474b20528c44d65d03aab20549}\label{classxu_1_1_layout_aa510cb474b20528c44d65d03aab20549}} 
+\index{xu::Layout@{xu::Layout}!InsertWidget@{InsertWidget}}
+\index{InsertWidget@{InsertWidget}!xu::Layout@{xu::Layout}}
+\doxysubsubsection{\texorpdfstring{InsertWidget()}{InsertWidget()}}
+{\footnotesize\ttfamily virtual void xu\+::\+Layout\+::\+Insert\+Widget (\begin{DoxyParamCaption}\item[{std\+::size\+\_\+t}]{where,  }\item[{\mbox{\hyperlink{classxu_1_1_widget}{Widget}} $\ast$}]{widget }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [final]}, {\ttfamily [virtual]}}
+
+
+
+Insert a widget item at a certain index. 
+
+\begin{DoxySeeAlso}{See also}
+\mbox{\hyperlink{classxu_1_1_layout_ae39d43f086257b8db8ac0e3687019ad1}{Add\+Widget}}, \mbox{\hyperlink{classxu_1_1_layout_a84f507f88ea996e3f0aacfec0c0bc5eb}{Insert\+Layout}} 
+\end{DoxySeeAlso}
+\mbox{\Hypertarget{classxu_1_1_layout_ac56a1a5eda291ebd280da6eb7e2726a5}\label{classxu_1_1_layout_ac56a1a5eda291ebd280da6eb7e2726a5}} 
+\index{xu::Layout@{xu::Layout}!MinSize@{MinSize}}
+\index{MinSize@{MinSize}!xu::Layout@{xu::Layout}}
+\doxysubsubsection{\texorpdfstring{MinSize()}{MinSize()}}
+{\footnotesize\ttfamily virtual \mbox{\hyperlink{structxu_1_1_vector2}{F\+Size2}} xu\+::\+Layout\+::\+Min\+Size (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Computes the minimum size required by this layout to fit all its item. Normally this is a rectangular convex hull. 
+
+\begin{DoxySeeAlso}{See also}
+\mbox{\hyperlink{classxu_1_1_widget_a97e32a6f14bd7a90b4e8cba607066269}{Widget\+::\+Size\+Hint}} 
+\end{DoxySeeAlso}
+
+
+Implemented in \mbox{\hyperlink{classxu_1_1_box_stack_ac22b36b5f13d3530b1122565ffc31007}{xu\+::\+Box\+Stack}}.
+
+\mbox{\Hypertarget{classxu_1_1_layout_a15a3171fe9f3ee22b97275d72ac844ce}\label{classxu_1_1_layout_a15a3171fe9f3ee22b97275d72ac844ce}} 
+\index{xu::Layout@{xu::Layout}!SetGeometry@{SetGeometry}}
+\index{SetGeometry@{SetGeometry}!xu::Layout@{xu::Layout}}
+\doxysubsubsection{\texorpdfstring{SetGeometry()}{SetGeometry()}}
+{\footnotesize\ttfamily virtual void xu\+::\+Layout\+::\+Set\+Geometry (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structxu_1_1_rect2}{F\+Rect2}} const \&}]{geometry }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [final]}, {\ttfamily [virtual]}}
+
+
+
+Changes the layout geometry. This is the same geometry that is typically used by the implementor to infer the size available for item geometry layout. 
+
+\begin{DoxySeeAlso}{See also}
+\mbox{\hyperlink{classxu_1_1_layout_a57be558e5c784b2ee2389ba23a3168dd}{Geometry}} 
+\end{DoxySeeAlso}
+\mbox{\Hypertarget{classxu_1_1_layout_a4844573f3759a84622e1e1e3068b8fbf}\label{classxu_1_1_layout_a4844573f3759a84622e1e1e3068b8fbf}} 
+\index{xu::Layout@{xu::Layout}!Update@{Update}}
+\index{Update@{Update}!xu::Layout@{xu::Layout}}
+\doxysubsubsection{\texorpdfstring{Update()}{Update()}}
+{\footnotesize\ttfamily virtual void xu\+::\+Layout\+::\+Update (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [final]}, {\ttfamily [virtual]}}
+
+
+
+Updates the geometry for each item in whatever manner deemed suitable by the implementation. The underlying implementation method is only called if the layout has been invalidated (the invalidation process is handled automatically). This will propagate to all child layouts. 
+
+\begin{DoxySeeAlso}{See also}
+Layout\+Item\+::\+Set\+Rect 
+\end{DoxySeeAlso}
+\mbox{\Hypertarget{classxu_1_1_layout_a33f8bd105eb2807f45ff73fd13acec9c}\label{classxu_1_1_layout_a33f8bd105eb2807f45ff73fd13acec9c}} 
+\index{xu::Layout@{xu::Layout}!UpdateItems@{UpdateItems}}
+\index{UpdateItems@{UpdateItems}!xu::Layout@{xu::Layout}}
+\doxysubsubsection{\texorpdfstring{UpdateItems()}{UpdateItems()}}
+{\footnotesize\ttfamily virtual void xu\+::\+Layout\+::\+Update\+Items (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [pure virtual]}}
+
+
+
+Updates all the stored \mbox{\hyperlink{classxu_1_1_layout_item}{Layout\+Item}} geometry. 
+
+\begin{DoxySeeAlso}{See also}
+Layout\+Item\+::\+Set\+Rect 
+\end{DoxySeeAlso}
+
+
+Implemented in \mbox{\hyperlink{classxu_1_1_box_stack_af4f23ac7860c0657304da883d7d4fdf8}{xu\+::\+Box\+Stack}}.
+
 
 
 The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}

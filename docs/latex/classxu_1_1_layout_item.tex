@@ -1,5 +1,14 @@
 \hypertarget{classxu_1_1_layout_item}{}\doxysection{xu\+::Layout\+Item Class Reference}
 \label{classxu_1_1_layout_item}\index{xu::LayoutItem@{xu::LayoutItem}}
+
+
+Mediating class which acts as a proxy for anything that can be placed in a layout (namely other layouts and widgets).  
+
+
+
+
+{\ttfamily \#include $<$Layout.\+hpp$>$}
+
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
@@ -15,18 +24,152 @@
 \mbox{\Hypertarget{classxu_1_1_layout_item_ab27c4ac5a2e4736a9e83ed38e7e2931b}\label{classxu_1_1_layout_item_ab27c4ac5a2e4736a9e83ed38e7e2931b}} 
 \mbox{\hyperlink{classxu_1_1_layout_item}{Layout\+Item}} \& {\bfseries operator=} (\mbox{\hyperlink{classxu_1_1_layout_item}{Layout\+Item}} \&\&)=default
 \item 
-\mbox{\Hypertarget{classxu_1_1_layout_item_a7e57422fb88b08de590c947aa39af17f}\label{classxu_1_1_layout_item_a7e57422fb88b08de590c947aa39af17f}} 
-void {\bfseries Set\+Rect} (\mbox{\hyperlink{structxu_1_1_rect2}{F\+Rect2}} const \&rect)
-\item 
-\mbox{\Hypertarget{classxu_1_1_layout_item_a2b430a89eaec5b7d6ea82613643eb90a}\label{classxu_1_1_layout_item_a2b430a89eaec5b7d6ea82613643eb90a}} 
-\mbox{\hyperlink{structxu_1_1_rect2}{F\+Rect2}} {\bfseries Rect} () const
-\end{DoxyCompactItemize}
+void \mbox{\hyperlink{classxu_1_1_layout_item_a8fe541a0b199ede36ea59d0b8349af85}{Set\+Max\+Size}} (\mbox{\hyperlink{structxu_1_1_vector2}{F\+Size2}} const \&max)
+\begin{DoxyCompactList}\small\item\em Changes the maximum geometry size available to the underlying object. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structxu_1_1_vector2}{F\+Size2}} \mbox{\hyperlink{classxu_1_1_layout_item_a7476d2cc3d387255aade3866f62b8449}{Max\+Size}} () const
+\begin{DoxyCompactList}\small\item\em Returns the maximum geometry size available to the underlying object. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classxu_1_1_layout_item_a8e14a7f5f986bdfff286d7aec2e2dabd}{Set\+Min\+Size}} (\mbox{\hyperlink{structxu_1_1_vector2}{F\+Size2}} const \&min)
+\begin{DoxyCompactList}\small\item\em Changes the minimum geometry size available to the underlying object. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structxu_1_1_vector2}{F\+Size2}} \mbox{\hyperlink{classxu_1_1_layout_item_ab190c2f3bba8a10165062d4c97ebde85}{Min\+Size}} () const
+\begin{DoxyCompactList}\small\item\em Returns the minimum geometry size available to the underlying object. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structxu_1_1_vector2}{F\+Size2}} \mbox{\hyperlink{classxu_1_1_layout_item_a19398e0932d513b7919385aede7db6e8}{Preferred\+Size}} () const
+\begin{DoxyCompactList}\small\item\em Returns the preferred size of the underlying object. For widgets this is \mbox{\hyperlink{classxu_1_1_widget_a97e32a6f14bd7a90b4e8cba607066269}{Widget\+::\+Size\+Hint}}, and for layouts this is \mbox{\hyperlink{classxu_1_1_layout_ac56a1a5eda291ebd280da6eb7e2726a5}{Layout\+::\+Min\+Size}}. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classxu_1_1_layout_item_a40827c4c1eb209dba2a4dd89e1c878c2}{Set\+Position}} (\mbox{\hyperlink{structxu_1_1_vector2}{F\+Point2}} const \&position)
+\begin{DoxyCompactList}\small\item\em Changes the geometry position of the underlying object. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structxu_1_1_vector2}{F\+Point2}} \mbox{\hyperlink{classxu_1_1_layout_item_a1ee690671be3b496c0e9f31e290cb227}{Position}} () const
+\begin{DoxyCompactList}\small\item\em Returns the geometry position of the underlying object. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classxu_1_1_layout_item_a71db32a20cee46ef4af6b8e9d923a266}{Hidden}} () const
+\begin{DoxyCompactList}\small\item\em Returns the hidden state of this object. That is to say; should its rectangle be considered in the layout. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classxu_1_1_layout_item_a42586ff3736fd606b91c2dff5aa212ba}\label{classxu_1_1_layout_item_a42586ff3736fd606b91c2dff5aa212ba}} 
+Size\+Hint\+Behaviour \mbox{\hyperlink{classxu_1_1_layout_item_a42586ff3736fd606b91c2dff5aa212ba}{Horizontal\+Size\+Hint\+Behaviour}} () const
+\begin{DoxyCompactList}\small\item\em Returns how the underlying item\textquotesingle{}s preferred width should be treated. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classxu_1_1_layout_item_ad3678c566a59c3976fe1c02971aaa583}\label{classxu_1_1_layout_item_ad3678c566a59c3976fe1c02971aaa583}} 
+Size\+Hint\+Behaviour \mbox{\hyperlink{classxu_1_1_layout_item_ad3678c566a59c3976fe1c02971aaa583}{Vertical\+Size\+Hint\+Behaviour}} () const
+\begin{DoxyCompactList}\small\item\em Returns how the underlying item\textquotesingle{}s preferred height should be treated. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classxu_1_1_layout_item_a77c20dc51e57e2ab71ba1134a1d8f346}\label{classxu_1_1_layout_item_a77c20dc51e57e2ab71ba1134a1d8f346}} 
+void \mbox{\hyperlink{classxu_1_1_layout_item_a77c20dc51e57e2ab71ba1134a1d8f346}{Apply}} ()
+\begin{DoxyCompactList}\small\item\em Updates the actual geometry using the item\textquotesingle{}s Size\+Hint\+Behaviour, Max\+Size and Min\+Size. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsection*{Friends}
 \begin{DoxyCompactItemize}
 \item 
 \mbox{\Hypertarget{classxu_1_1_layout_item_ac902f1ffeb3ca8ce28827888af71848b}\label{classxu_1_1_layout_item_ac902f1ffeb3ca8ce28827888af71848b}} 
 class {\bfseries Layout}
 \end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Mediating class which acts as a proxy for anything that can be placed in a layout (namely other layouts and widgets). 
+
+\begin{DoxySeeAlso}{See also}
+\mbox{\hyperlink{classxu_1_1_layout}{Layout}} 
+\end{DoxySeeAlso}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classxu_1_1_layout_item_a71db32a20cee46ef4af6b8e9d923a266}\label{classxu_1_1_layout_item_a71db32a20cee46ef4af6b8e9d923a266}} 
+\index{xu::LayoutItem@{xu::LayoutItem}!Hidden@{Hidden}}
+\index{Hidden@{Hidden}!xu::LayoutItem@{xu::LayoutItem}}
+\doxysubsubsection{\texorpdfstring{Hidden()}{Hidden()}}
+{\footnotesize\ttfamily bool xu\+::\+Layout\+Item\+::\+Hidden (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Returns the hidden state of this object. That is to say; should its rectangle be considered in the layout. 
+
+\begin{DoxySeeAlso}{See also}
+\mbox{\hyperlink{classxu_1_1_widget_aa57048eef11e40dcc3a2a99be39af59c}{Widget\+::hidden}} 
+\end{DoxySeeAlso}
+\mbox{\Hypertarget{classxu_1_1_layout_item_a7476d2cc3d387255aade3866f62b8449}\label{classxu_1_1_layout_item_a7476d2cc3d387255aade3866f62b8449}} 
+\index{xu::LayoutItem@{xu::LayoutItem}!MaxSize@{MaxSize}}
+\index{MaxSize@{MaxSize}!xu::LayoutItem@{xu::LayoutItem}}
+\doxysubsubsection{\texorpdfstring{MaxSize()}{MaxSize()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structxu_1_1_vector2}{F\+Size2}} xu\+::\+Layout\+Item\+::\+Max\+Size (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Returns the maximum geometry size available to the underlying object. 
+
+\begin{DoxySeeAlso}{See also}
+\mbox{\hyperlink{classxu_1_1_layout_item_a8fe541a0b199ede36ea59d0b8349af85}{Layout\+Item\+::\+Set\+Max\+Size}} 
+\end{DoxySeeAlso}
+\mbox{\Hypertarget{classxu_1_1_layout_item_ab190c2f3bba8a10165062d4c97ebde85}\label{classxu_1_1_layout_item_ab190c2f3bba8a10165062d4c97ebde85}} 
+\index{xu::LayoutItem@{xu::LayoutItem}!MinSize@{MinSize}}
+\index{MinSize@{MinSize}!xu::LayoutItem@{xu::LayoutItem}}
+\doxysubsubsection{\texorpdfstring{MinSize()}{MinSize()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structxu_1_1_vector2}{F\+Size2}} xu\+::\+Layout\+Item\+::\+Min\+Size (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Returns the minimum geometry size available to the underlying object. 
+
+\begin{DoxySeeAlso}{See also}
+\mbox{\hyperlink{classxu_1_1_layout_item_a8e14a7f5f986bdfff286d7aec2e2dabd}{Layout\+Item\+::\+Set\+Min\+Size}} 
+\end{DoxySeeAlso}
+\mbox{\Hypertarget{classxu_1_1_layout_item_a1ee690671be3b496c0e9f31e290cb227}\label{classxu_1_1_layout_item_a1ee690671be3b496c0e9f31e290cb227}} 
+\index{xu::LayoutItem@{xu::LayoutItem}!Position@{Position}}
+\index{Position@{Position}!xu::LayoutItem@{xu::LayoutItem}}
+\doxysubsubsection{\texorpdfstring{Position()}{Position()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structxu_1_1_vector2}{F\+Point2}} xu\+::\+Layout\+Item\+::\+Position (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Returns the geometry position of the underlying object. 
+
+\begin{DoxySeeAlso}{See also}
+\mbox{\hyperlink{classxu_1_1_layout_item_a40827c4c1eb209dba2a4dd89e1c878c2}{Layout\+Item\+::\+Set\+Position}} 
+\end{DoxySeeAlso}
+\mbox{\Hypertarget{classxu_1_1_layout_item_a19398e0932d513b7919385aede7db6e8}\label{classxu_1_1_layout_item_a19398e0932d513b7919385aede7db6e8}} 
+\index{xu::LayoutItem@{xu::LayoutItem}!PreferredSize@{PreferredSize}}
+\index{PreferredSize@{PreferredSize}!xu::LayoutItem@{xu::LayoutItem}}
+\doxysubsubsection{\texorpdfstring{PreferredSize()}{PreferredSize()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structxu_1_1_vector2}{F\+Size2}} xu\+::\+Layout\+Item\+::\+Preferred\+Size (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Returns the preferred size of the underlying object. For widgets this is \mbox{\hyperlink{classxu_1_1_widget_a97e32a6f14bd7a90b4e8cba607066269}{Widget\+::\+Size\+Hint}}, and for layouts this is \mbox{\hyperlink{classxu_1_1_layout_ac56a1a5eda291ebd280da6eb7e2726a5}{Layout\+::\+Min\+Size}}. 
+
+\begin{DoxySeeAlso}{See also}
+\mbox{\hyperlink{classxu_1_1_widget_a97e32a6f14bd7a90b4e8cba607066269}{Widget\+::\+Size\+Hint}}, \mbox{\hyperlink{classxu_1_1_layout_ac56a1a5eda291ebd280da6eb7e2726a5}{Layout\+::\+Min\+Size}} 
+\end{DoxySeeAlso}
+\mbox{\Hypertarget{classxu_1_1_layout_item_a8fe541a0b199ede36ea59d0b8349af85}\label{classxu_1_1_layout_item_a8fe541a0b199ede36ea59d0b8349af85}} 
+\index{xu::LayoutItem@{xu::LayoutItem}!SetMaxSize@{SetMaxSize}}
+\index{SetMaxSize@{SetMaxSize}!xu::LayoutItem@{xu::LayoutItem}}
+\doxysubsubsection{\texorpdfstring{SetMaxSize()}{SetMaxSize()}}
+{\footnotesize\ttfamily void xu\+::\+Layout\+Item\+::\+Set\+Max\+Size (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structxu_1_1_vector2}{F\+Size2}} const \&}]{max }\end{DoxyParamCaption})}
+
+
+
+Changes the maximum geometry size available to the underlying object. 
+
+\begin{DoxySeeAlso}{See also}
+\mbox{\hyperlink{classxu_1_1_layout_item_a7476d2cc3d387255aade3866f62b8449}{Layout\+Item\+::\+Max\+Size}} 
+\end{DoxySeeAlso}
+\mbox{\Hypertarget{classxu_1_1_layout_item_a8e14a7f5f986bdfff286d7aec2e2dabd}\label{classxu_1_1_layout_item_a8e14a7f5f986bdfff286d7aec2e2dabd}} 
+\index{xu::LayoutItem@{xu::LayoutItem}!SetMinSize@{SetMinSize}}
+\index{SetMinSize@{SetMinSize}!xu::LayoutItem@{xu::LayoutItem}}
+\doxysubsubsection{\texorpdfstring{SetMinSize()}{SetMinSize()}}
+{\footnotesize\ttfamily void xu\+::\+Layout\+Item\+::\+Set\+Min\+Size (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structxu_1_1_vector2}{F\+Size2}} const \&}]{min }\end{DoxyParamCaption})}
+
+
+
+Changes the minimum geometry size available to the underlying object. 
+
+\begin{DoxySeeAlso}{See also}
+\mbox{\hyperlink{classxu_1_1_layout_item_ab190c2f3bba8a10165062d4c97ebde85}{Layout\+Item\+::\+Min\+Size}} 
+\end{DoxySeeAlso}
+\mbox{\Hypertarget{classxu_1_1_layout_item_a40827c4c1eb209dba2a4dd89e1c878c2}\label{classxu_1_1_layout_item_a40827c4c1eb209dba2a4dd89e1c878c2}} 
+\index{xu::LayoutItem@{xu::LayoutItem}!SetPosition@{SetPosition}}
+\index{SetPosition@{SetPosition}!xu::LayoutItem@{xu::LayoutItem}}
+\doxysubsubsection{\texorpdfstring{SetPosition()}{SetPosition()}}
+{\footnotesize\ttfamily void xu\+::\+Layout\+Item\+::\+Set\+Position (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structxu_1_1_vector2}{F\+Point2}} const \&}]{position }\end{DoxyParamCaption})}
+
+
+
+Changes the geometry position of the underlying object. 
+
+\begin{DoxySeeAlso}{See also}
+\mbox{\hyperlink{classxu_1_1_layout_item_a1ee690671be3b496c0e9f31e290cb227}{Layout\+Item\+::\+Position}} 
+\end{DoxySeeAlso}
 
 
 The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}

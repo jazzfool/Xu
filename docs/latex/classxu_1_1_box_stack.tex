@@ -9,12 +9,11 @@ Inheritance diagram for xu\+::Box\+Stack\+:\begin{figure}[H]
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\Hypertarget{classxu_1_1_box_stack_ac22b36b5f13d3530b1122565ffc31007}\label{classxu_1_1_box_stack_ac22b36b5f13d3530b1122565ffc31007}} 
-\mbox{\hyperlink{structxu_1_1_vector2}{F\+Size2}} {\bfseries Min\+Size} () const override
-\item 
+\mbox{\hyperlink{structxu_1_1_vector2}{F\+Size2}} \mbox{\hyperlink{classxu_1_1_box_stack_ac22b36b5f13d3530b1122565ffc31007}{Min\+Size}} () const override
+\begin{DoxyCompactList}\small\item\em Computes the minimum size required by this layout to fit all its item. Normally this is a rectangular convex hull. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classxu_1_1_box_stack_af46a1b620239b5826666b3e006617c71}\label{classxu_1_1_box_stack_af46a1b620239b5826666b3e006617c71}} 
-std\+::size\+\_\+t {\bfseries Num\+Items} () const override
-\end{DoxyCompactItemize}
+std\+::size\+\_\+t \mbox{\hyperlink{classxu_1_1_box_stack_af46a1b620239b5826666b3e006617c71}{Num\+Items}} () const override
+\begin{DoxyCompactList}\small\item\em Number of items present in this layout. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsection*{Public Attributes}
 \begin{DoxyCompactItemize}
 \item 
@@ -28,14 +27,50 @@ float {\bfseries spacing}
 \begin{DoxyCompactItemize}
 \item 
 \mbox{\Hypertarget{classxu_1_1_box_stack_a86b516c7795a700b7a3c3351ae323560}\label{classxu_1_1_box_stack_a86b516c7795a700b7a3c3351ae323560}} 
-void {\bfseries Insert\+Item} (std\+::size\+\_\+t where, \mbox{\hyperlink{classxu_1_1_layout_item}{Layout\+Item}} item) override
-\item 
-\mbox{\Hypertarget{classxu_1_1_box_stack_af4f23ac7860c0657304da883d7d4fdf8}\label{classxu_1_1_box_stack_af4f23ac7860c0657304da883d7d4fdf8}} 
-void {\bfseries Update\+Items} () override
-\item 
+void \mbox{\hyperlink{classxu_1_1_box_stack_a86b516c7795a700b7a3c3351ae323560}{Insert\+Item}} (std\+::size\+\_\+t where, \mbox{\hyperlink{classxu_1_1_layout_item}{Layout\+Item}} item) override
+\begin{DoxyCompactList}\small\item\em Request for an item insertion at a certain index. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classxu_1_1_box_stack_af4f23ac7860c0657304da883d7d4fdf8}{Update\+Items}} () override
+\begin{DoxyCompactList}\small\item\em Updates all the stored \mbox{\hyperlink{classxu_1_1_layout_item}{Layout\+Item}} geometry. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classxu_1_1_box_stack_a1aa0b455eed07f301b5c57c57be1e0ce}\label{classxu_1_1_box_stack_a1aa0b455eed07f301b5c57c57be1e0ce}} 
 float F\+Size2\+::$\ast$ {\bfseries Orientation\+Subject} () const
 \end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classxu_1_1_box_stack_ac22b36b5f13d3530b1122565ffc31007}\label{classxu_1_1_box_stack_ac22b36b5f13d3530b1122565ffc31007}} 
+\index{xu::BoxStack@{xu::BoxStack}!MinSize@{MinSize}}
+\index{MinSize@{MinSize}!xu::BoxStack@{xu::BoxStack}}
+\doxysubsubsection{\texorpdfstring{MinSize()}{MinSize()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structxu_1_1_vector2}{F\+Size2}} xu\+::\+Box\+Stack\+::\+Min\+Size (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Computes the minimum size required by this layout to fit all its item. Normally this is a rectangular convex hull. 
+
+\begin{DoxySeeAlso}{See also}
+\mbox{\hyperlink{classxu_1_1_widget_a97e32a6f14bd7a90b4e8cba607066269}{Widget\+::\+Size\+Hint}} 
+\end{DoxySeeAlso}
+
+
+Implements \mbox{\hyperlink{classxu_1_1_layout_ac56a1a5eda291ebd280da6eb7e2726a5}{xu\+::\+Layout}}.
+
+\mbox{\Hypertarget{classxu_1_1_box_stack_af4f23ac7860c0657304da883d7d4fdf8}\label{classxu_1_1_box_stack_af4f23ac7860c0657304da883d7d4fdf8}} 
+\index{xu::BoxStack@{xu::BoxStack}!UpdateItems@{UpdateItems}}
+\index{UpdateItems@{UpdateItems}!xu::BoxStack@{xu::BoxStack}}
+\doxysubsubsection{\texorpdfstring{UpdateItems()}{UpdateItems()}}
+{\footnotesize\ttfamily void xu\+::\+Box\+Stack\+::\+Update\+Items (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [protected]}, {\ttfamily [virtual]}}
+
+
+
+Updates all the stored \mbox{\hyperlink{classxu_1_1_layout_item}{Layout\+Item}} geometry. 
+
+\begin{DoxySeeAlso}{See also}
+Layout\+Item\+::\+Set\+Rect 
+\end{DoxySeeAlso}
+
+
+Implements \mbox{\hyperlink{classxu_1_1_layout_a33f8bd105eb2807f45ff73fd13acec9c}{xu\+::\+Layout}}.
+
 
 
 The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}

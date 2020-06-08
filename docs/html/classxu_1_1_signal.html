@@ -74,38 +74,50 @@ $(function() {
 <div class="title">xu::Signal&lt; Ts &gt; Class Template Reference<span class="mlabels"><span class="mlabel">final</span></span></div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>Signal/slot type which emits events with variadic template arguments (hence the variadic templates). Slots can be connected with member function pointers or regular function pointers.  
+ <a href="classxu_1_1_signal.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="_signal_8hpp_source.html">Signal.hpp</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a24bd3620fa0d6310e774882ba765cb7f"><td class="memTemplParams" colspan="2"><a id="a24bd3620fa0d6310e774882ba765cb7f"></a>
 template&lt;auto MemFnPtr, typename T &gt; </td></tr>
-<tr class="memitem:a24bd3620fa0d6310e774882ba765cb7f"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><b>Connect</b> (T *instance)</td></tr>
+<tr class="memitem:a24bd3620fa0d6310e774882ba765cb7f"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classxu_1_1_signal.html#a24bd3620fa0d6310e774882ba765cb7f">Connect</a> (T *instance)</td></tr>
+<tr class="memdesc:a24bd3620fa0d6310e774882ba765cb7f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Connects a member function pointer callback (the first template parameter) with a pointer to an instance of the class (the first and only parameter). <br /></td></tr>
 <tr class="separator:a24bd3620fa0d6310e774882ba765cb7f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2ad2e9d5e60ebbc01601113b85c2bce9"><td class="memTemplParams" colspan="2"><a id="a2ad2e9d5e60ebbc01601113b85c2bce9"></a>
 template&lt;auto MemFnPtr, typename T &gt; </td></tr>
-<tr class="memitem:a2ad2e9d5e60ebbc01601113b85c2bce9"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><b>Connect</b> (T &amp;instance)</td></tr>
+<tr class="memitem:a2ad2e9d5e60ebbc01601113b85c2bce9"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classxu_1_1_signal.html#a2ad2e9d5e60ebbc01601113b85c2bce9">Connect</a> (T &amp;instance)</td></tr>
+<tr class="memdesc:a2ad2e9d5e60ebbc01601113b85c2bce9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Connects a member function pointer callback (the first template parameter) with a reference to an instance of the class (the first and only parameter). <br /></td></tr>
 <tr class="separator:a2ad2e9d5e60ebbc01601113b85c2bce9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac579d5de999b4669a3ffb718da930c6b"><td class="memTemplParams" colspan="2"><a id="ac579d5de999b4669a3ffb718da930c6b"></a>
 template&lt;auto FnPtr&gt; </td></tr>
-<tr class="memitem:ac579d5de999b4669a3ffb718da930c6b"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><b>Connect</b> ()</td></tr>
+<tr class="memitem:ac579d5de999b4669a3ffb718da930c6b"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classxu_1_1_signal.html#ac579d5de999b4669a3ffb718da930c6b">Connect</a> ()</td></tr>
+<tr class="memdesc:ac579d5de999b4669a3ffb718da930c6b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Connects a function pointer callback (the first template parameter). <br /></td></tr>
 <tr class="separator:ac579d5de999b4669a3ffb718da930c6b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a19cde0f1689f2cc507e80eb0a63a7a93"><td class="memTemplParams" colspan="2"><a id="a19cde0f1689f2cc507e80eb0a63a7a93"></a>
 template&lt;auto MemFnPtr, typename T &gt; </td></tr>
-<tr class="memitem:a19cde0f1689f2cc507e80eb0a63a7a93"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><b>Disconnect</b> (T *instance)</td></tr>
+<tr class="memitem:a19cde0f1689f2cc507e80eb0a63a7a93"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classxu_1_1_signal.html#a19cde0f1689f2cc507e80eb0a63a7a93">Disconnect</a> (T *instance)</td></tr>
+<tr class="memdesc:a19cde0f1689f2cc507e80eb0a63a7a93"><td class="mdescLeft">&#160;</td><td class="mdescRight">Disconnects a previously connected callback. This is an exact reverse operation of Connect and thus has the same parameters. <br /></td></tr>
 <tr class="separator:a19cde0f1689f2cc507e80eb0a63a7a93"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a81b4f89a6afea717631a64a200100c4c"><td class="memTemplParams" colspan="2"><a id="a81b4f89a6afea717631a64a200100c4c"></a>
 template&lt;auto MemFnPtr, typename T &gt; </td></tr>
-<tr class="memitem:a81b4f89a6afea717631a64a200100c4c"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><b>Disconnect</b> (T &amp;instance)</td></tr>
+<tr class="memitem:a81b4f89a6afea717631a64a200100c4c"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classxu_1_1_signal.html#a81b4f89a6afea717631a64a200100c4c">Disconnect</a> (T &amp;instance)</td></tr>
+<tr class="memdesc:a81b4f89a6afea717631a64a200100c4c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Disconnects a previously connected callback. This is an exact reverse operation of Connect and thus has the same parameters. <br /></td></tr>
 <tr class="separator:a81b4f89a6afea717631a64a200100c4c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa3ee48fa26782057d1b0760684dd05b1"><td class="memTemplParams" colspan="2"><a id="aa3ee48fa26782057d1b0760684dd05b1"></a>
 template&lt;auto FnPtr&gt; </td></tr>
-<tr class="memitem:aa3ee48fa26782057d1b0760684dd05b1"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><b>Disconnect</b> ()</td></tr>
+<tr class="memitem:aa3ee48fa26782057d1b0760684dd05b1"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classxu_1_1_signal.html#aa3ee48fa26782057d1b0760684dd05b1">Disconnect</a> ()</td></tr>
+<tr class="memdesc:aa3ee48fa26782057d1b0760684dd05b1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Disconnects a previously connected callback. This is an exact reverse operation of Connect and thus has the same parameters. <br /></td></tr>
 <tr class="separator:aa3ee48fa26782057d1b0760684dd05b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a32e93951e42613ecd2878340c5707a82"><td class="memItemLeft" align="right" valign="top"><a id="a32e93951e42613ecd2878340c5707a82"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>Emit</b> (Ts &amp;&amp;... arg)</td></tr>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classxu_1_1_signal.html#a32e93951e42613ecd2878340c5707a82">Emit</a> (Ts &amp;&amp;... arg)</td></tr>
+<tr class="memdesc:a32e93951e42613ecd2878340c5707a82"><td class="mdescLeft">&#160;</td><td class="mdescRight">Emits an event with specified arguments, essentially invoking all the connected callbacks. <br /></td></tr>
 <tr class="separator:a32e93951e42613ecd2878340c5707a82"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a20ee24adabdaf63323ecce1b57739ff8"><td class="memItemLeft" align="right" valign="top"><a id="a20ee24adabdaf63323ecce1b57739ff8"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>operator()</b> (Ts &amp;&amp;... arg)</td></tr>
+<tr class="memitem:a20ee24adabdaf63323ecce1b57739ff8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classxu_1_1_signal.html#a20ee24adabdaf63323ecce1b57739ff8">operator()</a> (Ts &amp;&amp;... arg)</td></tr>
+<tr class="memdesc:a20ee24adabdaf63323ecce1b57739ff8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Same function as Emit.  <a href="classxu_1_1_signal.html#a20ee24adabdaf63323ecce1b57739ff8">More...</a><br /></td></tr>
 <tr class="separator:a20ee24adabdaf63323ecce1b57739ff8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="friends"></a>
@@ -115,6 +127,44 @@ template&lt;auto X&gt; </td></tr>
 <tr class="memitem:aa3d67379c76f0cced47f5828b28f7ae7"><td class="memTemplItemLeft" align="right" valign="top">class&#160;</td><td class="memTemplItemRight" valign="bottom"><b>UniqueSlot</b></td></tr>
 <tr class="separator:aa3d67379c76f0cced47f5828b28f7ae7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><h3>template&lt;typename... Ts&gt;<br />
+class xu::Signal&lt; Ts &gt;</h3>
+
+<p>Signal/slot type which emits events with variadic template arguments (hence the variadic templates). Slots can be connected with member function pointers or regular function pointers. </p>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="classxu_1_1_unique_slot.html" title="RAII-based slot object which will automatically call Connect and Disconnect on construction and destr...">UniqueSlot</a> </dd></dl>
+</div><h2 class="groupheader">Member Function Documentation</h2>
+<a id="a20ee24adabdaf63323ecce1b57739ff8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a20ee24adabdaf63323ecce1b57739ff8">&#9670;&nbsp;</a></span>operator()()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename... Ts&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="classxu_1_1_signal.html">xu::Signal</a>&lt; Ts &gt;::operator() </td>
+          <td>(</td>
+          <td class="paramtype">Ts &amp;&amp;...&#160;</td>
+          <td class="paramname"><em>arg</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Same function as Emit. </p>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="classxu_1_1_signal.html#a32e93951e42613ecd2878340c5707a82" title="Emits an event with specified arguments, essentially invoking all the connected callbacks.">Emit</a> </dd></dl>
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following file:<ul>
 <li>include/xu/core/<a class="el" href="_signal_8hpp_source.html">Signal.hpp</a></li>
 </ul>

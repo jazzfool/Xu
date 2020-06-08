@@ -69,11 +69,17 @@ $(function() {
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pro-methods">Protected Member Functions</a> &#124;
+<a href="#friends">Friends</a> &#124;
 <a href="classxu_1_1_layout-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">xu::Layout Class Reference<span class="mlabels"><span class="mlabel">abstract</span></span></div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>Minimal layout interface which is capable of selecting a minimum fitting size and changing the geometry of its items when invalidated. The implementor of this interface is responsible for storing children via <a class="el" href="classxu_1_1_layout.html#ab3fb38fbb7f64cc87c19b08f3b537d33" title="Request for an item insertion at a certain index.">Layout::InsertItem</a> and <a class="el" href="classxu_1_1_layout.html#ab067e1cf54c2c8625acd1c2458375393" title="Number of items present in this layout.">Layout::NumItems</a>.  
+ <a href="classxu_1_1_layout.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="_layout_8hpp_source.html">Layout.hpp</a>&gt;</code></p>
 <div class="dynheader">
 Inheritance diagram for xu::Layout:</div>
 <div class="dyncontent">
@@ -86,49 +92,360 @@ Inheritance diagram for xu::Layout:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:ac56a1a5eda291ebd280da6eb7e2726a5"><td class="memItemLeft" align="right" valign="top"><a id="ac56a1a5eda291ebd280da6eb7e2726a5"></a>
-virtual <a class="el" href="structxu_1_1_vector2.html">FSize2</a>&#160;</td><td class="memItemRight" valign="bottom"><b>MinSize</b> () const =0</td></tr>
+<tr class="memitem:ac56a1a5eda291ebd280da6eb7e2726a5"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="structxu_1_1_vector2.html">FSize2</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classxu_1_1_layout.html#ac56a1a5eda291ebd280da6eb7e2726a5">MinSize</a> () const =0</td></tr>
+<tr class="memdesc:ac56a1a5eda291ebd280da6eb7e2726a5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes the minimum size required by this layout to fit all its item. Normally this is a rectangular convex hull.  <a href="classxu_1_1_layout.html#ac56a1a5eda291ebd280da6eb7e2726a5">More...</a><br /></td></tr>
 <tr class="separator:ac56a1a5eda291ebd280da6eb7e2726a5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab067e1cf54c2c8625acd1c2458375393"><td class="memItemLeft" align="right" valign="top"><a id="ab067e1cf54c2c8625acd1c2458375393"></a>
-virtual std::size_t&#160;</td><td class="memItemRight" valign="bottom"><b>NumItems</b> () const =0</td></tr>
+virtual std::size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classxu_1_1_layout.html#ab067e1cf54c2c8625acd1c2458375393">NumItems</a> () const =0</td></tr>
+<tr class="memdesc:ab067e1cf54c2c8625acd1c2458375393"><td class="mdescLeft">&#160;</td><td class="mdescRight">Number of items present in this layout. <br /></td></tr>
 <tr class="separator:ab067e1cf54c2c8625acd1c2458375393"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5f85e999cef422634b20312564d5e300"><td class="memItemLeft" align="right" valign="top"><a id="a5f85e999cef422634b20312564d5e300"></a>
-virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>Update</b> (<a class="el" href="structxu_1_1_rect2.html">FRect2</a> const &amp;rect) final</td></tr>
-<tr class="separator:a5f85e999cef422634b20312564d5e300"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4844573f3759a84622e1e1e3068b8fbf"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classxu_1_1_layout.html#a4844573f3759a84622e1e1e3068b8fbf">Update</a> () final</td></tr>
+<tr class="memdesc:a4844573f3759a84622e1e1e3068b8fbf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Updates the geometry for each item in whatever manner deemed suitable by the implementation. The underlying implementation method is only called if the layout has been invalidated (the invalidation process is handled automatically). This will propagate to all child layouts.  <a href="classxu_1_1_layout.html#a4844573f3759a84622e1e1e3068b8fbf">More...</a><br /></td></tr>
+<tr class="separator:a4844573f3759a84622e1e1e3068b8fbf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8e5d81407c709638f78ca376509fcf8d"><td class="memItemLeft" align="right" valign="top"><a id="a8e5d81407c709638f78ca376509fcf8d"></a>
-virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>Invalidate</b> () final</td></tr>
+virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classxu_1_1_layout.html#a8e5d81407c709638f78ca376509fcf8d">Invalidate</a> () final</td></tr>
+<tr class="memdesc:a8e5d81407c709638f78ca376509fcf8d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Forcefully invalidates this layout. Note: This does not call <a class="el" href="classxu_1_1_layout.html#a4844573f3759a84622e1e1e3068b8fbf" title="Updates the geometry for each item in whatever manner deemed suitable by the implementation....">Layout::Update</a>. <br /></td></tr>
 <tr class="separator:a8e5d81407c709638f78ca376509fcf8d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa510cb474b20528c44d65d03aab20549"><td class="memItemLeft" align="right" valign="top"><a id="aa510cb474b20528c44d65d03aab20549"></a>
-virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>InsertWidget</b> (std::size_t where, <a class="el" href="classxu_1_1_widget.html">Widget</a> *widget) final</td></tr>
+<tr class="memitem:aa510cb474b20528c44d65d03aab20549"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classxu_1_1_layout.html#aa510cb474b20528c44d65d03aab20549">InsertWidget</a> (std::size_t where, <a class="el" href="classxu_1_1_widget.html">Widget</a> *widget) final</td></tr>
+<tr class="memdesc:aa510cb474b20528c44d65d03aab20549"><td class="mdescLeft">&#160;</td><td class="mdescRight">Insert a widget item at a certain index.  <a href="classxu_1_1_layout.html#aa510cb474b20528c44d65d03aab20549">More...</a><br /></td></tr>
 <tr class="separator:aa510cb474b20528c44d65d03aab20549"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae39d43f086257b8db8ac0e3687019ad1"><td class="memItemLeft" align="right" valign="top"><a id="ae39d43f086257b8db8ac0e3687019ad1"></a>
-virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>AddWidget</b> (<a class="el" href="classxu_1_1_widget.html">Widget</a> *widget) final</td></tr>
+<tr class="memitem:ae39d43f086257b8db8ac0e3687019ad1"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classxu_1_1_layout.html#ae39d43f086257b8db8ac0e3687019ad1">AddWidget</a> (<a class="el" href="classxu_1_1_widget.html">Widget</a> *widget) final</td></tr>
+<tr class="memdesc:ae39d43f086257b8db8ac0e3687019ad1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds a widget item onto the end.  <a href="classxu_1_1_layout.html#ae39d43f086257b8db8ac0e3687019ad1">More...</a><br /></td></tr>
 <tr class="separator:ae39d43f086257b8db8ac0e3687019ad1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a84f507f88ea996e3f0aacfec0c0bc5eb"><td class="memItemLeft" align="right" valign="top"><a id="a84f507f88ea996e3f0aacfec0c0bc5eb"></a>
-virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>InsertLayout</b> (std::size_t where, std::unique_ptr&lt; <a class="el" href="classxu_1_1_layout.html">Layout</a> &gt; layout) final</td></tr>
+<tr class="memitem:a84f507f88ea996e3f0aacfec0c0bc5eb"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classxu_1_1_layout.html#a84f507f88ea996e3f0aacfec0c0bc5eb">InsertLayout</a> (std::size_t where, std::unique_ptr&lt; <a class="el" href="classxu_1_1_layout.html">Layout</a> &gt; layout) final</td></tr>
+<tr class="memdesc:a84f507f88ea996e3f0aacfec0c0bc5eb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Insert a layout item at a certain index.  <a href="classxu_1_1_layout.html#a84f507f88ea996e3f0aacfec0c0bc5eb">More...</a><br /></td></tr>
 <tr class="separator:a84f507f88ea996e3f0aacfec0c0bc5eb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7f5971b53f9b40c7db6234174bf003aa"><td class="memItemLeft" align="right" valign="top"><a id="a7f5971b53f9b40c7db6234174bf003aa"></a>
-virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>AddLayout</b> (std::unique_ptr&lt; <a class="el" href="classxu_1_1_layout.html">Layout</a> &gt; layout) final</td></tr>
+<tr class="memitem:a7f5971b53f9b40c7db6234174bf003aa"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classxu_1_1_layout.html#a7f5971b53f9b40c7db6234174bf003aa">AddLayout</a> (std::unique_ptr&lt; <a class="el" href="classxu_1_1_layout.html">Layout</a> &gt; layout) final</td></tr>
+<tr class="memdesc:a7f5971b53f9b40c7db6234174bf003aa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds a layout item onto the end.  <a href="classxu_1_1_layout.html#a7f5971b53f9b40c7db6234174bf003aa">More...</a><br /></td></tr>
 <tr class="separator:a7f5971b53f9b40c7db6234174bf003aa"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a15a3171fe9f3ee22b97275d72ac844ce"><td class="memItemLeft" align="right" valign="top"><a id="a15a3171fe9f3ee22b97275d72ac844ce"></a>
-virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>SetGeometry</b> (<a class="el" href="structxu_1_1_rect2.html">FRect2</a> const &amp;geometry) final</td></tr>
+<tr class="memitem:a15a3171fe9f3ee22b97275d72ac844ce"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classxu_1_1_layout.html#a15a3171fe9f3ee22b97275d72ac844ce">SetGeometry</a> (<a class="el" href="structxu_1_1_rect2.html">FRect2</a> const &amp;geometry) final</td></tr>
+<tr class="memdesc:a15a3171fe9f3ee22b97275d72ac844ce"><td class="mdescLeft">&#160;</td><td class="mdescRight">Changes the layout geometry. This is the same geometry that is typically used by the implementor to infer the size available for item geometry layout.  <a href="classxu_1_1_layout.html#a15a3171fe9f3ee22b97275d72ac844ce">More...</a><br /></td></tr>
 <tr class="separator:a15a3171fe9f3ee22b97275d72ac844ce"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a57be558e5c784b2ee2389ba23a3168dd"><td class="memItemLeft" align="right" valign="top"><a id="a57be558e5c784b2ee2389ba23a3168dd"></a>
-virtual <a class="el" href="structxu_1_1_rect2.html">FRect2</a>&#160;</td><td class="memItemRight" valign="bottom"><b>Geometry</b> () const final</td></tr>
+<tr class="memitem:a57be558e5c784b2ee2389ba23a3168dd"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="structxu_1_1_rect2.html">FRect2</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classxu_1_1_layout.html#a57be558e5c784b2ee2389ba23a3168dd">Geometry</a> () const final</td></tr>
+<tr class="memdesc:a57be558e5c784b2ee2389ba23a3168dd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the layout geometry.  <a href="classxu_1_1_layout.html#a57be558e5c784b2ee2389ba23a3168dd">More...</a><br /></td></tr>
 <tr class="separator:a57be558e5c784b2ee2389ba23a3168dd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab920086d3090cdf78d828e637310f14f"><td class="memItemLeft" align="right" valign="top"><a id="ab920086d3090cdf78d828e637310f14f"></a>
+virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classxu_1_1_layout.html#ab920086d3090cdf78d828e637310f14f">SetHorizontalSizeHintBehaviour</a> (SizeHintBehaviour shb) final</td></tr>
+<tr class="memdesc:ab920086d3090cdf78d828e637310f14f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Changes the horizontal (width) SizeHint behaviour. <br /></td></tr>
+<tr class="separator:ab920086d3090cdf78d828e637310f14f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a850129f26413254a150a6e76e407f9e2"><td class="memItemLeft" align="right" valign="top"><a id="a850129f26413254a150a6e76e407f9e2"></a>
+virtual SizeHintBehaviour&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classxu_1_1_layout.html#a850129f26413254a150a6e76e407f9e2">HorizontalSizeHintBehaviour</a> () const final</td></tr>
+<tr class="memdesc:a850129f26413254a150a6e76e407f9e2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the horizontal (width) SizeHint behaviour. <br /></td></tr>
+<tr class="separator:a850129f26413254a150a6e76e407f9e2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a01f8e48c4cc0136ebb869fd4ba43a910"><td class="memItemLeft" align="right" valign="top"><a id="a01f8e48c4cc0136ebb869fd4ba43a910"></a>
+virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classxu_1_1_layout.html#a01f8e48c4cc0136ebb869fd4ba43a910">SetVerticalSizeHintBehaviour</a> (SizeHintBehaviour shb) final</td></tr>
+<tr class="memdesc:a01f8e48c4cc0136ebb869fd4ba43a910"><td class="mdescLeft">&#160;</td><td class="mdescRight">Changes the vertical (height) SizeHint behaviour. <br /></td></tr>
+<tr class="separator:a01f8e48c4cc0136ebb869fd4ba43a910"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a523e83284b8058ee522ad2f54874b6f0"><td class="memItemLeft" align="right" valign="top"><a id="a523e83284b8058ee522ad2f54874b6f0"></a>
+virtual SizeHintBehaviour&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classxu_1_1_layout.html#a523e83284b8058ee522ad2f54874b6f0">VerticalSizeHintBehaviour</a> () const final</td></tr>
+<tr class="memdesc:a523e83284b8058ee522ad2f54874b6f0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the vertical (height) SizeHint behaviour. <br /></td></tr>
+<tr class="separator:a523e83284b8058ee522ad2f54874b6f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
 Protected Member Functions</h2></td></tr>
 <tr class="memitem:ab3fb38fbb7f64cc87c19b08f3b537d33"><td class="memItemLeft" align="right" valign="top"><a id="ab3fb38fbb7f64cc87c19b08f3b537d33"></a>
-virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>InsertItem</b> (std::size_t where, <a class="el" href="classxu_1_1_layout_item.html">LayoutItem</a> item)=0</td></tr>
+virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classxu_1_1_layout.html#ab3fb38fbb7f64cc87c19b08f3b537d33">InsertItem</a> (std::size_t where, <a class="el" href="classxu_1_1_layout_item.html">LayoutItem</a> item)=0</td></tr>
+<tr class="memdesc:ab3fb38fbb7f64cc87c19b08f3b537d33"><td class="mdescLeft">&#160;</td><td class="mdescRight">Request for an item insertion at a certain index. <br /></td></tr>
 <tr class="separator:ab3fb38fbb7f64cc87c19b08f3b537d33"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a33f8bd105eb2807f45ff73fd13acec9c"><td class="memItemLeft" align="right" valign="top"><a id="a33f8bd105eb2807f45ff73fd13acec9c"></a>
-virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>UpdateItems</b> ()=0</td></tr>
+<tr class="memitem:a33f8bd105eb2807f45ff73fd13acec9c"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classxu_1_1_layout.html#a33f8bd105eb2807f45ff73fd13acec9c">UpdateItems</a> ()=0</td></tr>
+<tr class="memdesc:a33f8bd105eb2807f45ff73fd13acec9c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Updates all the stored <a class="el" href="classxu_1_1_layout_item.html" title="Mediating class which acts as a proxy for anything that can be placed in a layout (namely other layou...">LayoutItem</a> geometry.  <a href="classxu_1_1_layout.html#a33f8bd105eb2807f45ff73fd13acec9c">More...</a><br /></td></tr>
 <tr class="separator:a33f8bd105eb2807f45ff73fd13acec9c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a31263d95fb4679ebca553d27d0fd55f5"><td class="memItemLeft" align="right" valign="top"><a id="a31263d95fb4679ebca553d27d0fd55f5"></a>
-virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>OnGeometryChanged</b> ()</td></tr>
+virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classxu_1_1_layout.html#a31263d95fb4679ebca553d27d0fd55f5">OnGeometryChanged</a> ()</td></tr>
+<tr class="memdesc:a31263d95fb4679ebca553d27d0fd55f5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Invoked whenever SetGeometry is invoked. <br /></td></tr>
 <tr class="separator:a31263d95fb4679ebca553d27d0fd55f5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="friends"></a>
+Friends</h2></td></tr>
+<tr class="memitem:a9bba3480c39d761e472b3ab401eb3b5e"><td class="memItemLeft" align="right" valign="top"><a id="a9bba3480c39d761e472b3ab401eb3b5e"></a>
+class&#160;</td><td class="memItemRight" valign="bottom"><b>LayoutItem</b></td></tr>
+<tr class="separator:a9bba3480c39d761e472b3ab401eb3b5e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Minimal layout interface which is capable of selecting a minimum fitting size and changing the geometry of its items when invalidated. The implementor of this interface is responsible for storing children via <a class="el" href="classxu_1_1_layout.html#ab3fb38fbb7f64cc87c19b08f3b537d33" title="Request for an item insertion at a certain index.">Layout::InsertItem</a> and <a class="el" href="classxu_1_1_layout.html#ab067e1cf54c2c8625acd1c2458375393" title="Number of items present in this layout.">Layout::NumItems</a>. </p>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="classxu_1_1_layout_item.html" title="Mediating class which acts as a proxy for anything that can be placed in a layout (namely other layou...">LayoutItem</a>, <a class="el" href="classxu_1_1_widget.html" title="Core widget class of the library. All widgets must derive from this class.">Widget</a> </dd></dl>
+</div><h2 class="groupheader">Member Function Documentation</h2>
+<a id="a7f5971b53f9b40c7db6234174bf003aa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7f5971b53f9b40c7db6234174bf003aa">&#9670;&nbsp;</a></span>AddLayout()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void xu::Layout::AddLayout </td>
+          <td>(</td>
+          <td class="paramtype">std::unique_ptr&lt; <a class="el" href="classxu_1_1_layout.html">Layout</a> &gt;&#160;</td>
+          <td class="paramname"><em>layout</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">final</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Adds a layout item onto the end. </p>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="classxu_1_1_layout.html#a84f507f88ea996e3f0aacfec0c0bc5eb" title="Insert a layout item at a certain index.">InsertLayout</a>, <a class="el" href="classxu_1_1_layout.html#ae39d43f086257b8db8ac0e3687019ad1" title="Adds a widget item onto the end.">AddWidget</a> </dd></dl>
+
+</div>
+</div>
+<a id="ae39d43f086257b8db8ac0e3687019ad1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae39d43f086257b8db8ac0e3687019ad1">&#9670;&nbsp;</a></span>AddWidget()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void xu::Layout::AddWidget </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classxu_1_1_widget.html">Widget</a> *&#160;</td>
+          <td class="paramname"><em>widget</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">final</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Adds a widget item onto the end. </p>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="classxu_1_1_layout.html#aa510cb474b20528c44d65d03aab20549" title="Insert a widget item at a certain index.">InsertWidget</a>, <a class="el" href="classxu_1_1_layout.html#a7f5971b53f9b40c7db6234174bf003aa" title="Adds a layout item onto the end.">AddLayout</a> </dd></dl>
+
+</div>
+</div>
+<a id="a57be558e5c784b2ee2389ba23a3168dd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a57be558e5c784b2ee2389ba23a3168dd">&#9670;&nbsp;</a></span>Geometry()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual <a class="el" href="structxu_1_1_rect2.html">FRect2</a> xu::Layout::Geometry </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">final</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns the layout geometry. </p>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="classxu_1_1_layout.html#a15a3171fe9f3ee22b97275d72ac844ce" title="Changes the layout geometry. This is the same geometry that is typically used by the implementor to i...">SetGeometry</a> </dd></dl>
+
+</div>
+</div>
+<a id="a84f507f88ea996e3f0aacfec0c0bc5eb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a84f507f88ea996e3f0aacfec0c0bc5eb">&#9670;&nbsp;</a></span>InsertLayout()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void xu::Layout::InsertLayout </td>
+          <td>(</td>
+          <td class="paramtype">std::size_t&#160;</td>
+          <td class="paramname"><em>where</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::unique_ptr&lt; <a class="el" href="classxu_1_1_layout.html">Layout</a> &gt;&#160;</td>
+          <td class="paramname"><em>layout</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">final</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Insert a layout item at a certain index. </p>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="classxu_1_1_layout.html#a7f5971b53f9b40c7db6234174bf003aa" title="Adds a layout item onto the end.">AddLayout</a>, <a class="el" href="classxu_1_1_layout.html#aa510cb474b20528c44d65d03aab20549" title="Insert a widget item at a certain index.">InsertWidget</a> </dd></dl>
+
+</div>
+</div>
+<a id="aa510cb474b20528c44d65d03aab20549"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa510cb474b20528c44d65d03aab20549">&#9670;&nbsp;</a></span>InsertWidget()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void xu::Layout::InsertWidget </td>
+          <td>(</td>
+          <td class="paramtype">std::size_t&#160;</td>
+          <td class="paramname"><em>where</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classxu_1_1_widget.html">Widget</a> *&#160;</td>
+          <td class="paramname"><em>widget</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">final</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Insert a widget item at a certain index. </p>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="classxu_1_1_layout.html#ae39d43f086257b8db8ac0e3687019ad1" title="Adds a widget item onto the end.">AddWidget</a>, <a class="el" href="classxu_1_1_layout.html#a84f507f88ea996e3f0aacfec0c0bc5eb" title="Insert a layout item at a certain index.">InsertLayout</a> </dd></dl>
+
+</div>
+</div>
+<a id="ac56a1a5eda291ebd280da6eb7e2726a5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac56a1a5eda291ebd280da6eb7e2726a5">&#9670;&nbsp;</a></span>MinSize()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual <a class="el" href="structxu_1_1_vector2.html">FSize2</a> xu::Layout::MinSize </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Computes the minimum size required by this layout to fit all its item. Normally this is a rectangular convex hull. </p>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="classxu_1_1_widget.html#a97e32a6f14bd7a90b4e8cba607066269" title="Gives the layout system a hint of how large this widget has to be. Note that the actual size may be d...">Widget::SizeHint</a> </dd></dl>
+
+<p>Implemented in <a class="el" href="classxu_1_1_box_stack.html#ac22b36b5f13d3530b1122565ffc31007">xu::BoxStack</a>.</p>
+
+</div>
+</div>
+<a id="a15a3171fe9f3ee22b97275d72ac844ce"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a15a3171fe9f3ee22b97275d72ac844ce">&#9670;&nbsp;</a></span>SetGeometry()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void xu::Layout::SetGeometry </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structxu_1_1_rect2.html">FRect2</a> const &amp;&#160;</td>
+          <td class="paramname"><em>geometry</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">final</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Changes the layout geometry. This is the same geometry that is typically used by the implementor to infer the size available for item geometry layout. </p>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="classxu_1_1_layout.html#a57be558e5c784b2ee2389ba23a3168dd" title="Returns the layout geometry.">Geometry</a> </dd></dl>
+
+</div>
+</div>
+<a id="a4844573f3759a84622e1e1e3068b8fbf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4844573f3759a84622e1e1e3068b8fbf">&#9670;&nbsp;</a></span>Update()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void xu::Layout::Update </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">final</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Updates the geometry for each item in whatever manner deemed suitable by the implementation. The underlying implementation method is only called if the layout has been invalidated (the invalidation process is handled automatically). This will propagate to all child layouts. </p>
+<dl class="section see"><dt>See also</dt><dd>LayoutItem::SetRect </dd></dl>
+
+</div>
+</div>
+<a id="a33f8bd105eb2807f45ff73fd13acec9c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a33f8bd105eb2807f45ff73fd13acec9c">&#9670;&nbsp;</a></span>UpdateItems()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void xu::Layout::UpdateItems </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Updates all the stored <a class="el" href="classxu_1_1_layout_item.html" title="Mediating class which acts as a proxy for anything that can be placed in a layout (namely other layou...">LayoutItem</a> geometry. </p>
+<dl class="section see"><dt>See also</dt><dd>LayoutItem::SetRect </dd></dl>
+
+<p>Implemented in <a class="el" href="classxu_1_1_box_stack.html#af4f23ac7860c0657304da883d7d4fdf8">xu::BoxStack</a>.</p>
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following file:<ul>
 <li>include/xu/core/<a class="el" href="_layout_8hpp_source.html">Layout.hpp</a></li>
 </ul>

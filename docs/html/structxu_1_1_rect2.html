@@ -67,6 +67,7 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="summary">
+<a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-attribs">Public Attributes</a> &#124;
 <a href="structxu_1_1_rect2-members.html">List of all members</a>  </div>
   <div class="headertitle">
@@ -74,11 +75,42 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:af7061873fc63d654a7ca6b87d50bcae9"><td class="memItemLeft" align="right" valign="top"><a id="af7061873fc63d654a7ca6b87d50bcae9"></a>
+constexpr&#160;</td><td class="memItemRight" valign="bottom"><b>Rect2</b> (const <a class="el" href="structxu_1_1_vector2.html">Point2</a>&lt; T &gt; &amp;origin, const <a class="el" href="structxu_1_1_vector2.html">Vector2</a>&lt; T &gt; &amp;size)</td></tr>
+<tr class="separator:af7061873fc63d654a7ca6b87d50bcae9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4adb2acfd32ffa024d4f63a1fc6d0eb9"><td class="memItemLeft" align="right" valign="top"><a id="a4adb2acfd32ffa024d4f63a1fc6d0eb9"></a>
+constexpr&#160;</td><td class="memItemRight" valign="bottom"><b>Rect2</b> (const <a class="el" href="structxu_1_1_bounds2.html">Bounds2</a>&lt; T &gt; &amp;bounds)</td></tr>
+<tr class="separator:a4adb2acfd32ffa024d4f63a1fc6d0eb9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8763db107c59152571cd765d93a48ccd"><td class="memItemLeft" align="right" valign="top"><a id="a8763db107c59152571cd765d93a48ccd"></a>
+constexpr bool&#160;</td><td class="memItemRight" valign="bottom"><b>ContainsPoint</b> (const <a class="el" href="structxu_1_1_vector2.html">Point2</a>&lt; T &gt; &amp;p) const</td></tr>
+<tr class="separator:a8763db107c59152571cd765d93a48ccd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2e065a44cefd1e8e4f456a8e01aca025"><td class="memItemLeft" align="right" valign="top"><a id="a2e065a44cefd1e8e4f456a8e01aca025"></a>
+constexpr bool&#160;</td><td class="memItemRight" valign="bottom"><b>Overlaps</b> (const <a class="el" href="structxu_1_1_rect2.html">Rect2</a>&lt; T &gt; &amp;other) const</td></tr>
+<tr class="separator:a2e065a44cefd1e8e4f456a8e01aca025"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0529c380585610afcfae4e7b31028df7"><td class="memItemLeft" align="right" valign="top"><a id="a0529c380585610afcfae4e7b31028df7"></a>
+constexpr bool&#160;</td><td class="memItemRight" valign="bottom"><b>FullyContains</b> (const <a class="el" href="structxu_1_1_rect2.html">Rect2</a>&lt; T &gt; &amp;other) const</td></tr>
+<tr class="separator:a0529c380585610afcfae4e7b31028df7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a00685f0ea42ad0473a72f0b127ba249c"><td class="memItemLeft" align="right" valign="top"><a id="a00685f0ea42ad0473a72f0b127ba249c"></a>
+constexpr <a class="el" href="structxu_1_1_bounds2.html">Bounds2</a>&lt; T &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>Bounds</b> () const</td></tr>
+<tr class="separator:a00685f0ea42ad0473a72f0b127ba249c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad95737762f73f60f53da93cb6fb3ed77"><td class="memItemLeft" align="right" valign="top"><a id="ad95737762f73f60f53da93cb6fb3ed77"></a>
+constexpr bool&#160;</td><td class="memItemRight" valign="bottom"><b>operator==</b> (const <a class="el" href="structxu_1_1_rect2.html">Rect2</a> &amp;rhs) const</td></tr>
+<tr class="separator:ad95737762f73f60f53da93cb6fb3ed77"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2eafd94d9ed12689077b3515f480fd30"><td class="memItemLeft" align="right" valign="top"><a id="a2eafd94d9ed12689077b3515f480fd30"></a>
+constexpr bool&#160;</td><td class="memItemRight" valign="bottom"><b>operator!=</b> (const <a class="el" href="structxu_1_1_rect2.html">Rect2</a> &amp;rhs) const</td></tr>
+<tr class="separator:a2eafd94d9ed12689077b3515f480fd30"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a09839619228bd73cfb05b573285369b9"><td class="memTemplParams" colspan="2"><a id="a09839619228bd73cfb05b573285369b9"></a>
+template&lt;typename Cast_t &gt; </td></tr>
+<tr class="memitem:a09839619228bd73cfb05b573285369b9"><td class="memTemplItemLeft" align="right" valign="top">constexpr&#160;</td><td class="memTemplItemRight" valign="bottom"><b>operator Rect2&lt; Cast_t &gt;</b> () const</td></tr>
+<tr class="separator:a09839619228bd73cfb05b573285369b9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
-<tr class="memitem:a4c029596e2e2891edb4f64a4db20fccb"><td class="memItemLeft" align="right" valign="top"><a id="a4c029596e2e2891edb4f64a4db20fccb"></a>
-<a class="el" href="structxu_1_1_vector2.html">Vector2</a>&lt; T &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>origin</b></td></tr>
-<tr class="separator:a4c029596e2e2891edb4f64a4db20fccb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad1a3b5e1a3b0f01cbd3b58cef1b0cc6a"><td class="memItemLeft" align="right" valign="top"><a id="ad1a3b5e1a3b0f01cbd3b58cef1b0cc6a"></a>
+<a class="el" href="structxu_1_1_vector2.html">Point2</a>&lt; T &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>origin</b></td></tr>
+<tr class="separator:ad1a3b5e1a3b0f01cbd3b58cef1b0cc6a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a61560b1bcf4e711e7c1ee9086c4fb78e"><td class="memItemLeft" align="right" valign="top"><a id="a61560b1bcf4e711e7c1ee9086c4fb78e"></a>
 <a class="el" href="structxu_1_1_vector2.html">Vector2</a>&lt; T &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>size</b></td></tr>
 <tr class="separator:a61560b1bcf4e711e7c1ee9086c4fb78e"><td class="memSeparator" colspan="2">&#160;</td></tr>

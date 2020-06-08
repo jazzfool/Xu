@@ -70,7 +70,17 @@ $(function() {
 <div class="title">xu::UniqueSlot&lt; X &gt; Class Template Reference<span class="mlabels"><span class="mlabel">final</span></span></div>  </div>
 </div><!--header-->
 <div class="contents">
-<hr/>The documentation for this class was generated from the following file:<ul>
+
+<p>RAII-based slot object which will automatically call Connect and Disconnect on construction and destruction, respectively. This prevents dangling slots since <a class="el" href="classxu_1_1_signal.html" title="Signal/slot type which emits events with variadic template arguments (hence the variadic templates)....">Signal</a> is not aware that a member function pointer instance is no longer valid and will wrongly continue to blindly invoke it.  
+ <a href="classxu_1_1_unique_slot.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="_unique_slot_8hpp_source.html">UniqueSlot.hpp</a>&gt;</code></p>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><h3>template&lt;auto X&gt;<br />
+class xu::UniqueSlot&lt; X &gt;</h3>
+
+<p>RAII-based slot object which will automatically call Connect and Disconnect on construction and destruction, respectively. This prevents dangling slots since <a class="el" href="classxu_1_1_signal.html" title="Signal/slot type which emits events with variadic template arguments (hence the variadic templates)....">Signal</a> is not aware that a member function pointer instance is no longer valid and will wrongly continue to blindly invoke it. </p>
+</div><hr/>The documentation for this class was generated from the following file:<ul>
 <li>include/xu/core/<a class="el" href="_unique_slot_8hpp_source.html">UniqueSlot.hpp</a></li>
 </ul>
 </div><!-- contents -->

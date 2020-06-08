@@ -1,6 +1,7 @@
 var searchData=
 [
-  ['geometry_9',['Geometry',['../classxu_1_1_widget.html#a6f342f4613cb484187346829e37d5107',1,'xu::Widget']]],
-  ['getchild_10',['GetChild',['../classxu_1_1_widget.html#a6e0d14a094cc3fae2c5333b9732d047d',1,'xu::Widget']]],
-  ['getrenderdata_11',['GetRenderData',['../classxu_1_1_context.html#a4682ab2a45aae997dd38261a84a46a7f',1,'xu::Context']]]
+  ['darculatheme_20',['DarculaTheme',['../classxu_1_1quick_1_1_darcula_theme.html',1,'xu::quick']]],
+  ['data_21',['data',['../structxu_1_1_draw_command.html#a5a3ad679d83d54095a92751577bf08a1',1,'xu::DrawCommand']]],
+  ['disconnect_22',['Disconnect',['../classxu_1_1_signal.html#a19cde0f1689f2cc507e80eb0a63a7a93',1,'xu::Signal::Disconnect(T *instance)'],['../classxu_1_1_signal.html#a81b4f89a6afea717631a64a200100c4c',1,'xu::Signal::Disconnect(T &amp;instance)'],['../classxu_1_1_signal.html#aa3ee48fa26782057d1b0760684dd05b1',1,'xu::Signal::Disconnect()']]],
+  ['drawcommand_23',['DrawCommand',['../structxu_1_1_draw_command.html',1,'xu']]]
 ];

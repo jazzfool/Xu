@@ -33,11 +33,6 @@ public:
 
     FSize2 SizeHint() const override;
 
-    virtual void GenerateTriangles(
-        RenderData& renderData,
-        CommandList& cmdList,
-        ISize2 windowSize) const override;
-
     void InitializeTheme(Theme& theme) override;
     void Paint(Surface& surf, Theme* theme) const override;
 

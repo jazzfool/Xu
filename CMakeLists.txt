@@ -48,6 +48,7 @@ set(SOURCES
     "src/core/RenderData.cpp"
     "src/core/Surface.cpp"
     "src/core/Tessellation.cpp"
+    "src/core/VectorPath.cpp"
 
     "src/kit/BoxStack.cpp"
     "src/kit/Button.cpp"

@@ -126,8 +126,6 @@ public:
      */
     WsiInterface* wsiInterface = nullptr;
 
-    // Temporary
-    std::unique_ptr<Widget> root;
     // Adds new root widget
     // In turn calls the user's window handler for a new window.
     WidgetPtr<Widget> AddWindow(const char* title, ISize2 size);
@@ -158,7 +156,7 @@ private:
     std::queue<Event> eventQueue;
 
     void BuildRenderData();
-    void PaintWidgetAndChildren(Widget* widget);
+    void PaintWidgetAndChildren(Widget* widget, Surface& surface);
     void InitializeWidgetThemeAndChildren(Widget* widget);
 
    
@@ -187,9 +185,6 @@ private:
     // Temporary?
     InputState inputState;
    
-
-    // Temporary, a single surface, just to get the basic implementation started
-    Surface surface;
     // Temporary until proper eventing is implemented
     ISize2 windowSize;
 };

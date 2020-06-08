@@ -1,38 +1,74 @@
 \hypertarget{classxu_1_1_signal}{}\doxysection{xu\+::Signal$<$ Ts $>$ Class Template Reference}
 \label{classxu_1_1_signal}\index{xu::Signal$<$ Ts $>$@{xu::Signal$<$ Ts $>$}}
+
+
+Signal/slot type which emits events with variadic template arguments (hence the variadic templates). Slots can be connected with member function pointers or regular function pointers.  
+
+
+
+
+{\ttfamily \#include $<$Signal.\+hpp$>$}
+
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
 \mbox{\Hypertarget{classxu_1_1_signal_a24bd3620fa0d6310e774882ba765cb7f}\label{classxu_1_1_signal_a24bd3620fa0d6310e774882ba765cb7f}} 
-{\footnotesize template$<$auto Mem\+Fn\+Ptr, typename T $>$ }\\void {\bfseries Connect} (T $\ast$instance)
-\item 
+{\footnotesize template$<$auto Mem\+Fn\+Ptr, typename T $>$ }\\void \mbox{\hyperlink{classxu_1_1_signal_a24bd3620fa0d6310e774882ba765cb7f}{Connect}} (T $\ast$instance)
+\begin{DoxyCompactList}\small\item\em Connects a member function pointer callback (the first template parameter) with a pointer to an instance of the class (the first and only parameter). \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classxu_1_1_signal_a2ad2e9d5e60ebbc01601113b85c2bce9}\label{classxu_1_1_signal_a2ad2e9d5e60ebbc01601113b85c2bce9}} 
-{\footnotesize template$<$auto Mem\+Fn\+Ptr, typename T $>$ }\\void {\bfseries Connect} (T \&instance)
-\item 
+{\footnotesize template$<$auto Mem\+Fn\+Ptr, typename T $>$ }\\void \mbox{\hyperlink{classxu_1_1_signal_a2ad2e9d5e60ebbc01601113b85c2bce9}{Connect}} (T \&instance)
+\begin{DoxyCompactList}\small\item\em Connects a member function pointer callback (the first template parameter) with a reference to an instance of the class (the first and only parameter). \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classxu_1_1_signal_ac579d5de999b4669a3ffb718da930c6b}\label{classxu_1_1_signal_ac579d5de999b4669a3ffb718da930c6b}} 
-{\footnotesize template$<$auto Fn\+Ptr$>$ }\\void {\bfseries Connect} ()
-\item 
+{\footnotesize template$<$auto Fn\+Ptr$>$ }\\void \mbox{\hyperlink{classxu_1_1_signal_ac579d5de999b4669a3ffb718da930c6b}{Connect}} ()
+\begin{DoxyCompactList}\small\item\em Connects a function pointer callback (the first template parameter). \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classxu_1_1_signal_a19cde0f1689f2cc507e80eb0a63a7a93}\label{classxu_1_1_signal_a19cde0f1689f2cc507e80eb0a63a7a93}} 
-{\footnotesize template$<$auto Mem\+Fn\+Ptr, typename T $>$ }\\void {\bfseries Disconnect} (T $\ast$instance)
-\item 
+{\footnotesize template$<$auto Mem\+Fn\+Ptr, typename T $>$ }\\void \mbox{\hyperlink{classxu_1_1_signal_a19cde0f1689f2cc507e80eb0a63a7a93}{Disconnect}} (T $\ast$instance)
+\begin{DoxyCompactList}\small\item\em Disconnects a previously connected callback. This is an exact reverse operation of Connect and thus has the same parameters. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classxu_1_1_signal_a81b4f89a6afea717631a64a200100c4c}\label{classxu_1_1_signal_a81b4f89a6afea717631a64a200100c4c}} 
-{\footnotesize template$<$auto Mem\+Fn\+Ptr, typename T $>$ }\\void {\bfseries Disconnect} (T \&instance)
-\item 
+{\footnotesize template$<$auto Mem\+Fn\+Ptr, typename T $>$ }\\void \mbox{\hyperlink{classxu_1_1_signal_a81b4f89a6afea717631a64a200100c4c}{Disconnect}} (T \&instance)
+\begin{DoxyCompactList}\small\item\em Disconnects a previously connected callback. This is an exact reverse operation of Connect and thus has the same parameters. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classxu_1_1_signal_aa3ee48fa26782057d1b0760684dd05b1}\label{classxu_1_1_signal_aa3ee48fa26782057d1b0760684dd05b1}} 
-{\footnotesize template$<$auto Fn\+Ptr$>$ }\\void {\bfseries Disconnect} ()
-\item 
+{\footnotesize template$<$auto Fn\+Ptr$>$ }\\void \mbox{\hyperlink{classxu_1_1_signal_aa3ee48fa26782057d1b0760684dd05b1}{Disconnect}} ()
+\begin{DoxyCompactList}\small\item\em Disconnects a previously connected callback. This is an exact reverse operation of Connect and thus has the same parameters. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classxu_1_1_signal_a32e93951e42613ecd2878340c5707a82}\label{classxu_1_1_signal_a32e93951e42613ecd2878340c5707a82}} 
-void {\bfseries Emit} (Ts \&\&... arg)
-\item 
-\mbox{\Hypertarget{classxu_1_1_signal_a20ee24adabdaf63323ecce1b57739ff8}\label{classxu_1_1_signal_a20ee24adabdaf63323ecce1b57739ff8}} 
-void {\bfseries operator()} (Ts \&\&... arg)
-\end{DoxyCompactItemize}
+void \mbox{\hyperlink{classxu_1_1_signal_a32e93951e42613ecd2878340c5707a82}{Emit}} (Ts \&\&... arg)
+\begin{DoxyCompactList}\small\item\em Emits an event with specified arguments, essentially invoking all the connected callbacks. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classxu_1_1_signal_a20ee24adabdaf63323ecce1b57739ff8}{operator()}} (Ts \&\&... arg)
+\begin{DoxyCompactList}\small\item\em Same function as Emit. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsection*{Friends}
 \begin{DoxyCompactItemize}
 \item 
 \mbox{\Hypertarget{classxu_1_1_signal_aa3d67379c76f0cced47f5828b28f7ae7}\label{classxu_1_1_signal_aa3d67379c76f0cced47f5828b28f7ae7}} 
 {\footnotesize template$<$auto X$>$ }\\class {\bfseries Unique\+Slot}
 \end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\subsubsection*{template$<$typename... Ts$>$\newline
+class xu\+::\+Signal$<$ Ts $>$}
+
+Signal/slot type which emits events with variadic template arguments (hence the variadic templates). Slots can be connected with member function pointers or regular function pointers. 
+
+\begin{DoxySeeAlso}{See also}
+\mbox{\hyperlink{classxu_1_1_unique_slot}{Unique\+Slot}} 
+\end{DoxySeeAlso}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classxu_1_1_signal_a20ee24adabdaf63323ecce1b57739ff8}\label{classxu_1_1_signal_a20ee24adabdaf63323ecce1b57739ff8}} 
+\index{xu::Signal$<$ Ts $>$@{xu::Signal$<$ Ts $>$}!operator()@{operator()}}
+\index{operator()@{operator()}!xu::Signal$<$ Ts $>$@{xu::Signal$<$ Ts $>$}}
+\doxysubsubsection{\texorpdfstring{operator()()}{operator()()}}
+{\footnotesize\ttfamily template$<$typename... Ts$>$ \\
+void \mbox{\hyperlink{classxu_1_1_signal}{xu\+::\+Signal}}$<$ Ts $>$\+::operator() (\begin{DoxyParamCaption}\item[{Ts \&\&...}]{arg }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Same function as Emit. 
+
+\begin{DoxySeeAlso}{See also}
+\mbox{\hyperlink{classxu_1_1_signal_a32e93951e42613ecd2878340c5707a82}{Emit}} 
+\end{DoxySeeAlso}
 
 
 The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}

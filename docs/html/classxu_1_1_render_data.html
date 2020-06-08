@@ -67,7 +67,8 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#friends">Friends</a> &#124;
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-attribs">Public Attributes</a> &#124;
 <a href="classxu_1_1_render_data-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">xu::RenderData Class Reference</div>  </div>
@@ -79,11 +80,41 @@ $(function() {
 
 <p><code>#include &lt;<a class="el" href="_render_data_8hpp_source.html">RenderData.hpp</a>&gt;</code></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="friends"></a>
-Friends</h2></td></tr>
-<tr class="memitem:ac26c806e60ca4a0547680edb68f6e39b"><td class="memItemLeft" align="right" valign="top"><a id="ac26c806e60ca4a0547680edb68f6e39b"></a>
-class&#160;</td><td class="memItemRight" valign="bottom"><b>Context</b></td></tr>
-<tr class="separator:ac26c806e60ca4a0547680edb68f6e39b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:a363d7fffafad65c406ecb4b7ef91078c"><td class="memItemLeft" align="right" valign="top"><a id="a363d7fffafad65c406ecb4b7ef91078c"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classxu_1_1_render_data.html#a363d7fffafad65c406ecb4b7ef91078c">Clear</a> ()</td></tr>
+<tr class="memdesc:a363d7fffafad65c406ecb4b7ef91078c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clears all render data stored. <br /></td></tr>
+<tr class="separator:a363d7fffafad65c406ecb4b7ef91078c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7fe4b72c57a9d3ca3daa9bf108ae72df"><td class="memItemLeft" align="right" valign="top"><a id="a7fe4b72c57a9d3ca3daa9bf108ae72df"></a>
+size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classxu_1_1_render_data.html#a7fe4b72c57a9d3ca3daa9bf108ae72df">PushVertex</a> (<a class="el" href="structxu_1_1_vertex.html">Vertex</a> vertex)</td></tr>
+<tr class="memdesc:a7fe4b72c57a9d3ca3daa9bf108ae72df"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds a single vertex to the vertex list and returns its index. <br /></td></tr>
+<tr class="separator:a7fe4b72c57a9d3ca3daa9bf108ae72df"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa7035ed39df152d407ac869984ddad76"><td class="memItemLeft" align="right" valign="top"><a id="aa7035ed39df152d407ac869984ddad76"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classxu_1_1_render_data.html#aa7035ed39df152d407ac869984ddad76">PushIndex</a> (uint32_t index)</td></tr>
+<tr class="memdesc:aa7035ed39df152d407ac869984ddad76"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds a single index to the index list. <br /></td></tr>
+<tr class="separator:aa7035ed39df152d407ac869984ddad76"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a149fd8e337990492085c6128c0fe6129"><td class="memItemLeft" align="right" valign="top"><a id="a149fd8e337990492085c6128c0fe6129"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classxu_1_1_render_data.html#a149fd8e337990492085c6128c0fe6129">PushQuad</a> (<a class="el" href="classxu_1_1_command_list.html">CommandList</a> &amp;cmdList, <a class="el" href="structxu_1_1_rect2.html">FRect2</a> quad)</td></tr>
+<tr class="memdesc:a149fd8e337990492085c6128c0fe6129"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds a single quad to the index and vertex list. Also adds a drawcommand for it. It is not recommended to use this function to create complex geometry, since multiple quads should be condensed into A single drawcall. <br /></td></tr>
+<tr class="separator:a149fd8e337990492085c6128c0fe6129"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a274f0411ff1321cd0302f60bcd3f922c"><td class="memItemLeft" align="right" valign="top"><a id="a274f0411ff1321cd0302f60bcd3f922c"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classxu_1_1_render_data.html#a274f0411ff1321cd0302f60bcd3f922c">PushGeometry</a> (<a class="el" href="classxu_1_1_command_list.html">CommandList</a> &amp;cmdList, std::vector&lt; <a class="el" href="structxu_1_1_vertex.html">Vertex</a> &gt; const &amp;verts, std::vector&lt; uint32_t &gt; const &amp;idx)</td></tr>
+<tr class="memdesc:a274f0411ff1321cd0302f60bcd3f922c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Push custom geometry to the draw list. <br /></td></tr>
+<tr class="separator:a274f0411ff1321cd0302f60bcd3f922c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
+Public Attributes</h2></td></tr>
+<tr class="memitem:abfcc055ade524ad7a8a8d2e268669672"><td class="memItemLeft" align="right" valign="top"><a id="abfcc055ade524ad7a8a8d2e268669672"></a>
+std::vector&lt; <a class="el" href="classxu_1_1_command_list.html">CommandList</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>cmdLists</b></td></tr>
+<tr class="separator:abfcc055ade524ad7a8a8d2e268669672"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a791aea831f404612c4d8754240e32091"><td class="memItemLeft" align="right" valign="top"><a id="a791aea831f404612c4d8754240e32091"></a>
+std::vector&lt; <a class="el" href="structxu_1_1_vertex.html">Vertex</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classxu_1_1_render_data.html#a791aea831f404612c4d8754240e32091">vertices</a></td></tr>
+<tr class="memdesc:a791aea831f404612c4d8754240e32091"><td class="mdescLeft">&#160;</td><td class="mdescRight">List of all vertices used by all command lists. These positions are in range [0, 1], with the origin in the top-left corner of the window. <br /></td></tr>
+<tr class="separator:a791aea831f404612c4d8754240e32091"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8ad0ec2da566709c8ec56d58866b5f81"><td class="memItemLeft" align="right" valign="top"><a id="a8ad0ec2da566709c8ec56d58866b5f81"></a>
+std::vector&lt; uint32_t &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>indices</b></td></tr>
+<tr class="separator:a8ad0ec2da566709c8ec56d58866b5f81"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Main class that stores all data needed to render the full UI. Maintains a <a class="el" href="classxu_1_1_command_list.html" title="Stores a list of drawing commands. Each OS window gets its own command list.">xu::CommandList</a> for each OS window. </p>

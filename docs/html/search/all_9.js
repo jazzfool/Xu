@@ -1,5 +1,8 @@
 var searchData=
 [
-  ['operator_2a_26',['operator*',['../classxu_1_1_command_list_1_1_iterator.html#a502a612131733f2c6c5d60658b8b8c55',1,'xu::CommandList::Iterator']]],
-  ['operator_2d_3e_27',['operator-&gt;',['../classxu_1_1_command_list_1_1_iterator.html#af8a86530d5bf0f13574010bc483cd1c2',1,'xu::CommandList::Iterator']]]
+  ['makechild_48',['MakeChild',['../classxu_1_1_widget.html#aa805ceb90a7e29df81854b4aceb98de5',1,'xu::Widget']]],
+  ['makechildat_49',['MakeChildAt',['../classxu_1_1_widget.html#ad58f56c1eed1dc18d8e913065600514d',1,'xu::Widget']]],
+  ['maxsize_50',['MaxSize',['../classxu_1_1_layout_item.html#a7476d2cc3d387255aade3866f62b8449',1,'xu::LayoutItem']]],
+  ['mergetarget_51',['MergeTarget',['../classxu_1_1_command_list_1_1_iterator.html#a4709bc3b3bf7229f975f059516c0b857',1,'xu::CommandList::Iterator']]],
+  ['minsize_52',['MinSize',['../classxu_1_1_layout_item.html#ab190c2f3bba8a10165062d4c97ebde85',1,'xu::LayoutItem::MinSize()'],['../classxu_1_1_layout.html#ac56a1a5eda291ebd280da6eb7e2726a5',1,'xu::Layout::MinSize()'],['../classxu_1_1_box_stack.html#ac22b36b5f13d3530b1122565ffc31007',1,'xu::BoxStack::MinSize()']]]
 ];

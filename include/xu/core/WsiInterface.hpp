@@ -36,6 +36,7 @@ public:
         WindowID id;
         IRect2 rect;
     };
+
     [[nodiscard]] virtual NewWindowResult NewWindow(
         char const* title, ISize2 extent)
         = 0;

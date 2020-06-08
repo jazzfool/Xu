@@ -74,6 +74,11 @@ $(function() {
 <div class="title">xu::LayoutItem Class Reference<span class="mlabels"><span class="mlabel">final</span></span></div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>Mediating class which acts as a proxy for anything that can be placed in a layout (namely other layouts and widgets).  
+ <a href="classxu_1_1_layout_item.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="_layout_8hpp_source.html">Layout.hpp</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -89,12 +94,42 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:ab27c4ac5a2e4736a9e83ed38e7e2931b"><td class="memItemLeft" align="right" valign="top"><a id="ab27c4ac5a2e4736a9e83ed38e7e2931b"></a>
 <a class="el" href="classxu_1_1_layout_item.html">LayoutItem</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>operator=</b> (<a class="el" href="classxu_1_1_layout_item.html">LayoutItem</a> &amp;&amp;)=default</td></tr>
 <tr class="separator:ab27c4ac5a2e4736a9e83ed38e7e2931b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7e57422fb88b08de590c947aa39af17f"><td class="memItemLeft" align="right" valign="top"><a id="a7e57422fb88b08de590c947aa39af17f"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>SetRect</b> (<a class="el" href="structxu_1_1_rect2.html">FRect2</a> const &amp;rect)</td></tr>
-<tr class="separator:a7e57422fb88b08de590c947aa39af17f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2b430a89eaec5b7d6ea82613643eb90a"><td class="memItemLeft" align="right" valign="top"><a id="a2b430a89eaec5b7d6ea82613643eb90a"></a>
-<a class="el" href="structxu_1_1_rect2.html">FRect2</a>&#160;</td><td class="memItemRight" valign="bottom"><b>Rect</b> () const</td></tr>
-<tr class="separator:a2b430a89eaec5b7d6ea82613643eb90a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8fe541a0b199ede36ea59d0b8349af85"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classxu_1_1_layout_item.html#a8fe541a0b199ede36ea59d0b8349af85">SetMaxSize</a> (<a class="el" href="structxu_1_1_vector2.html">FSize2</a> const &amp;max)</td></tr>
+<tr class="memdesc:a8fe541a0b199ede36ea59d0b8349af85"><td class="mdescLeft">&#160;</td><td class="mdescRight">Changes the maximum geometry size available to the underlying object.  <a href="classxu_1_1_layout_item.html#a8fe541a0b199ede36ea59d0b8349af85">More...</a><br /></td></tr>
+<tr class="separator:a8fe541a0b199ede36ea59d0b8349af85"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7476d2cc3d387255aade3866f62b8449"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structxu_1_1_vector2.html">FSize2</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classxu_1_1_layout_item.html#a7476d2cc3d387255aade3866f62b8449">MaxSize</a> () const</td></tr>
+<tr class="memdesc:a7476d2cc3d387255aade3866f62b8449"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the maximum geometry size available to the underlying object.  <a href="classxu_1_1_layout_item.html#a7476d2cc3d387255aade3866f62b8449">More...</a><br /></td></tr>
+<tr class="separator:a7476d2cc3d387255aade3866f62b8449"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8e14a7f5f986bdfff286d7aec2e2dabd"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classxu_1_1_layout_item.html#a8e14a7f5f986bdfff286d7aec2e2dabd">SetMinSize</a> (<a class="el" href="structxu_1_1_vector2.html">FSize2</a> const &amp;min)</td></tr>
+<tr class="memdesc:a8e14a7f5f986bdfff286d7aec2e2dabd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Changes the minimum geometry size available to the underlying object.  <a href="classxu_1_1_layout_item.html#a8e14a7f5f986bdfff286d7aec2e2dabd">More...</a><br /></td></tr>
+<tr class="separator:a8e14a7f5f986bdfff286d7aec2e2dabd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab190c2f3bba8a10165062d4c97ebde85"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structxu_1_1_vector2.html">FSize2</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classxu_1_1_layout_item.html#ab190c2f3bba8a10165062d4c97ebde85">MinSize</a> () const</td></tr>
+<tr class="memdesc:ab190c2f3bba8a10165062d4c97ebde85"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the minimum geometry size available to the underlying object.  <a href="classxu_1_1_layout_item.html#ab190c2f3bba8a10165062d4c97ebde85">More...</a><br /></td></tr>
+<tr class="separator:ab190c2f3bba8a10165062d4c97ebde85"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a19398e0932d513b7919385aede7db6e8"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structxu_1_1_vector2.html">FSize2</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classxu_1_1_layout_item.html#a19398e0932d513b7919385aede7db6e8">PreferredSize</a> () const</td></tr>
+<tr class="memdesc:a19398e0932d513b7919385aede7db6e8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the preferred size of the underlying object. For widgets this is <a class="el" href="classxu_1_1_widget.html#a97e32a6f14bd7a90b4e8cba607066269" title="Gives the layout system a hint of how large this widget has to be. Note that the actual size may be d...">Widget::SizeHint</a>, and for layouts this is <a class="el" href="classxu_1_1_layout.html#ac56a1a5eda291ebd280da6eb7e2726a5" title="Computes the minimum size required by this layout to fit all its item. Normally this is a rectangular...">Layout::MinSize</a>.  <a href="classxu_1_1_layout_item.html#a19398e0932d513b7919385aede7db6e8">More...</a><br /></td></tr>
+<tr class="separator:a19398e0932d513b7919385aede7db6e8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a40827c4c1eb209dba2a4dd89e1c878c2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classxu_1_1_layout_item.html#a40827c4c1eb209dba2a4dd89e1c878c2">SetPosition</a> (<a class="el" href="structxu_1_1_vector2.html">FPoint2</a> const &amp;position)</td></tr>
+<tr class="memdesc:a40827c4c1eb209dba2a4dd89e1c878c2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Changes the geometry position of the underlying object.  <a href="classxu_1_1_layout_item.html#a40827c4c1eb209dba2a4dd89e1c878c2">More...</a><br /></td></tr>
+<tr class="separator:a40827c4c1eb209dba2a4dd89e1c878c2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1ee690671be3b496c0e9f31e290cb227"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structxu_1_1_vector2.html">FPoint2</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classxu_1_1_layout_item.html#a1ee690671be3b496c0e9f31e290cb227">Position</a> () const</td></tr>
+<tr class="memdesc:a1ee690671be3b496c0e9f31e290cb227"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the geometry position of the underlying object.  <a href="classxu_1_1_layout_item.html#a1ee690671be3b496c0e9f31e290cb227">More...</a><br /></td></tr>
+<tr class="separator:a1ee690671be3b496c0e9f31e290cb227"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a71db32a20cee46ef4af6b8e9d923a266"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classxu_1_1_layout_item.html#a71db32a20cee46ef4af6b8e9d923a266">Hidden</a> () const</td></tr>
+<tr class="memdesc:a71db32a20cee46ef4af6b8e9d923a266"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the hidden state of this object. That is to say; should its rectangle be considered in the layout.  <a href="classxu_1_1_layout_item.html#a71db32a20cee46ef4af6b8e9d923a266">More...</a><br /></td></tr>
+<tr class="separator:a71db32a20cee46ef4af6b8e9d923a266"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a42586ff3736fd606b91c2dff5aa212ba"><td class="memItemLeft" align="right" valign="top"><a id="a42586ff3736fd606b91c2dff5aa212ba"></a>
+SizeHintBehaviour&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classxu_1_1_layout_item.html#a42586ff3736fd606b91c2dff5aa212ba">HorizontalSizeHintBehaviour</a> () const</td></tr>
+<tr class="memdesc:a42586ff3736fd606b91c2dff5aa212ba"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns how the underlying item's preferred width should be treated. <br /></td></tr>
+<tr class="separator:a42586ff3736fd606b91c2dff5aa212ba"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad3678c566a59c3976fe1c02971aaa583"><td class="memItemLeft" align="right" valign="top"><a id="ad3678c566a59c3976fe1c02971aaa583"></a>
+SizeHintBehaviour&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classxu_1_1_layout_item.html#ad3678c566a59c3976fe1c02971aaa583">VerticalSizeHintBehaviour</a> () const</td></tr>
+<tr class="memdesc:ad3678c566a59c3976fe1c02971aaa583"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns how the underlying item's preferred height should be treated. <br /></td></tr>
+<tr class="separator:ad3678c566a59c3976fe1c02971aaa583"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a77c20dc51e57e2ab71ba1134a1d8f346"><td class="memItemLeft" align="right" valign="top"><a id="a77c20dc51e57e2ab71ba1134a1d8f346"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classxu_1_1_layout_item.html#a77c20dc51e57e2ab71ba1134a1d8f346">Apply</a> ()</td></tr>
+<tr class="memdesc:a77c20dc51e57e2ab71ba1134a1d8f346"><td class="mdescLeft">&#160;</td><td class="mdescRight">Updates the actual geometry using the item's SizeHintBehaviour, MaxSize and MinSize. <br /></td></tr>
+<tr class="separator:a77c20dc51e57e2ab71ba1134a1d8f346"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="friends"></a>
 Friends</h2></td></tr>
@@ -102,6 +137,173 @@ Friends</h2></td></tr>
 class&#160;</td><td class="memItemRight" valign="bottom"><b>Layout</b></td></tr>
 <tr class="separator:ac902f1ffeb3ca8ce28827888af71848b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Mediating class which acts as a proxy for anything that can be placed in a layout (namely other layouts and widgets). </p>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="classxu_1_1_layout.html" title="Minimal layout interface which is capable of selecting a minimum fitting size and changing the geomet...">Layout</a> </dd></dl>
+</div><h2 class="groupheader">Member Function Documentation</h2>
+<a id="a71db32a20cee46ef4af6b8e9d923a266"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a71db32a20cee46ef4af6b8e9d923a266">&#9670;&nbsp;</a></span>Hidden()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool xu::LayoutItem::Hidden </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns the hidden state of this object. That is to say; should its rectangle be considered in the layout. </p>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="classxu_1_1_widget.html#aa57048eef11e40dcc3a2a99be39af59c" title="Toggle to indicate whether this widget is hidden or not. This propagates to child widgets.">Widget::hidden</a> </dd></dl>
+
+</div>
+</div>
+<a id="a7476d2cc3d387255aade3866f62b8449"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7476d2cc3d387255aade3866f62b8449">&#9670;&nbsp;</a></span>MaxSize()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structxu_1_1_vector2.html">FSize2</a> xu::LayoutItem::MaxSize </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns the maximum geometry size available to the underlying object. </p>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="classxu_1_1_layout_item.html#a8fe541a0b199ede36ea59d0b8349af85" title="Changes the maximum geometry size available to the underlying object.">LayoutItem::SetMaxSize</a> </dd></dl>
+
+</div>
+</div>
+<a id="ab190c2f3bba8a10165062d4c97ebde85"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab190c2f3bba8a10165062d4c97ebde85">&#9670;&nbsp;</a></span>MinSize()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structxu_1_1_vector2.html">FSize2</a> xu::LayoutItem::MinSize </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns the minimum geometry size available to the underlying object. </p>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="classxu_1_1_layout_item.html#a8e14a7f5f986bdfff286d7aec2e2dabd" title="Changes the minimum geometry size available to the underlying object.">LayoutItem::SetMinSize</a> </dd></dl>
+
+</div>
+</div>
+<a id="a1ee690671be3b496c0e9f31e290cb227"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1ee690671be3b496c0e9f31e290cb227">&#9670;&nbsp;</a></span>Position()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structxu_1_1_vector2.html">FPoint2</a> xu::LayoutItem::Position </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns the geometry position of the underlying object. </p>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="classxu_1_1_layout_item.html#a40827c4c1eb209dba2a4dd89e1c878c2" title="Changes the geometry position of the underlying object.">LayoutItem::SetPosition</a> </dd></dl>
+
+</div>
+</div>
+<a id="a19398e0932d513b7919385aede7db6e8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a19398e0932d513b7919385aede7db6e8">&#9670;&nbsp;</a></span>PreferredSize()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structxu_1_1_vector2.html">FSize2</a> xu::LayoutItem::PreferredSize </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns the preferred size of the underlying object. For widgets this is <a class="el" href="classxu_1_1_widget.html#a97e32a6f14bd7a90b4e8cba607066269" title="Gives the layout system a hint of how large this widget has to be. Note that the actual size may be d...">Widget::SizeHint</a>, and for layouts this is <a class="el" href="classxu_1_1_layout.html#ac56a1a5eda291ebd280da6eb7e2726a5" title="Computes the minimum size required by this layout to fit all its item. Normally this is a rectangular...">Layout::MinSize</a>. </p>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="classxu_1_1_widget.html#a97e32a6f14bd7a90b4e8cba607066269" title="Gives the layout system a hint of how large this widget has to be. Note that the actual size may be d...">Widget::SizeHint</a>, <a class="el" href="classxu_1_1_layout.html#ac56a1a5eda291ebd280da6eb7e2726a5" title="Computes the minimum size required by this layout to fit all its item. Normally this is a rectangular...">Layout::MinSize</a> </dd></dl>
+
+</div>
+</div>
+<a id="a8fe541a0b199ede36ea59d0b8349af85"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8fe541a0b199ede36ea59d0b8349af85">&#9670;&nbsp;</a></span>SetMaxSize()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void xu::LayoutItem::SetMaxSize </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structxu_1_1_vector2.html">FSize2</a> const &amp;&#160;</td>
+          <td class="paramname"><em>max</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Changes the maximum geometry size available to the underlying object. </p>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="classxu_1_1_layout_item.html#a7476d2cc3d387255aade3866f62b8449" title="Returns the maximum geometry size available to the underlying object.">LayoutItem::MaxSize</a> </dd></dl>
+
+</div>
+</div>
+<a id="a8e14a7f5f986bdfff286d7aec2e2dabd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8e14a7f5f986bdfff286d7aec2e2dabd">&#9670;&nbsp;</a></span>SetMinSize()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void xu::LayoutItem::SetMinSize </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structxu_1_1_vector2.html">FSize2</a> const &amp;&#160;</td>
+          <td class="paramname"><em>min</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Changes the minimum geometry size available to the underlying object. </p>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="classxu_1_1_layout_item.html#ab190c2f3bba8a10165062d4c97ebde85" title="Returns the minimum geometry size available to the underlying object.">LayoutItem::MinSize</a> </dd></dl>
+
+</div>
+</div>
+<a id="a40827c4c1eb209dba2a4dd89e1c878c2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a40827c4c1eb209dba2a4dd89e1c878c2">&#9670;&nbsp;</a></span>SetPosition()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void xu::LayoutItem::SetPosition </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structxu_1_1_vector2.html">FPoint2</a> const &amp;&#160;</td>
+          <td class="paramname"><em>position</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Changes the geometry position of the underlying object. </p>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="classxu_1_1_layout_item.html#a1ee690671be3b496c0e9f31e290cb227" title="Returns the geometry position of the underlying object.">LayoutItem::Position</a> </dd></dl>
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following file:<ul>
 <li>include/xu/core/<a class="el" href="_layout_8hpp_source.html">Layout.hpp</a></li>
 </ul>

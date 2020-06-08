@@ -2,7 +2,7 @@
 \label{structxu_1_1_widget_ptr}\index{xu::WidgetPtr$<$ T $>$@{xu::WidgetPtr$<$ T $>$}}
 
 
-Special immutable widget pointer wrapper which can nullify the pointer before the widget is destroyed.  
+Special immutable widget pointer wrapper which can nullify the pointer before the widget is destroyed. This reasoning behind this is that there is no way to know that a widget being pointed to (via Widget$\ast$) has been destroyed. This simple wrapper class will listen for the event emitted by the widget in its destructor and nullify the stored pointer. Therefore, when the stored pointer is null, it can be checked for widget destroyal state (otherwise not possible with a raw widget pointer).  
 
 
 
@@ -45,7 +45,7 @@ T \& {\bfseries operator$\ast$} () const
 \subsubsection*{template$<$typename T$>$\newline
 struct xu\+::\+Widget\+Ptr$<$ T $>$}
 
-Special immutable widget pointer wrapper which can nullify the pointer before the widget is destroyed. 
+Special immutable widget pointer wrapper which can nullify the pointer before the widget is destroyed. This reasoning behind this is that there is no way to know that a widget being pointed to (via Widget$\ast$) has been destroyed. This simple wrapper class will listen for the event emitted by the widget in its destructor and nullify the stored pointer. Therefore, when the stored pointer is null, it can be checked for widget destroyal state (otherwise not possible with a raw widget pointer). 
 
 The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
 \item 

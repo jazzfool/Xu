@@ -2,6 +2,21 @@
 \label{classxu_1_1_unique_slot}\index{xu::UniqueSlot$<$ X $>$@{xu::UniqueSlot$<$ X $>$}}
 
 
+R\+A\+I\+I-\/based slot object which will automatically call Connect and Disconnect on construction and destruction, respectively. This prevents dangling slots since \mbox{\hyperlink{classxu_1_1_signal}{Signal}} is not aware that a member function pointer instance is no longer valid and will wrongly continue to blindly invoke it.  
+
+
+
+
+{\ttfamily \#include $<$Unique\+Slot.\+hpp$>$}
+
+
+
+\doxysubsection{Detailed Description}
+\subsubsection*{template$<$auto X$>$\newline
+class xu\+::\+Unique\+Slot$<$ X $>$}
+
+R\+A\+I\+I-\/based slot object which will automatically call Connect and Disconnect on construction and destruction, respectively. This prevents dangling slots since \mbox{\hyperlink{classxu_1_1_signal}{Signal}} is not aware that a member function pointer instance is no longer valid and will wrongly continue to blindly invoke it. 
+
 The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
 \item 
 include/xu/core/Unique\+Slot.\+hpp\end{DoxyCompactItemize}

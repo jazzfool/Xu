@@ -117,8 +117,7 @@ BakedVectorPath VectorPath::BakeFill(double quality) const {
 }
 
 BakedVectorPath VectorPath::BakeStroke(double quality, float strokeWidth,
-    LineCap cap = LineCap::Butt, LineJoin join = LineJoin::Miter,
-    float miterLimit = 1.f) const {
+    LineCap cap, LineJoin join, float miterLimit) const {
     const auto flattened = FlattenPath(*this, quality);
     const auto [vertices, indices]
         = ExpandStroke(flattened, strokeWidth, cap, join, miterLimit, quality);

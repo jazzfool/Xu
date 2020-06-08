@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['type_107',['type',['../structxu_1_1_draw_command.html#a115fae8e0556a13e6542f899a35cd365',1,'xu::DrawCommand']]]
+  ['numindices_239',['numIndices',['../structxu_1_1_cmd_draw_triangles.html#ac64acc098ced9dfbf36d2546ccf6733c',1,'xu::CmdDrawTriangles']]]
 ];

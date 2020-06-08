@@ -32,13 +32,6 @@ FSize2 Button::SizeHint() const {
     return FSize2{100.f, 40.f};
 }
 
-void Button::GenerateTriangles(
-    RenderData& renderData,
-    CommandList& cmdList, 
-    ISize2 windowSize) const {
-    
-}
-
 void Button::InitializeTheme(Theme& theme) {
     theme.InitializeWidget(this, &paintInfo, Button::Painter());
 }

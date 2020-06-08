@@ -1,0 +1,101 @@
+\hypertarget{classxu_1_1_button}{}\doxysection{xu\+::Button Class Reference}
+\label{classxu_1_1_button}\index{xu::Button@{xu::Button}}
+Inheritance diagram for xu\+::Button\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classxu_1_1_button}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classxu_1_1_button_a8f0bc4bf807404d5bbd65972c849d648}\label{classxu_1_1_button_a8f0bc4bf807404d5bbd65972c849d648}} 
+{\bfseries Button} (\mbox{\hyperlink{classxu_1_1_widget}{Widget}} $\ast$parent)
+\item 
+\mbox{\hyperlink{structxu_1_1_vector2}{F\+Size2}} \mbox{\hyperlink{classxu_1_1_button_a9afbee6bfac4c1dea4c21ba998751f23}{Size\+Hint}} () const override
+\begin{DoxyCompactList}\small\item\em Gives the layout system a hint of how large this widget has to be. Note that the actual size may be different depending on the layout. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classxu_1_1_button_aa8362dcc42ce6068e793c75b4629b822}\label{classxu_1_1_button_aa8362dcc42ce6068e793c75b4629b822}} 
+virtual void \mbox{\hyperlink{classxu_1_1_button_aa8362dcc42ce6068e793c75b4629b822}{Generate\+Triangles}} (\mbox{\hyperlink{classxu_1_1_render_data}{Render\+Data}} \&render\+Data, \mbox{\hyperlink{classxu_1_1_command_list}{Command\+List}} \&cmd\+List, \mbox{\hyperlink{structxu_1_1_vector2}{I\+Size2}} window\+Size) const override
+\begin{DoxyCompactList}\small\item\em Output this widget\textquotesingle{}s visual representation by pushing triangle draw commands into the command list. Note\+: This A\+PI will be removed once vector path graphics are implemented. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classxu_1_1_button_a31aa08402e91675924ac74cbdce4d1dd}{Initialize\+Theme}} (\mbox{\hyperlink{classxu_1_1_theme}{Theme}} \&theme) override
+\begin{DoxyCompactList}\small\item\em Should invoke Theme\+::\+Initialize\+Widget if this widget employs the use of painting delegation to themes. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classxu_1_1_button_a947ce7a0d166540f822c89e2b7825bd0}{Paint}} (\mbox{\hyperlink{classxu_1_1_surface}{Surface}} \&surf, \mbox{\hyperlink{classxu_1_1_theme}{Theme}} $\ast$theme) const override
+\begin{DoxyCompactList}\small\item\em Paint this widget\textquotesingle{}s visual representation onto the surface. This function should be overridden by types implementing \mbox{\hyperlink{classxu_1_1_widget}{Widget}} if it is intended that they have a standalone visual appearance. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classxu_1_1_button_adb5150a4dafac750292d3e707986600e}\label{classxu_1_1_button_adb5150a4dafac750292d3e707986600e}} 
+static Painter\+Type {\bfseries Painter} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classxu_1_1_button_a284d55b21fbdecccc95959823e213528}\label{classxu_1_1_button_a284d55b21fbdecccc95959823e213528}} 
+\mbox{\hyperlink{structxu_1_1_paint_info}{Paint\+Info}} {\bfseries paint\+Info}
+\end{DoxyCompactItemize}
+\doxysubsection*{Additional Inherited Members}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classxu_1_1_button_a31aa08402e91675924ac74cbdce4d1dd}\label{classxu_1_1_button_a31aa08402e91675924ac74cbdce4d1dd}} 
+\index{xu::Button@{xu::Button}!InitializeTheme@{InitializeTheme}}
+\index{InitializeTheme@{InitializeTheme}!xu::Button@{xu::Button}}
+\doxysubsubsection{\texorpdfstring{InitializeTheme()}{InitializeTheme()}}
+{\footnotesize\ttfamily void xu\+::\+Button\+::\+Initialize\+Theme (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classxu_1_1_theme}{Theme}} \&}]{theme }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Should invoke Theme\+::\+Initialize\+Widget if this widget employs the use of painting delegation to themes. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em theme} & The theme that should be notified of widget initialization (Theme\+::\+Initialize\+Widget) if necessary. \\
+\hline
+\end{DoxyParams}
+
+
+Reimplemented from \mbox{\hyperlink{classxu_1_1_widget_af31e1bf73ac10981ad0ef167f642773f}{xu\+::\+Widget}}.
+
+\mbox{\Hypertarget{classxu_1_1_button_a947ce7a0d166540f822c89e2b7825bd0}\label{classxu_1_1_button_a947ce7a0d166540f822c89e2b7825bd0}} 
+\index{xu::Button@{xu::Button}!Paint@{Paint}}
+\index{Paint@{Paint}!xu::Button@{xu::Button}}
+\doxysubsubsection{\texorpdfstring{Paint()}{Paint()}}
+{\footnotesize\ttfamily void xu\+::\+Button\+::\+Paint (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classxu_1_1_surface}{Surface}} \&}]{surface,  }\item[{\mbox{\hyperlink{classxu_1_1_theme}{Theme}} $\ast$}]{theme }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Paint this widget\textquotesingle{}s visual representation onto the surface. This function should be overridden by types implementing \mbox{\hyperlink{classxu_1_1_widget}{Widget}} if it is intended that they have a standalone visual appearance. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em surface} & The surface to render to (i.\+e. submit high-\/level commands to).\\
+\hline
+{\em theme} & The theme of the context this widget resides in. It is possible that it is nullptr. \\
+\hline
+\end{DoxyParams}
+
+
+Reimplemented from \mbox{\hyperlink{classxu_1_1_widget_aa469288e02e5665be1b688a970312337}{xu\+::\+Widget}}.
+
+\mbox{\Hypertarget{classxu_1_1_button_a9afbee6bfac4c1dea4c21ba998751f23}\label{classxu_1_1_button_a9afbee6bfac4c1dea4c21ba998751f23}} 
+\index{xu::Button@{xu::Button}!SizeHint@{SizeHint}}
+\index{SizeHint@{SizeHint}!xu::Button@{xu::Button}}
+\doxysubsubsection{\texorpdfstring{SizeHint()}{SizeHint()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structxu_1_1_vector2}{F\+Size2}} xu\+::\+Button\+::\+Size\+Hint (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Gives the layout system a hint of how large this widget has to be. Note that the actual size may be different depending on the layout. 
+
+\begin{DoxySeeAlso}{See also}
+\mbox{[}Insert layout documentation page\mbox{]} 
+\end{DoxySeeAlso}
+
+
+Implements \mbox{\hyperlink{classxu_1_1_widget_a97e32a6f14bd7a90b4e8cba607066269}{xu\+::\+Widget}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+include/xu/kit/Button.\+hpp\end{DoxyCompactItemize}
