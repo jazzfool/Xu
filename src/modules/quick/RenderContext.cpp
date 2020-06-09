@@ -92,12 +92,8 @@ unsigned int RenderContext::CreateShader(
     vtxShader = glCreateShader(GL_VERTEX_SHADER);
     fragShader = glCreateShader(GL_FRAGMENT_SHADER);
 
-    // This is wrapped inside a lambda to limit the scope of vtx_carr and
-    // frag_carr
-    [&vtxSource, &fragSource, &vtxShader, &fragShader]() {
-        glShaderSource(vtxShader, 1, &vtxSource, nullptr);
-        glShaderSource(fragShader, 1, &fragSource, nullptr);
-    }();
+    glShaderSource(vtxShader, 1, &vtxSource, nullptr);
+    glShaderSource(fragShader, 1, &fragSource, nullptr);
 
     glCompileShader(vtxShader);
     glCompileShader(fragShader);
