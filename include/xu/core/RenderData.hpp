@@ -23,6 +23,7 @@
 #pragma once
 
 #include <vector>
+#include <xu/core/Color.hpp>
 #include <xu/core/Definitions.hpp>
 #include <xu/core/Vector2.hpp>
 #include <xu/core/Rect2.hpp>
@@ -115,6 +116,8 @@ struct XU_API CmdDrawTriangles {
      * \brief Amount of indices to be rendered
      */
     size_t numIndices;
+
+    Color color;
 };
 
 /*!
@@ -149,7 +152,7 @@ struct XU_API DrawCommand {
         CmdDrawTriangles drawTriangles;
         CmdNewLayer newLayer;
         CmdMergeLayer mergeLayer;
-    } data;
+    } data{0, 0, 0, xu::Color::White()}; // Default initialize to a default drawTriangles. This is necessary to make DrawCommand default constructible
 };
 
 /*!
@@ -288,6 +291,9 @@ public:
      */
     void PushGeometry(CommandList& cmdList, std::vector<Vertex> const& verts,
         std::vector<uint32_t> const& idx);
+
+    void PushGeometry(CommandList& cmdList, std::vector<Vertex> const& verts,
+        std::vector<uint32_t> const& idx, Color const& color);
 };
 
 } // namespace xu

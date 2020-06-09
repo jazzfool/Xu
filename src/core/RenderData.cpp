@@ -183,6 +183,12 @@ void RenderData::PushQuad(CommandList& cmdList, FRect2 quad) {
 }
 
 void RenderData::PushGeometry(CommandList& cmdList, std::vector<Vertex> const& verts, std::vector<uint32_t> const& idx) {
+    PushGeometry(cmdList, verts, idx, xu::Color::White());
+}
+
+void RenderData::PushGeometry(CommandList& cmdList, std::vector<Vertex> const& verts, std::vector<uint32_t> const& idx,
+    Color const& color) {
+
     size_t const baseIndex = indices.size();
     size_t const baseVertex = vertices.size();
 
@@ -193,6 +199,7 @@ void RenderData::PushGeometry(CommandList& cmdList, std::vector<Vertex> const& v
     command.indexOffset = baseIndex;
     command.vertexOffset = baseVertex;
     command.numIndices = idx.size();
+    command.color = color;
     cmdList.PushCommand(command);
 }
 

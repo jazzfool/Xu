@@ -20,10 +20,12 @@ void main() {
 constexpr const char* fragShader = R"(
 #version 430 core
 
+layout(location = 0) uniform vec4 color;
+
 out vec4 FragColor;
 
 void main() {
-    FragColor = vec4(1, 0, 0, 1);   
+    FragColor = color;
 }
 )";
 
@@ -78,6 +80,8 @@ void RenderContext::RenderDrawData(xu::RenderData const& renderData) {
     for (xu::CommandList::Iterator it = cmdList.Begin(); it != cmdList.End();
          ++it) {
         if (it->type == xu::DrawCommandType::DrawTriangles) {
+            auto color = it->data.drawTriangles.color.Normalized();
+            glUniform4fv(0, 1, color.data());
             glDrawElementsBaseVertex(GL_TRIANGLES,
                 it->data.drawTriangles.numIndices, GL_UNSIGNED_INT,
                 (void*)(it->data.drawTriangles.indexOffset * sizeof(uint32_t)),

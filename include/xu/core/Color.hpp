@@ -22,6 +22,7 @@
 
 #pragma once
 
+#include <array>
 #include <xu/core/Definitions.hpp>
 
 namespace xu {
@@ -30,21 +31,18 @@ namespace xu {
  * \brief Simple RGBA 888+F (3x8-bit RGB components, 1x float alpha) color type.
  */
 struct XU_API Color {
-    constexpr Color(
-        uint8_t r = 0, uint8_t g = 0, uint8_t b = 0, float a = 1.f) :
-        r{r},
-        g{g},
-        b{b},
-        a{a} {}
+    static constexpr Color Black() { return Color{0, 0, 0, 1.f}; }
+    static constexpr Color White() { return Color{255, 255, 255, 1.f}; }
+    static constexpr Color Transparent() { return Color{0, 0, 0, 0.f}; }
 
-    static constexpr Color Black() { return Color(0, 0, 0, 1.f); }
-    static constexpr Color White() { return Color(255, 255, 255, 1.f); }
-    static constexpr Color Transparent() { return Color(0, 0, 0, 0.f); }
+    uint8_t r = 0;
+    uint8_t g = 0;
+    uint8_t b = 0;
+    float a = 1.0f;
 
-    uint8_t r;
-    uint8_t g;
-    uint8_t b;
-    float a;
+    std::array<float, 4> Normalized() const {
+        return std::array<float, 4>{{r / 255.0f, g / 255.0f, b / 255.0f, a}};
+    }
 };
 
 } // namespace xu

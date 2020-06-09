@@ -22,6 +22,7 @@
 
 #pragma once
 
+#include <xu/core/Color.hpp>
 #include <xu/core/Definitions.hpp>
 #include <xu/core/RenderData.hpp>
 #include <xu/core/Size2.hpp>
@@ -35,7 +36,8 @@ namespace xu {
  */
 class XU_API Surface {
 public:
-    void Paint(BakedVectorPath const& geometry);
+    // TODO: More paint options for coloring, etc
+    void Paint(BakedVectorPath const& geometry, Color const& color);
 
     void Clear();
 
@@ -45,7 +47,12 @@ private:
     void GenerateGeometry(
         RenderData& renderData, CommandList& cmdList, FSize2 windowSize);
 
-    std::vector<BakedVectorPath> paths;
+    struct PaintNode {
+        BakedVectorPath path;
+        Color color;
+    };
+
+    std::vector<PaintNode> paintNodes;
 };
 
 } // namespace xu

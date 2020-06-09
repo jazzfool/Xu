@@ -35,11 +35,11 @@ DarculaTheme::DarculaTheme() {
 
 Color DarculaTheme::ColorFromPalette(std::string const& colorName) {
     if (colorName == Theme::foregroundTextColor) {
-        return Color{230, 230, 230};
+        return Color{230, 230, 230, 1.0f};
     } else if (colorName == Theme::backgroundColor) {
-        return Color{50, 50, 50};
+        return Color{50, 50, 50, 1.0f};
     } else if (colorName == Theme::outlineColor) {
-        return Color(150, 150, 150);
+        return Color{150, 150, 150, 1.0f};
     } else {
         return Color::Black();
     }
@@ -58,7 +58,7 @@ void DarculaTheme::InitializeWidget(
 void DarculaTheme::PaintWidget(Surface& surf, Widget const* widget,
     PaintInfo const* info, PainterType basePainter) {
     if (basePainter == typeid(Button)) {
-        for (auto const& path : info->paths) { surf.Paint(path); }
+        for (auto const& path : info->paths) { surf.Paint(path, xu::Color::White()); }
     }
 }
 

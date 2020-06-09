@@ -26,19 +26,19 @@
 
 namespace xu {
 
-void Surface::Paint(BakedVectorPath const& geometry) {
-    paths.push_back(geometry);
+void Surface::Paint(BakedVectorPath const& geometry, Color const& color) {
+    paintNodes.push_back(PaintNode{geometry, color});
 }
 
-void Surface::Clear() { paths.clear(); }
+void Surface::Clear() { paintNodes.clear(); }
 
 void Surface::GenerateGeometry(
     RenderData& renderData, CommandList& cmdList, FSize2 windowSize) {
-    for (auto const& path : paths) {
+    for (auto const& node : paintNodes) {
         // TODO: A little inefficient
         std::vector<Vertex> vertices;
-        vertices.reserve(path.vertices.size());
-        for (auto const pt : path.vertices) {
+        vertices.reserve(node.path.vertices.size());
+        for (auto const pt : node.path.vertices) {
             Vertex vtx;
             // Sometimes causes strange transformations
             vtx.position.x = pt.x / windowSize.x;
@@ -46,7 +46,7 @@ void Surface::GenerateGeometry(
             vertices.push_back(vtx);
         }
 
-        renderData.PushGeometry(cmdList, vertices, path.indices);
+        renderData.PushGeometry(cmdList, vertices, node.path.indices, node.color);
     }
 }
 
