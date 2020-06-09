@@ -273,7 +273,7 @@ protected:
     /*!
      * \brief Invoked whenever SetGeometry is invoked.
      */
-    virtual void OnGeometryChanged() {}
+    virtual void OnGeometryChanged() { UpdateItems(); }
 
 private:
     friend class LayoutItem;
