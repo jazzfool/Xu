@@ -155,6 +155,7 @@ private:
     void DispatchEvent(CursorButtonEvent const& evt);
     std::queue<Event> eventQueue;
 
+    void DoWidgetCallbacks();
     void BuildRenderData();
     void PaintWidgetAndChildren(Widget* widget, Surface& surface);
     void InitializeWidgetThemeAndChildren(Widget* widget);

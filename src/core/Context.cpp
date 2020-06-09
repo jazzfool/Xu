@@ -118,6 +118,7 @@ void Context::ProcessEvents() {
         }
     }
 
+    DoWidgetCallbacks();
     BuildRenderData();
 }
 
@@ -198,6 +199,31 @@ void Context::DispatchEvent(CursorButtonEvent const& evt) {
 
     // Possibly move down the widget hierarchy
     // and invoke some click events if it is also hovering the widget?
+}
+
+void Context::DoWidgetCallbacks() {
+    FPoint2 pointer;
+    pointer.x = inputState.cursorPosition.x;
+    pointer.y = inputState.cursorPosition.y;
+    // TODO: This does not handle widgets that are on top of each other, and it also does not respect multiple windows correctly
+    auto process = [this, &pointer](Widget* widget, auto self) -> void {
+        if (widget->PointerHit(pointer)) { 
+            widget->OnHover(pointer);
+            for (int i = 0; i < static_cast<int>(CursorButton::COUNT); ++i) {
+                if (inputState.GetCursorButton(static_cast<CursorButton>(i))) {
+                    widget->OnClick(pointer, static_cast<CursorButton>(i));
+                }
+            }
+        }
+
+        for (size_t i = 0; i < widget->NumChildren(); ++i) {
+            self(widget->GetChild(i), self);
+        }
+    };
+
+    for (auto& widgetNode : rootWidgets) { 
+        process(widgetNode.widget.get(), process);
+    }
 }
 
 void Context::BuildRenderData() {

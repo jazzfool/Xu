@@ -23,6 +23,7 @@
 #pragma once
 
 #include <xu/core/Definitions.hpp>
+#include <xu/core/InputEnums.hpp>
 #include <xu/core/Layout.hpp>
 #include <xu/core/Point2.hpp>
 #include <xu/core/RenderData.hpp>
@@ -94,6 +95,10 @@ public:
      * system
      */
     virtual bool PointerHit(FPoint2 const& pointer) const;
+
+    virtual void OnHover(FPoint2 const& pointer) {}
+
+    virtual void OnClick(FPoint2 const& pointer, CursorButton button) {}
 
     /*!
      * \brief Set geometry to be used for building the layout.
