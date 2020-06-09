@@ -15,6 +15,8 @@ elseif (${FORCE_MSVC_CXX17})
     add_compile_options("/std:c++17")
 endif() 
 
+add_library(Xu)
+
 set(HEADERS
     "include/xu/core/InputEnums.hpp"
     "include/xu/core/InputState.hpp"
@@ -57,14 +59,20 @@ set(SOURCES
 if (${XU_QUICK_MODULE})
     set(HEADERS ${HEADERS}
         "include/xu/modules/quick/DarculaTheme.hpp"
+        "include/xu/modules/quick/Renderer.hpp"
     )
 
     set(SOURCES ${SOURCES}
         "src/modules/quick/DarculaTheme.cpp"
+        "src/modules/quick/RenderContext.cpp"
     )
-endif()
 
-add_library(Xu)
+    add_library(xu-glad STATIC)
+    target_sources(xu-glad PRIVATE "src/modules/quick/ext/glad430/src/glad.c")
+    target_include_directories(xu-glad PRIVATE "src/modules/quick/ext/glad430/include")
+    target_include_directories(Xu PRIVATE "src/modules/quick/ext/glad430/include")
+    target_link_libraries(Xu PUBLIC xu-glad)
+endif()
 
 add_subdirectory(external)
 
