@@ -27,7 +27,7 @@
 
 namespace xu {
 
-constexpr const char* vtxShader = 
+constexpr const char* vtxShader =
 R"(#version 430 core
 layout(location = 0) in vec2 iPos;
 
@@ -104,12 +104,12 @@ void RenderContext::RenderDrawData(xu::RenderData const& renderData) {
     for (xu::CommandList::Iterator it = cmdList.Begin(); it != cmdList.End();
          ++it) {
         if (it->type == xu::DrawCommandType::DrawTriangles) {
-            auto color = it->data.drawTriangles.color.Normalized();
+            xu::CmdDrawTriangles const& cmd = it->data.drawTriangles;
+            auto color = cmd.color.Normalized();
             glUniform4fv(0, 1, color.data());
-            glDrawElementsBaseVertex(GL_TRIANGLES,
-                it->data.drawTriangles.numIndices, GL_UNSIGNED_INT,
-                (void*)(it->data.drawTriangles.indexOffset * sizeof(uint32_t)),
-                it->data.drawTriangles.vertexOffset);
+            glDrawElementsBaseVertex(GL_TRIANGLES, cmd.numIndices,
+                GL_UNSIGNED_INT, (void*)(cmd.indexOffset * sizeof(uint32_t)),
+                cmd.vertexOffset);
         }
     }
 }
@@ -165,4 +165,4 @@ unsigned int RenderContext::CreateShader(
     return shaderProgram;
 }
 
-}
+} // namespace xu

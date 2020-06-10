@@ -34,7 +34,7 @@ template<typename T>
 struct Vector2 {
     static_assert(std::is_arithmetic_v<T>, "T must be arithmetic type");
 
-    T x, y;
+    T x = T{}, y = T{};
 
     constexpr Vector2() noexcept = default;
     constexpr Vector2(T x, T y) noexcept : x(x), y(y){};

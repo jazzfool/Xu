@@ -41,26 +41,26 @@ struct XU_API VectorPathEvent {
         FPoint2 center, float radius, float startAngle, float endAngle);
 
     VectorPathEventType type;
-    union XU_API {
-        struct XU_API {
+    union XU_API Params {
+        struct XU_API Line {
             FPoint2 to;
         } line;
-        struct XU_API {
+        struct XU_API Quadratic {
             FPoint2 to;
             FPoint2 x0;
         } quadratic;
-        struct XU_API {
+        struct XU_API Cubic {
             FPoint2 to;
             FPoint2 x0;
             FPoint2 x1;
         } cubic;
-        struct XU_API {
+        struct XU_API Arc {
             FPoint2 center;
             float radius;
             float startAngle;
             float endAngle;
         } arc;
-    } params;
+    } params{Params::Line{FPoint2{0.0f, 0.0f}}};
 };
 
 enum class LineCap { Butt, Square };
@@ -70,7 +70,8 @@ struct XU_API BakedVectorPath {
     BakedVectorPath WithOffset(FVector2 offset) const;
     BakedVectorPath WithScale(FVector2 scale) const;
 
-    // Removed const as this prevents moving to and from a BakedVectorPath - pengu
+    // Removed const as this prevents moving to and from a BakedVectorPath -
+    // pengu
     std::vector<FPoint2> vertices;
     std::vector<uint32_t> indices;
 };

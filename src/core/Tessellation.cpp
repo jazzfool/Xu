@@ -299,8 +299,8 @@ std::pair<std::vector<FPoint2>, std::vector<uint32_t>> ExpandStroke(
     FVector2 last{0.f, 0.f};
     FVector2 capEnd{0.f, 0.f};
     int16_t lastFlip = -1;
-    FVector2 miter;
-    FVector2 tangent;
+    FVector2 miter{0.0f, 0.0f};
+    FVector2 tangent{0.0f, 0.0f};
 
     for (std::size_t i = 1, count = 0; i < polygon.size(); ++i) {
         auto curr = polygon[i];

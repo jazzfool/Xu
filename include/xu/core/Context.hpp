@@ -146,7 +146,7 @@ private:
             WindowCursorEnterEvent windowCursorEnter;
             CursorMoveEvent cursorMove;
             CursorButtonEvent cursorButton;
-        } data;
+        } data{WindowResizeEvent{}};
     };
     void DispatchEvent(WindowResizeEvent const& evt);
     void DispatchEvent(WindowMoveEvent const& evt);
