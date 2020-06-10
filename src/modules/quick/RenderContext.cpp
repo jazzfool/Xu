@@ -85,8 +85,8 @@ void RenderContext::RenderDrawData(xu::RenderData const& renderData) {
     glClear(GL_COLOR_BUFFER_BIT);
 
     glUseProgram(shaderProgram);
-    glBindVertexArray(vao);
-    glBindBuffer(GL_ARRAY_BUFFER, vao);
+
+    glBindBuffer(GL_ARRAY_BUFFER, vbo);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo);
 
     glBufferData(GL_ARRAY_BUFFER,
@@ -95,6 +95,8 @@ void RenderContext::RenderDrawData(xu::RenderData const& renderData) {
     glBufferData(GL_ELEMENT_ARRAY_BUFFER,
         renderData.indices.size() * sizeof(uint32_t), renderData.indices.data(),
         GL_DYNAMIC_DRAW);
+
+    glBindVertexArray(vao);
 
     // Pretend we only have a single command list ( = single window) to
     // render, for now.
