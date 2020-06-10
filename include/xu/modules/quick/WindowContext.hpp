@@ -20,27 +20,37 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-#pragma once 
+#pragma once
 
+#include <vector>
+
+#include <xu/core/WsiInterface.hpp>
+#include <xu/core/Context.hpp>
 #include <xu/modules/quick/LoadProc.hpp>
-#include <xu/core/RenderData.hpp>
 
 namespace xu {
 
-class RenderContext {
+// GLFW-based windowing manager for Xu
+class WindowContext : public WsiInterface {
 public:
-	// Requires an active OpenGL context
-    RenderContext(LoadProc loadProc);
-    ~RenderContext();
+    WindowContext(Context& ctx);
+    ~WindowContext();
 
-	void RenderDrawData(xu::RenderData const& renderData);
+    LoadProc GetLoadProc() const;
+
+    NewWindowResult NewWindow(char const* title, ISize2 extent) override;
+    void DestroyWindow(WindowID id) override;
+    void DestroyWindows();
+
+    WindowID GetMainWindow();
+
+    void PollEvents();
+    bool ShouldClose(WindowID id) const;
+    void SwapBuffers(WindowID id);
+
 private:
-	unsigned int shaderProgram;
-    unsigned int vao;
-    unsigned int vbo;
-    unsigned int ebo;
-
-    unsigned int CreateShader(const char* vtxSource, const char* fragSource);
+    std::vector<void*> windows;
+    Context* xuCtx;
 };
 
 }

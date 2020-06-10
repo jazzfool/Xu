@@ -51,7 +51,7 @@ void main() {
 }
 )";
 
-RenderContext::RenderContext(GLLoadFunc loadProc) {
+RenderContext::RenderContext(LoadProc loadProc) {
     gladLoadGLLoader(loadProc);
 
     // Setup vertex buffers and VAO

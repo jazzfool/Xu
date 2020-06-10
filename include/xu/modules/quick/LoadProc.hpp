@@ -20,27 +20,12 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-#pragma once 
-
-#include <xu/modules/quick/LoadProc.hpp>
-#include <xu/core/RenderData.hpp>
+#pragma once
 
 namespace xu {
 
-class RenderContext {
-public:
-	// Requires an active OpenGL context
-    RenderContext(LoadProc loadProc);
-    ~RenderContext();
-
-	void RenderDrawData(xu::RenderData const& renderData);
-private:
-	unsigned int shaderProgram;
-    unsigned int vao;
-    unsigned int vbo;
-    unsigned int ebo;
-
-    unsigned int CreateShader(const char* vtxSource, const char* fragSource);
-};
+// I'm bad at typedefs so I just copied this from glad instead of converting to
+// using
+typedef void* (*LoadProc)(const char* name);
 
 }
