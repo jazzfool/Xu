@@ -25,11 +25,22 @@
 
 namespace xu {
 
-Button::Button(Widget* parent) : Widget{parent} {}
+Button::Button(Widget* parent, Color inactive, Color hovered, Color clicked) :
+    Widget{parent}, slotHoverEnter(sigOnHoverEnter, this), slotHoverExit(sigOnHoverExit, this), slotOnClick(sigOnClick, this) {
+
+    currentColor = inactive;
+    inactiveColor = inactive;
+    hoveredColor = hovered;
+    clickedColor = clicked;
+
+    xu::VectorPath vpath
+        = xu::VectorPath::RoundRectangle(xu::FSize2{100.0f, 100.0f}, 10.0f);
+    paintInfo.paths.push_back(vpath.BakeFill(10.0f));
+}
 
 FSize2 Button::SizeHint() const {
     // TODO: measuring text size
-    return FSize2{100.f, 40.f};
+    return FSize2{100.f, 100.f};
 }
 
 void Button::InitializeTheme(Theme& theme) {
@@ -38,8 +49,15 @@ void Button::InitializeTheme(Theme& theme) {
 
 void Button::Paint(Surface& surf, Theme* theme) const {
     if (theme) theme->PaintWidget(surf, this, &paintInfo, Button::Painter());
+
+    // No theme, use default colors. Note that these should be done better
+    surf.Paint(paintInfo.paths[0].WithOffset(Geometry().origin), currentColor);
 }
 
 PainterType Button::Painter() { return typeid(Button); }
+
+void Button::OnHoverEnter() { currentColor = hoveredColor; }
+void Button::OnHoverExit() { currentColor = inactiveColor; }
+void Button::OnClick(CursorButton) { currentColor = clickedColor; }
 
 } // namespace xu

@@ -62,9 +62,9 @@ RenderContext::RenderContext(GLLoadFunc loadProc) {
     glBindVertexArray(vao);
 
     glBindBuffer(GL_ARRAY_BUFFER, vbo);
-    glBufferData(GL_ARRAY_BUFFER, 0, nullptr, GL_STATIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, 0, nullptr, GL_DYNAMIC_DRAW);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo);
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER, 0, nullptr, GL_STATIC_DRAW);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, 0, nullptr, GL_DYNAMIC_DRAW);
 
     glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(float), nullptr);
     glEnableVertexAttribArray(0);
@@ -91,10 +91,10 @@ void RenderContext::RenderDrawData(xu::RenderData const& renderData) {
 
     glBufferData(GL_ARRAY_BUFFER,
         renderData.vertices.size() * sizeof(xu::Vertex),
-        renderData.vertices.data(), GL_STATIC_DRAW);
+        renderData.vertices.data(), GL_DYNAMIC_DRAW);
     glBufferData(GL_ELEMENT_ARRAY_BUFFER,
         renderData.indices.size() * sizeof(uint32_t), renderData.indices.data(),
-        GL_STATIC_DRAW);
+        GL_DYNAMIC_DRAW);
 
     // Pretend we only have a single command list ( = single window) to
     // render, for now.

@@ -22,6 +22,7 @@
 
 #pragma once
 
+#include <xu/core/Color.hpp>
 #include <xu/core/Widget.hpp>
 #include <xu/core/Theme.hpp>
 
@@ -29,7 +30,8 @@ namespace xu {
 
 class Button : public Widget {
 public:
-    explicit Button(Widget* parent);
+    // Until theme is used, color parameters
+    Button(Widget* parent, Color inactive, Color hovered, Color clicked);
 
     FSize2 SizeHint() const override;
 
@@ -39,7 +41,19 @@ public:
     static PainterType Painter();
 
 protected:
+    void OnHoverEnter();
+    void OnHoverExit();
+    void OnClick(CursorButton button);
+
+    UniqueSlot<&OnHoverEnter> slotHoverEnter;
+    UniqueSlot<&OnHoverExit> slotHoverExit;
+    UniqueSlot<&OnClick> slotOnClick;
+
     PaintInfo paintInfo;
+    Color currentColor;
+    Color inactiveColor;
+    Color hoveredColor;
+    Color clickedColor;
 };
 
 } // namespace xu

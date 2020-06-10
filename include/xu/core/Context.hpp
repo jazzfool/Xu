@@ -160,9 +160,6 @@ private:
     void PaintWidgetAndChildren(Widget* widget, Surface& surface);
     void InitializeWidgetThemeAndChildren(Widget* widget);
 
-   
-
-
     RenderData renderData;
 
     std::unique_ptr<Theme> theme;
@@ -185,6 +182,7 @@ private:
 
     // Temporary?
     InputState inputState;
+    InputState prevInputState;
    
     // Temporary until proper eventing is implemented
     ISize2 windowSize;

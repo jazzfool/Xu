@@ -92,6 +92,8 @@ void Context::NotifyEvent(CursorButtonEvent const& evt) {
 }
 
 void Context::ProcessEvents() {
+    prevInputState = inputState;
+
     if (inputReception == InputReception::Queued) {
         while (!eventQueue.empty()) {
             auto const& evt = eventQueue.front();
@@ -205,15 +207,21 @@ void Context::DoWidgetCallbacks() {
     FPoint2 pointer;
     pointer.x = inputState.cursorPosition.x;
     pointer.y = inputState.cursorPosition.y;
-    // TODO: This does not handle widgets that are on top of each other, and it also does not respect multiple windows correctly
+    // TODO: This does not handle widgets that are on top of each other, and it
+    // also does not respect multiple windows correctly
     auto process = [this, &pointer](Widget* widget, auto self) -> void {
-        if (widget->PointerHit(pointer)) { 
-            widget->OnHover(pointer);
+        if (widget->PointerHit(pointer)) {
+            widget->sigOnHoverEnter();
             for (int i = 0; i < static_cast<int>(CursorButton::COUNT); ++i) {
                 if (inputState.GetCursorButton(static_cast<CursorButton>(i))) {
-                    widget->OnClick(pointer, static_cast<CursorButton>(i));
+                    widget->sigOnClick(static_cast<CursorButton>(i));
                 }
             }
+        } else { // Handle hover exit
+            FPoint2 prevPointer;
+            prevPointer.x = prevInputState.cursorPosition.x;
+            prevPointer.y = prevInputState.cursorPosition.y;
+            if (widget->PointerHit(prevPointer)) { widget->sigOnHoverExit(); }
         }
 
         for (size_t i = 0; i < widget->NumChildren(); ++i) {
@@ -221,7 +229,7 @@ void Context::DoWidgetCallbacks() {
         }
     };
 
-    for (auto& widgetNode : rootWidgets) { 
+    for (auto& widgetNode : rootWidgets) {
         process(widgetNode.widget.get(), process);
     }
 }

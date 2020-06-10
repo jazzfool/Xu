@@ -96,10 +96,6 @@ public:
      */
     virtual bool PointerHit(FPoint2 const& pointer) const;
 
-    virtual void OnHover(FPoint2 const& pointer) {}
-
-    virtual void OnClick(FPoint2 const& pointer, CursorButton button) {}
-
     /*!
      * \brief Set geometry to be used for building the layout.
      *\param geometry AABB defining the bounding box of this widget.
@@ -195,6 +191,10 @@ public:
      * \brief Signal to be called before destroying this widget
      */
     Signal<> sigBeforeDestruction;
+
+    Signal<> sigOnHoverEnter;
+    Signal<> sigOnHoverExit;
+    Signal<CursorButton> sigOnClick;
 
     /*!
      * \brief Toggle to indicate whether this widget is hidden or not. This
