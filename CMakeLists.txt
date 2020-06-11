@@ -69,13 +69,6 @@ if (${XU_QUICK_MODULE})
         "src/modules/quick/RenderContext.cpp"
         "src/modules/quick/WindowContext.cpp"
     )
-
-    add_library(xu-glad STATIC)
-    target_sources(xu-glad PRIVATE "src/modules/quick/ext/glad430/src/glad.c")
-    target_include_directories(xu-glad PRIVATE "src/modules/quick/ext/glad430/include")
-    add_subdirectory("src/modules/quick/ext/glfw")
-    target_include_directories(Xu PRIVATE "src/modules/quick/ext/glad430/include" "src/modules/quick/ext/glfw/include")
-    target_link_libraries(Xu PUBLIC xu-glad glfw)
 endif()
 
 add_subdirectory(external)

@@ -26,8 +26,10 @@
 namespace xu {
 
 Button::Button(Widget* parent, Color inactive, Color hovered, Color clicked) :
-    Widget{parent}, slotHoverEnter(sigOnHoverEnter, this), slotHoverExit(sigOnHoverExit, this), slotOnClick(sigOnClick, this) {
-
+    Widget{parent},
+    slotHoverEnter{sigOnHoverEnter, this},
+    slotHoverExit{sigOnHoverExit, this},
+    slotOnClick{sigOnClick, this} {
     currentColor = inactive;
     inactiveColor = inactive;
     hoveredColor = hovered;

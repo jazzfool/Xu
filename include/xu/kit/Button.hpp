@@ -45,9 +45,9 @@ protected:
     void OnHoverExit();
     void OnClick(CursorButton button);
 
-    UniqueSlot<&OnHoverEnter> slotHoverEnter;
-    UniqueSlot<&OnHoverExit> slotHoverExit;
-    UniqueSlot<&OnClick> slotOnClick;
+    UniqueSlot<&Button::OnHoverEnter> slotHoverEnter;
+    UniqueSlot<&Button::OnHoverExit> slotHoverExit;
+    UniqueSlot<&Button::OnClick> slotOnClick;
 
     PaintInfo paintInfo;
     Color currentColor;

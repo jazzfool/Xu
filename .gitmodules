@@ -4,3 +4,9 @@
 [submodule "external/earcut"]
 	path = external/earcut
 	url = https://github.com/mapbox/earcut.hpp
+[submodule "external/glfw"]
+	path = external/glfw
+	url = https://github.com/glfw/glfw
+[submodule "external/glad"]
+	path = external/glad
+	url = https://github.com/Dav1dde/glad/
