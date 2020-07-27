@@ -36,7 +36,7 @@ public:
     FSize2 SizeHint() const override;
 
     void InitializeTheme(Theme& theme) override;
-    void Paint(Surface& surf, Theme* theme) const override;
+    void Paint(Surface& surf, Theme& theme) const override;
 
     static PainterType Painter();
 

@@ -25,10 +25,10 @@
 #include <glad/glad.h>
 #include <iostream>
 
-namespace xu {
+namespace xu::quick {
 
 constexpr const char* vtxShader =
-R"(#version 430 core
+    R"(#version 430 core
 layout(location = 0) in vec2 iPos;
 
 void main() {
@@ -165,4 +165,4 @@ unsigned int RenderContext::CreateShader(
     return shaderProgram;
 }
 
-} // namespace xu
+} // namespace xu::quick

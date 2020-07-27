@@ -282,129 +282,174 @@ static float PolylineComputeMiter(FVector2& tangent, FVector2 miter,
     return halfThick / ((miter.x * tmp.x) + (miter.y * tmp.y));
 }
 
+struct PolylineExpansion {
+    FVector2 tmp{0.f, 0.f};
+    FVector2 capEnd{0.f, 0.f};
+    FVector2 lineA{0.f, 0.f};
+    FVector2 lineB{0.f, 0.f};
+    FVector2 tangent{0.f, 0.f};
+    FVector2 miter{0.f, 0.f};
+
+    float miterLimit;
+    float thickness;
+    LineJoin join;
+    LineCap cap;
+
+    std::optional<FVector2> normal;
+    int lastFlip;
+    bool started;
+
+    auto Build(std::vector<FPoint2> const& points) {
+        std::pair<std::vector<FPoint2>, std::vector<uint32_t>> output;
+
+        if (points.size() <= 1) return output;
+
+        lastFlip = -1;
+        started = false;
+        normal = std::nullopt;
+
+        for (std::size_t i = 1, count = 0; i < points.size(); i++) {
+            FVector2 last = points[i - 1];
+            FVector2 cur = points[i];
+            std::optional<FVector2> next = i < points.size() - 1
+                ? std::optional<FVector2>{points[i + 1]}
+                : std::nullopt;
+            int amt = PolylineSegment(
+                output, count, last, cur, next, thickness / 2);
+            count += amt;
+        }
+
+        return output;
+    }
+
+    int PolylineSegment(
+        std::pair<std::vector<FPoint2>, std::vector<uint32_t>>& output,
+        int index, FVector2 last, FVector2 cur, std::optional<FVector2> next,
+        float halfThick) {
+        int count = 0;
+        const bool capSquare = cap == LineCap::Square;
+        const bool joinBevel = join == LineJoin::Bevel;
+
+        lineA = PolylineDirection(cur, last);
+
+        if (!normal) { normal = PolylineNormal(lineA); }
+
+        if (!started) {
+            started = true;
+
+            if (capSquare) {
+                capEnd = last + (lineA * -halfThick);
+                last = capEnd;
+            }
+
+            PolylineExtrusions(output.first, last, normal.value(), halfThick);
+        }
+
+        output.second.push_back(index);
+        output.second.push_back(index + 1);
+        output.second.push_back(index + 2);
+
+        if (!next) {
+            normal = PolylineNormal(lineA);
+
+            if (capSquare) {
+                capEnd = cur + (lineA * halfThick);
+                cur = capEnd;
+            }
+
+            PolylineExtrusions(output.first, cur, normal.value(), halfThick);
+
+            if (lastFlip == 1) {
+                output.second.push_back(index);
+                output.second.push_back(index + 2);
+                output.second.push_back(index + 3);
+            } else {
+                output.second.push_back(index + 2);
+                output.second.push_back(index + 1);
+                output.second.push_back(index + 3);
+            }
+
+            count += 2;
+        } else {
+            lineB = PolylineDirection(next.value(), cur);
+
+            float miterLen
+                = PolylineComputeMiter(tangent, miter, lineA, lineB, halfThick);
+
+            int flip = ((tangent.x * normal->x) + (tangent.y * normal->y)) < 0
+                ? -1
+                : 1;
+
+            bool bevel = joinBevel;
+            if (!bevel && join == LineJoin::Miter) {
+                float limit = miterLen / halfThick;
+                if (limit > miterLimit) bevel = true;
+            }
+
+            if (bevel) {
+                tmp = cur + (normal.value() * (-halfThick * flip));
+                output.first.push_back(tmp);
+                tmp = cur + (miter * (miterLen * flip));
+                output.first.push_back(tmp);
+
+                if (lastFlip != -flip) {
+                    output.second.push_back(index);
+                    output.second.push_back(index + 2);
+                    output.second.push_back(index + 3);
+                } else {
+                    output.second.push_back(index + 2);
+                    output.second.push_back(index + 1);
+                    output.second.push_back(index + 3);
+                }
+
+                output.second.push_back(index + 2);
+                output.second.push_back(index + 3);
+                output.second.push_back(index + 4);
+
+                tmp = PolylineNormal(lineB);
+                normal = tmp;
+
+                tmp = cur + (tmp * (-halfThick * flip));
+                output.first.push_back(tmp);
+
+                count += 3;
+            } else {
+                PolylineExtrusions(output.first, cur, miter, miterLen);
+
+                if (lastFlip == 1) {
+                    output.second.push_back(index);
+                    output.second.push_back(index + 2);
+                    output.second.push_back(index + 3);
+                } else {
+                    output.second.push_back(index + 2);
+                    output.second.push_back(index + 1);
+                    output.second.push_back(index + 3);
+                }
+
+                flip = -1;
+
+                normal = miter;
+                count += 2;
+            }
+            lastFlip = flip;
+        }
+
+        return count;
+    }
+};
+
 // Taken from:
 // https://github.com/mattdesl/extrude-polyline
 std::pair<std::vector<FPoint2>, std::vector<uint32_t>> ExpandStroke(
     std::vector<FPoint2> const& polygon, const float strokeWidth,
     const LineCap cap, const LineJoin join, const float miterLimit,
     const double quality) {
-    if (polygon.size() <= 1) return {};
-
-    std::pair<std::vector<FPoint2>, std::vector<uint32_t>> output;
-
-    const auto halfThick = strokeWidth / 2.f;
-
-    std::optional<FVector2> normal;
-    bool started = false;
-    FVector2 last{0.f, 0.f};
-    FVector2 capEnd{0.f, 0.f};
-    int16_t lastFlip = -1;
-    FVector2 miter{0.0f, 0.0f};
-    FVector2 tangent{0.0f, 0.0f};
-
-    for (std::size_t i = 1, count = 0; i < polygon.size(); ++i) {
-        auto curr = polygon[i];
-        auto last = polygon[i - 1];
-        auto lineA = PolylineDirection(curr, last);
-        auto lineB = PolylineDirection(curr, last);
-
-        const auto next = i < (polygon.size() - 1) ? &polygon[i + 1] : nullptr;
-        const auto capSquare = cap == LineCap::Square;
-        const auto joinBevel = join == LineJoin::Bevel;
-
-        if (!normal) { normal = PolylineNormal(lineA); }
-
-        if (!started) {
-            started = true;
-            if (capSquare) {
-                capEnd = last + (lineA * -halfThick);
-                last = capEnd;
-            }
-            PolylineExtrusions(
-                std::get<0>(output), last, normal.value(), halfThick);
-        }
-
-        std::get<1>(output).push_back(count);
-        std::get<1>(output).push_back(count + 1);
-        std::get<1>(output).push_back(count + 2);
-
-        if (!next) {
-            normal = PolylineNormal(lineA);
-            if (capSquare) {
-                capEnd = curr + (lineA * halfThick);
-                curr = capEnd;
-            }
-            PolylineExtrusions(
-                std::get<0>(output), curr, normal.value(), halfThick);
-            if (lastFlip == 1) {
-                std::get<1>(output).push_back(count);
-                std::get<1>(output).push_back(count + 2);
-                std::get<1>(output).push_back(count + 3);
-            } else {
-                std::get<1>(output).push_back(count + 2);
-                std::get<1>(output).push_back(count + 1);
-                std::get<1>(output).push_back(count + 3);
-            }
-            count += 2;
-        } else {
-            lineB = PolylineDirection(*next, curr);
-            const auto miterLen
-                = PolylineComputeMiter(tangent, miter, lineA, lineB, halfThick);
-
-            auto flip
-                = (((tangent.x * normal->x) + (tangent.x * normal->y)) < 0) ? -1
-                                                                            : 1;
-
-            bool bevel = joinBevel;
-            if (!bevel) {
-                const auto limit = miterLen / halfThick;
-                if (limit > miterLimit) bevel = true;
-            }
-
-            if (bevel) {
-                auto tmp = curr + (normal.value() * (-halfThick * flip));
-                std::get<0>(output).push_back(tmp);
-                tmp = curr + (miter * (miterLen * flip));
-                std::get<0>(output).push_back(tmp);
-
-                if (lastFlip != -flip) {
-                    std::get<1>(output).push_back(count);
-                    std::get<1>(output).push_back(count + 2);
-                    std::get<1>(output).push_back(count + 3);
-                } else {
-                    std::get<1>(output).push_back(count + 2);
-                    std::get<1>(output).push_back(count + 1);
-                    std::get<1>(output).push_back(count + 3);
-                }
-
-                std::get<1>(output).push_back(count + 2);
-                std::get<1>(output).push_back(count + 3);
-                std::get<1>(output).push_back(count + 4);
-
-                normal = PolylineNormal(lineB);
-                std::get<0>(output).push_back(
-                    curr + (tmp * (-halfThick * flip)));
-
-                count += 3;
-            } else {
-                PolylineExtrusions(std::get<0>(output), curr, miter, miterLen);
-                if (lastFlip == 1) {
-                    std::get<1>(output).push_back(count);
-                    std::get<1>(output).push_back(count + 2);
-                    std::get<1>(output).push_back(count + 3);
-                } else {
-                    std::get<1>(output).push_back(count + 2);
-                    std::get<1>(output).push_back(count + 1);
-                    std::get<1>(output).push_back(count + 3);
-                }
-                flip = -1;
-                normal = miter;
-                count += 2;
-            }
-            lastFlip = flip;
-        }
-    }
-    return output;
+    PolylineExpansion e;
+    e.miterLimit = miterLimit;
+    e.thickness = strokeWidth;
+    e.join = join;
+    e.cap = cap;
+    return e.Build(polygon);
 }
 
 std::vector<uint32_t> Triangulate(std::vector<FPoint2> const& polygon) {

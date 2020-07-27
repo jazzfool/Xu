@@ -20,51 +20,47 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-#include <xu/modules/quick/DarculaTheme.hpp>
-
+#include "xu/core/Theme.hpp"
+#include <xu/kit/BasicTheme.hpp>
 #include <xu/kit/Button.hpp>
 
-namespace xu::quick {
+namespace xu {
 
-static constexpr float CornerRadius = 10.f;
-
-DarculaTheme::DarculaTheme() {
-    params.normalTextSize = 12.f;
-    params.headingTextSize = 26.f;
+BasicTheme::BasicTheme() {
+    params.normalTextSize = 14.0;
+    params.headingTextSize = 28.0;
 }
 
-Color DarculaTheme::ColorFromPalette(std::string const& colorName) {
+Color BasicTheme::ColorFromPalette(const std::string& colorName) {
     if (colorName == Theme::foregroundTextColor) {
-        return Color{230, 230, 230, 1.0f};
+        return Color::White();
     } else if (colorName == Theme::backgroundColor) {
-        return Color{50, 50, 50, 1.0f};
+        return Color::Black();
     } else if (colorName == Theme::outlineColor) {
-        return Color{150, 150, 150, 1.0f};
+        return Color::White();
     } else {
         return Color::Black();
     }
 }
 
-void DarculaTheme::InitializeWidget(
+void BasicTheme::InitializeWidget(
     Widget* widget, PaintInfo* info, PainterType basePainter) {
     if (basePainter == typeid(Button)) {
         Button* btn = static_cast<Button*>(widget);
         info->paths = std::move(std::vector{
-            VectorPath::RoundRectangle(btn->Geometry().size, CornerRadius)
-                .BakeStroke(50.f, 5.f, LineCap::Butt, LineJoin::Bevel)});
+            VectorPath::Rectangle(btn->Geometry().size).BakeFill(0.f)});
     }
 }
 
-void DarculaTheme::PaintWidget(Surface& surf, Widget const* widget,
+void BasicTheme::PaintWidget(Surface& surf, Widget const* widget,
     PaintInfo const* info, PainterType basePainter) {
     if (basePainter == typeid(Button)) {
         for (auto const& path : info->paths) {
-            surf.Paint(
-                path.WithOffset(widget->Geometry().origin), Color::White());
+            surf.Paint(path, Color::White());
         }
     }
 }
 
-Parameters const& DarculaTheme::GetParameters() const { return params; }
+Parameters const& BasicTheme::GetParameters() const { return params; }
 
-} // namespace xu::quick
+} // namespace xu

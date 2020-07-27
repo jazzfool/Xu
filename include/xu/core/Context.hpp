@@ -58,8 +58,10 @@ enum class InputReception {
 /*!
  * \brief Core context class of the Xu library.
  */
-class XU_API Context {
+class XU_API Context final {
 public:
+    Context();
+
     /*!
      * \brief Notifies Xu that a window resize event has occured.
      * \sa [Insert windowing event docs link]
@@ -86,7 +88,6 @@ public:
      */
     void NotifyEvent(CursorButtonEvent const& evt);
 
-
     /*!
      * \brief Processes all events until none are left. After this call, the
      * event queue is empty. \sa [Insert windowing event docs link]
@@ -103,16 +104,16 @@ public:
      * \brief Changes the theme that should be given to widgets during
      * rendering.
      *
-     * \param theme The theme to change to. If nullptr is given, the theme
-     * mechanics are disabled.
+     * \param theme The theme to change to.
      */
-    void SetTheme(std::unique_ptr<Theme> theme = nullptr);
+    template<typename T>
+    void SetTheme(T&& theme);
 
     /*!
      * \brief Returns the theme that would be given to widgets during
-     * rendering. Possibly nullptr.
+     * rendering.
      */
-    Theme* GetTheme() const;
+    Theme& GetTheme() const;
 
     /*!
      * \brief Select which method must be used for event processing.
@@ -131,7 +132,7 @@ public:
     WidgetPtr<Widget> AddWindow(const char* title, ISize2 size);
 
 private:
-    enum class EventType { 
+    enum class EventType {
         WindowResize,
         WindowMove,
         WindowCursorEnter,
@@ -183,9 +184,18 @@ private:
     // Temporary?
     InputState inputState;
     InputState prevInputState;
-   
+
     // Temporary until proper eventing is implemented
     ISize2 windowSize;
 };
+
+template<typename T>
+void Context::SetTheme(T&& theme) {
+    static_assert(std::is_base_of_v<Theme, T>);
+    this->theme = std::make_unique<T>(theme);
+    for (auto& rootWidget : rootWidgets) {
+        InitializeWidgetThemeAndChildren(rootWidget.widget.get());
+    }
+}
 
 } // namespace xu

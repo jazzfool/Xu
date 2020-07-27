@@ -28,7 +28,7 @@
 #include <xu/core/Context.hpp>
 #include <xu/modules/quick/LoadProc.hpp>
 
-namespace xu {
+namespace xu::quick {
 
 // GLFW-based windowing manager for Xu
 class WindowContext : public WsiInterface {
@@ -53,4 +53,4 @@ private:
     Context* xuCtx;
 };
 
-}
+} // namespace xu::quick

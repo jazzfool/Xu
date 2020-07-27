@@ -21,10 +21,13 @@
 // SOFTWARE.
 
 #include <xu/core/Context.hpp>
+#include <xu/kit/BasicTheme.hpp>
 
 #include <iostream> // For debugging.
 
 namespace xu {
+
+Context::Context() : theme{std::make_unique<BasicTheme>()} {}
 
 void Context::NotifyEvent(WindowResizeEvent const& evt) {
     switch (inputReception) {
@@ -126,25 +129,14 @@ void Context::ProcessEvents() {
 
 RenderData const& Context::GetRenderData() const { return renderData; }
 
-void Context::SetTheme(std::unique_ptr<Theme> theme) {
-    if (theme) {
-        this->theme = std::move(theme);
-        for (auto& rootWidget : rootWidgets) {
-            InitializeWidgetThemeAndChildren(rootWidget.widget.get());
-        }
-    } else {
-        this->theme.reset();
-    }
-}
-
-Theme* Context::GetTheme() const { return this->theme.get(); }
+Theme& Context::GetTheme() const { return *theme.get(); }
 
 struct TestWindow : public Widget {
     TestWindow(Context& context) : Widget(context) {}
 
     virtual FSize2 SizeHint() const override { return {}; }
 
-    virtual void Paint(Surface& surface, Theme* theme) const override {}
+    virtual void Paint(Surface& surface, Theme& theme) const override {}
 };
 
 WidgetPtr<Widget> Context::AddWindow(const char* title, ISize2 size) {
@@ -255,7 +247,7 @@ void Context::BuildRenderData() {
 void Context::PaintWidgetAndChildren(Widget* widget, Surface& surface) {
     if (widget->hidden) { return; }
 
-    widget->Paint(surface, theme.get());
+    widget->Paint(surface, *theme.get());
 
     for (size_t child = 0; child < widget->NumChildren(); ++child) {
         PaintWidgetAndChildren(widget->GetChild(child), surface);

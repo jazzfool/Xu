@@ -41,6 +41,7 @@ set(HEADERS
 
     "include/xu/kit/BoxStack.hpp"
     "include/xu/kit/Button.hpp"
+    "include/xu/kit/BasicTheme.hpp"
 )
 
 set(SOURCES
@@ -54,6 +55,7 @@ set(SOURCES
 
     "src/kit/BoxStack.cpp"
     "src/kit/Button.cpp"
+    "src/kit/BasicTheme.cpp"
 )
 
 if (${XU_QUICK_MODULE})

@@ -22,8 +22,23 @@
 
 #pragma once
 
-namespace xu::quick {
+#include <xu/core/Theme.hpp>
 
-using LoadProc = void* (*)(const char* name);
+namespace xu {
 
-} // namespace xu::quick
+class BasicTheme : public Theme {
+public:
+    BasicTheme();
+
+    Color ColorFromPalette(std::string const& colorName) override;
+    void InitializeWidget(
+        Widget* widget, PaintInfo* info, PainterType basePainter) override;
+    void PaintWidget(Surface& surf, Widget const* widget, PaintInfo const* info,
+        PainterType basePainter) override;
+    Parameters const& GetParameters() const override;
+
+protected:
+    Parameters params;
+};
+
+} // namespace xu

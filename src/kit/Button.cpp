@@ -37,7 +37,8 @@ Button::Button(Widget* parent, Color inactive, Color hovered, Color clicked) :
 
     xu::VectorPath vpath
         = xu::VectorPath::RoundRectangle(xu::FSize2{100.0f, 100.0f}, 10.0f);
-    paintInfo.paths.push_back(vpath.BakeFill(10.0f));
+    paintInfo.paths.push_back(
+        vpath.BakeStroke(50.f, 5.f, LineCap::Butt, LineJoin::Bevel));
 }
 
 FSize2 Button::SizeHint() const {
@@ -49,11 +50,9 @@ void Button::InitializeTheme(Theme& theme) {
     theme.InitializeWidget(this, &paintInfo, Button::Painter());
 }
 
-void Button::Paint(Surface& surf, Theme* theme) const {
-    if (theme) theme->PaintWidget(surf, this, &paintInfo, Button::Painter());
-
-    // No theme, use default colors. Note that these should be done better
-    surf.Paint(paintInfo.paths[0].WithOffset(Geometry().origin), currentColor);
+void Button::Paint(Surface& surf, Theme& theme) const {
+    surf.Paint(paintInfo.paths[0], Color::White());
+    // theme.PaintWidget(surf, this, &paintInfo, Button::Painter());
 }
 
 PainterType Button::Painter() { return typeid(Button); }

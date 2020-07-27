@@ -1,10 +1,19 @@
 #include "xu/core/Bounds2.hpp"
+#include "xu/core/Color.hpp"
+#include "xu/core/Context.hpp"
 #include "xu/core/Point2.hpp"
 #include "xu/core/Vector2.hpp"
 #include <assert.h>
 #include <initializer_list>
 #include <xu/core/Widget.hpp>
 #include <xu/core/Rect2.hpp>
+
+#include <xu/modules/quick/WindowContext.hpp>
+#include <xu/modules/quick/RenderContext.hpp>
+#include <xu/modules/quick/DarculaTheme.hpp>
+#include <xu/kit/Button.hpp>
+
+#include <GLFW/glfw3.h>
 
 class CustomWidget : public xu::Widget {
 public:
@@ -139,6 +148,27 @@ int main() {
     TestVector2();
     TestBounds2();
     TestRect2();
+
+    xu::Context ctxt;
+    ctxt.inputReception = xu::InputReception::Immediate;
+
+    xu::quick::WindowContext winCtxt{ctxt};
+    ctxt.wsiInterface = &winCtxt;
+    auto root = ctxt.AddWindow("xu-test-app", {800, 600});
+    xu::WindowID window = winCtxt.GetMainWindow();
+    xu::quick::RenderContext renderCtxt{
+        (xu::quick::LoadProc)glfwGetProcAddress};
+
+    auto btn = root->MakeChild<xu::Button>(xu::Color{255, 0, 0, 1.f},
+        xu::Color{0, 255, 0, 1.f}, xu::Color{0, 0, 255, 1.f});
+    btn->SetGeometry({{50, 50}, btn->Geometry().size});
+
+    while (!winCtxt.ShouldClose(window)) {
+        winCtxt.PollEvents();
+        ctxt.ProcessEvents();
+        renderCtxt.RenderDrawData(ctxt.GetRenderData());
+        winCtxt.SwapBuffers(window);
+    }
 
     return 0;
 }

@@ -40,7 +40,7 @@ Widget::Widget(Context& context) : Widget{nullptr, &context} {}
 
 Widget::~Widget() { sigBeforeDestruction(); }
 
-void Widget::Paint(Surface& surf, Theme* theme) const {}
+void Widget::Paint(Surface& surf, Theme& theme) const {}
 
 void Widget::InitializeTheme(Theme& theme) {}
 
@@ -80,11 +80,6 @@ void Widget::SetVerticalSizeHintBehaviour(SizeHintBehaviour shb) {
 
 SizeHintBehaviour Widget::VerticalSizeHintBehaviour() const {
     return verticalShb;
-}
-
-void Widget::SetLayout(Layout& layout) {
-    if (ownedLayout) RemoveLayout();
-    ownedLayout.reset(&layout);
 }
 
 void Widget::RemoveLayout() { ownedLayout.reset(); }

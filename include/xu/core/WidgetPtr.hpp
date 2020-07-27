@@ -70,7 +70,7 @@ struct WidgetPtr {
         return *this;
     }
 
-    Widget* get() const { return static_cast<Widget*>(ptr); }
+    Widget* Get() const { return static_cast<Widget*>(ptr); }
 
     T* operator->() const { return ptr; }
     T& operator*() const { return *ptr; }

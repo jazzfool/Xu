@@ -25,7 +25,7 @@
 #include <xu/modules/quick/LoadProc.hpp>
 #include <xu/core/RenderData.hpp>
 
-namespace xu {
+namespace xu::quick {
 
 class RenderContext {
 public:

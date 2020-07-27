@@ -74,10 +74,11 @@ public:
      * intended that they have a standalone visual appearance.
      *
      * \param surface The surface to render to (i.e. submit high-level commands
-     * to). \param theme The theme of the context this widget resides in. It is
+     * to).
+     * \param theme The theme of the context this widget resides in. It is
      * possible that it is nullptr.
      */
-    virtual void Paint(Surface& surface, Theme* theme) const;
+    virtual void Paint(Surface& surface, Theme& theme) const;
 
     /*!
      * \brief Should invoke Theme::InitializeWidget if this widget employs
@@ -126,8 +127,10 @@ public:
 
     /*!
      * \brief Create a new child widget of type T and append it to the list of
-     * children. \param args Arguments to be forwarded to the widget's
-     * constructor. \return WidgetPtr to the child widget. \sa WidgetPtr
+     * children.
+     * \param args Arguments to be forwarded to the widget's onstructor.
+     * \return WidgetPtr to the child widget.
+     * \sa WidgetPtr
      */
     template<typename T, typename... CtorArgs>
     WidgetPtr<T> MakeChild(CtorArgs&&... args) {
@@ -138,8 +141,9 @@ public:
 
     /*!
      * \brief Create a new child widget of type T and put it at the specified
-     * index in the list of children. \param at Position to insert the new child
-     * widget. \param args Arguments to be forwarded to the widget's constructor
+     * index in the list of children.
+     * \param at Position to insert the new child widget.
+     * \param args Arguments to be forwarded to the widget's constructor
      * \return WidgetPtr to the child widget.
      * \sa WidgetPtr
      */
@@ -174,10 +178,10 @@ public:
     virtual SizeHintBehaviour VerticalSizeHintBehaviour() const final;
 
     /*!
-     * \brief Changes the layout this widget manages. This will take ownership
-     * of the pointer.
+     * \brief Changes the layout this widget manages.
      */
-    virtual void SetLayout(Layout& layout) final;
+    template<typename T>
+    void SetLayout(T&& layout);
     /*!
      * \brief Removes the layout this widget manages, if any.
      */
@@ -221,5 +225,12 @@ private:
     Widget* parent;
     std::vector<std::unique_ptr<Widget>> children;
 };
+
+template<typename T>
+void Widget::SetLayout(T&& layout) {
+    static_assert(std::is_base_of_v<Layout, T>);
+    if (ownedLayout) RemoveLayout();
+    ownedLayout = std::make_unique<T>(layout);
+}
 
 } // namespace xu

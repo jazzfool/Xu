@@ -24,7 +24,7 @@
 
 #include <GLFW/glfw3.h>
 
-namespace xu {
+namespace xu::quick {
 
 static void MouseMoveCallback(GLFWwindow* window, double xpos, double ypos) {
     Context* ctx = reinterpret_cast<Context*>(glfwGetWindowUserPointer(window));
@@ -71,7 +71,9 @@ WindowContext::~WindowContext() {
     glfwTerminate();
 }
 
-LoadProc WindowContext::GetLoadProc() const { return (LoadProc)glfwGetProcAddress; }
+LoadProc WindowContext::GetLoadProc() const {
+    return (LoadProc)glfwGetProcAddress;
+}
 
 WindowContext::NewWindowResult WindowContext::NewWindow(
     char const* title, ISize2 extent) {
@@ -120,4 +122,4 @@ void WindowContext::DestroyWindows() {
     windows.clear();
 }
 
-} // namespace xu
+} // namespace xu::quick
